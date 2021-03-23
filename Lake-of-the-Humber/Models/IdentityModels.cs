@@ -24,7 +24,7 @@ namespace Lake_of_the_Humber.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("lohDBConnection", throwIfV1Schema: false)
         {
         }
 
