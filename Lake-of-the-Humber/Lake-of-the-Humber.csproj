@@ -189,6 +189,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InfoSection.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\WellWishes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
