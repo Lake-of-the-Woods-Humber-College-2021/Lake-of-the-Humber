@@ -113,3 +113,5 @@ C:\Users\Praveen\source\repos\Lake-of-the-Humber\Lake-of-the-Humber\obj\Debug\La
 C:\Users\Praveen\source\repos\Lake-of-the-Humber\Lake-of-the-Humber\obj\Debug\Lake-of-the-Humber.csproj.CopyComplete
 C:\Users\Praveen\source\repos\Lake-of-the-Humber\Lake-of-the-Humber\obj\Debug\Lake-of-the-Humber.dll
 C:\Users\Praveen\source\repos\Lake-of-the-Humber\Lake-of-the-Humber\obj\Debug\Lake-of-the-Humber.pdb
+C:\Users\Praveen\source\repos\Lake-of-the-Humber\Lake-of-the-Humber\obj\Debug\Lake-of-the-Humber.csprojAssemblyReference.cache
+C:\Users\Praveen\source\repos\Lake-of-the-Humber\Lake-of-the-Humber\obj\Debug\Lake_of_the_Humber.Migrations.wellwishes.resources

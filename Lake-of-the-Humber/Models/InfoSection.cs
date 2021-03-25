@@ -15,8 +15,9 @@ namespace Lake_of_the_Humber.Models
         public string SectionTitle { get; set; }
         public string SectionDescription { get; set; }
         public int PriorityNumber { get; set; }
-        public string link { get; set; }
+        public string Link { get; set; }
         public string SectionImageExt {get; set;}
+        public bool IsArchive {get; set; }
 
         [ForeignKey("User")]
         public string CreatorId { get; set; }
@@ -39,14 +40,14 @@ namespace Lake_of_the_Humber.Models
         [DisplayName("Priority Number")]
         public int PriorityNumber { get; set; }
 
-        [Required]
         [DisplayName("Link")]
         public string Link { get; set; }
 
-        [Required]
         [DisplayName("Section Image")]
         public string SectionImageExt { get; set; }
 
+        [DisplayName("Is Archive")]
+        public bool IsArchive { get; set; }
         public string CreatorId { get; set; }
     }
 }
