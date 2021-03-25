@@ -184,12 +184,16 @@
     <Compile Include="Migrations\202103232002107_info-section model.Designer.cs">
       <DependentUpon>202103232002107_info-section model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202103251546336_well wishes.cs" />
+    <Compile Include="Migrations\202103251546336_well wishes.Designer.cs">
+      <DependentUpon>202103251546336_well wishes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InfoSection.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\WellWishes.cs" />
+    <Compile Include="Models\WellWish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -269,6 +273,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202103232002107_info-section model.resx">
       <DependentUpon>202103232002107_info-section model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202103251546336_well wishes.resx">
+      <DependentUpon>202103251546336_well wishes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
