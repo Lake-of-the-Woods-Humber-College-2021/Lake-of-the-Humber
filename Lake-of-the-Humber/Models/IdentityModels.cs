@@ -41,6 +41,11 @@ namespace Lake_of_the_Humber.Models
         /// This is the model that is linked to the Latest Post
         /// </summary>
         public DbSet<LatestPost> LatestPosts { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to the Wellwishes
+        /// </summary>
+        public DbSet<WellWish> WellWishes { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
