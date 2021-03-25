@@ -37,6 +37,10 @@ namespace Lake_of_the_Humber.Models
         /// This is the model that is linked to the Information Section of Homepage
         /// </summary>
         public DbSet<InfoSection> InfoSections { get; set; }
+        /// <summary>
+        /// This is the model that is linked to the Latest Post
+        /// </summary>
+        public DbSet<LatestPost> LatestPosts { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
