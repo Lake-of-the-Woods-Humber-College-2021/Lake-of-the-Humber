@@ -11,7 +11,8 @@ namespace Lake_of_the_Humber.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public ICollection<InfoSection> InfoSection { get; set; }
+        public ICollection<InfoSection> InfoSections { get; set; }
+        public ICollection<WellWish> WellWishes { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -41,6 +42,11 @@ namespace Lake_of_the_Humber.Models
         /// This is the model that is linked to the Latest Post
         /// </summary>
         public DbSet<LatestPost> LatestPosts { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to the Wellwishes
+        /// </summary>
+        public DbSet<WellWish> WellWishes { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
