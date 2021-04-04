@@ -188,6 +188,10 @@
     <Compile Include="Migrations\202103251546336_well wishes.Designer.cs">
       <DependentUpon>202103251546336_well wishes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104042318366_staff-info-and-department-models.cs" />
+    <Compile Include="Migrations\202104042318366_staff-info-and-department-models.Designer.cs">
+      <DependentUpon>202104042318366_staff-info-and-department-models.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Department.cs" />
@@ -278,6 +282,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202103251546336_well wishes.resx">
       <DependentUpon>202103251546336_well wishes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104042318366_staff-info-and-department-models.resx">
+      <DependentUpon>202104042318366_staff-info-and-department-models.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
