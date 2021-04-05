@@ -24,4 +24,25 @@ namespace Lake_of_the_Humber.Models
         public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
+
+    public class InvoiceDto
+    {
+        public int InvoiceId { get; set; }
+
+        [DisplayName("Invoice Title")]
+        public string InvoiceTitle { get; set; }
+
+        [DisplayName("Invoice Description")]
+        public string InvoiceDesc { get; set; }
+
+        [DisplayName("Invoice Date")]
+        public DateTime InvoiceDate { get; set; }
+
+        [DisplayName("Invoice Cost")]
+        public decimal InvoiceCost { get; set; }
+
+
+        public bool IsPaid { get; set; }
+        public string UserId { get; set; }
+    }
 }
