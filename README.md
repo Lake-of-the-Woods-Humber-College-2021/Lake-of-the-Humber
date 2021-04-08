@@ -1,5 +1,5 @@
 # Lake-of-the-Humber
-Northern Ontario Hospital Website Redesign<br/>
+Northern Ontario Hospital Website Redesign 
 Gift Shop Feature By: Rohit Badyal
 Two tables I have done was a Products table and a Orders Table 
 For the Products table, someone can Do CRUD are the Products table and these products are for the gift shop
