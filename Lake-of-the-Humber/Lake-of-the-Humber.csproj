@@ -177,6 +177,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StaffInfoController.cs" />
     <Compile Include="Controllers\StaffInfoDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -200,6 +201,8 @@
     <Compile Include="Models\InfoSection.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\StaffInfo.cs" />
+    <Compile Include="Models\ViewModel\ShowStaff.cs" />
+    <Compile Include="Models\ViewModel\UpdateStaff.cs" />
     <Compile Include="Models\WellWish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -271,6 +274,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\StaffInfo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
