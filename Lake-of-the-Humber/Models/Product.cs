@@ -20,6 +20,9 @@ namespace Lake_of_the_Humber.Models
 
         public string ProductDescription { get; set; }
 
+        //A product can have many orders
+        public ICollection<Order> Orders { get; set; }
+
     }
 
     //This class can be used to transfet information about a product.

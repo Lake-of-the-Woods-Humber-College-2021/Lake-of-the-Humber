@@ -64,6 +64,13 @@ namespace Lake_of_the_Humber.Controllers
                 ProductDto SelectedProduct = response.Content.ReadAsAsync<ProductDto>().Result;
                 ViewModel.product = SelectedProduct;
 
+                url = "productdata/getordersforproduct/" + id;
+                response = client.GetAsync(url).Result;
+                //Can catch the status code (200 OK, 301 REDIRECT), etc.
+                //Debug.WriteLine(response.StatusCode);
+                IEnumerable<OrderDto> SelectedOrders = response.Content.ReadAsAsync<IEnumerable<OrderDto>>().Result;
+                ViewModel.productorders = SelectedOrders;
+
                 return View(ViewModel);
             }
             else
@@ -107,6 +114,8 @@ namespace Lake_of_the_Humber.Controllers
         // GET: Product/Edit/5
         public ActionResult Edit(int id)
         {
+            UpdateProduct ViewModel = new UpdateProduct();
+
             string url = "productdata/findproduct/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Can catch the status code (200 OK, 301 REDIRECT), etc.

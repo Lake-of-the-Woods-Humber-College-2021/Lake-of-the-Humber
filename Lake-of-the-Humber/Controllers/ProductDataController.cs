@@ -85,6 +85,37 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         /// <summary>
+        /// Gets a list of Order in the database alongside a status code (200 OK).
+        /// </summary>
+        /// <param name="id">The product id</param>
+        /// <returns>A list of Order including their ID, and name and message</returns>
+        /// <example>
+        /// GET: api/OrderData/GetOrdersForProduct
+        /// </example>
+        [ResponseType(typeof(IEnumerable<OrderDto>))]
+        public IHttpActionResult GetOrdersForProduct(int id)
+        {
+            List<Order> Orders = db.Orders
+                .Where(i => i.Products.Any(p => p.ProductID == id))
+                .ToList();
+            List<OrderDto> OrderDtos = new List<OrderDto> { };
+
+            //Here you can choose which information is exposed to the API
+            foreach (var Order in Orders)
+            {
+                OrderDto NewOrder = new OrderDto
+                {
+                    OrderID = Order.OrderID,
+                    OrderName = Order.OrderName,
+                    OrderMessage = Order.OrderMessage
+                };
+                OrderDtos.Add(NewOrder);
+            }
+
+            return Ok(OrderDtos);
+        }
+
+        /// <summary>
         /// Updates a Product in the database given information about the Product.
         /// </summary>
         /// <param name="id">The Product id</param>

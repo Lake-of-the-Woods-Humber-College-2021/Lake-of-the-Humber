@@ -5,11 +5,10 @@ using System.Web;
 
 namespace Lake_of_the_Humber.Models.ViewModels
 {
-    public class ShowProduct
+    //The View Model required to update a product
+    public class UpdateProduct
     {
+        //Information about the product
         public ProductDto product { get; set; }
-
-        //Information about all orders for that product
-        public IEnumerable<OrderDto> productorders { get; set; }
     }
 }

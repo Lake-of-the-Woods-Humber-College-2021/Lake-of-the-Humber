@@ -37,10 +37,27 @@
 
         </dl>
     </div>
-    
-    <div style="clear:both;"></div>
+</div>
+<div>
+    <div>
+        <h4>Ordered This Product:</h4>
+        <div>
+            @foreach (var order in Model.productorders)
+            {
+                <div>
+                    @Html.ActionLink(
+                    order.OrderName,
+                    "Details",
+                    "Order",
+                    new { id = order.OrderID },
+                    new { })
+                </div>
+            }
+        </div>
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.product.ProductID }) |
     @Html.ActionLink("Back to List", "List")
+    
 </p>
