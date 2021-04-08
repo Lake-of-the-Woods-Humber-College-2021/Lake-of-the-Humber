@@ -1,0 +1,78 @@
+﻿@model Lake_of_the_Humber.Models.ViewModels.UpdateInvoice
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Update Invoice #@Model.invoice.InvoiceId</h2>
+
+
+@using (Html.BeginForm("Edit", "Invoice", new { id = Model.invoice.InvoiceId } , FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.invoice.InvoiceId, new { Name = "InvoiceId" })
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.invoice.InvoiceDate, new { Name = "InvoiceDate" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.invoice.InvoiceTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.invoice.InvoiceTitle, new { htmlAttributes = new { @class = "form-control", Name = "InvoiceTitle" } })
+            @Html.ValidationMessageFor(model => model.invoice.InvoiceTitle, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.invoice.InvoiceDesc, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.invoice.InvoiceDesc, new { htmlAttributes = new { @class = "form-control", Name = "InvoiceDesc" } })
+            @Html.ValidationMessageFor(model => model.invoice.InvoiceDesc, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.invoice.InvoiceCost, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.invoice.InvoiceCost, new { htmlAttributes = new { @class = "form-control", Name = "InvoiceCost" } })
+            @Html.ValidationMessageFor(model => model.invoice.InvoiceCost, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.invoice.IsPaid, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="dropdown">
+                @Html.DropDownListFor(model => model.invoice.IsPaid, new SelectList(
+                new[]
+                {
+                    new { Value = "True", Text = "Paid"},
+                    new { Value = "False", Text = "Outstanding"}
+                },
+                "Value",
+                "Text",
+                Model.ToString()
+                ))
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

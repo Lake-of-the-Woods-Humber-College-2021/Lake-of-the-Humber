@@ -18,7 +18,6 @@ namespace Lake_of_the_Humber.Models
         public decimal InvoiceCost { get; set; }
         public bool IsPaid { get; set; }
 
-
         //An invoice belongs to one user
         [ForeignKey("User")]
         public string UserId { get; set; }
@@ -38,7 +37,14 @@ namespace Lake_of_the_Humber.Models
         [DisplayName("Invoice Date")]
         public DateTime InvoiceDate { get; set; }
 
-        [DisplayName("Invoice Cost")]
+        public string DInvoiceDate { get; set; }
+
+        public InvoiceDto()
+        {
+            this.InvoiceDate = DateTime.Now;
+        }
+
+            [DisplayName("Invoice Cost")]
         public decimal InvoiceCost { get; set; }
 
 

@@ -28,6 +28,9 @@ namespace Lake_of_the_Humber.Models
         public string StaffCreatorId { get; set; }
         public virtual ApplicationUser User { get; set; }
 
+        //A staff can have many appointments
+        public ICollection<Appointment> Appointment { get; set; }
+
     }
 
     public class StaffInfoDto

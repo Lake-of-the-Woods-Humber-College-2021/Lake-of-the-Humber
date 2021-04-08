@@ -24,8 +24,8 @@ namespace Lake_of_the_Humber.Models
 
         //An appointment belongs to one doctor
         [ForeignKey("StaffInfo")]
-        public string StaffId { get; set; }
-        public virtual StaffInfo Staff { get; set; }
+        public int StaffId { get; set; }
+        public virtual StaffInfo StaffInfo { get; set; }
     }
 
     public class AppointmentDto
@@ -40,12 +40,14 @@ namespace Lake_of_the_Humber.Models
 
         [DisplayName("Appointment Date")]
         public DateTime AppDate { get; set; }
+        
+        public string DAppDate { get; set; }
 
         [DisplayName("Appointment Time")]
         public string AppTime { get; set; }
 
 
         public string UserId { get; set; }
-        public string StaffId { get; set; }
+        public int StaffId { get; set; }
     }
 }
