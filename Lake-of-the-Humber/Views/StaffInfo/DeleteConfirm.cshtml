@@ -1,0 +1,80 @@
+﻿@model Lake_of_the_Humber.Models.StaffInfo
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>DeleteConfirm</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>StaffInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffLanguage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffLanguage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffHasPic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffHasPic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffImagePath)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

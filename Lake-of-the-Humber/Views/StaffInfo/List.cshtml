@@ -1,0 +1,69 @@
+﻿@model IEnumerable<Lake_of_the_Humber.Models.StaffInfo>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffLanguage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffHasPic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffImagePath)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffFirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffLastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffLanguage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffHasPic)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StaffImagePath)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.SatffId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.SatffId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SatffId })
+        </td>
+    </tr>
+}
+
+</table>

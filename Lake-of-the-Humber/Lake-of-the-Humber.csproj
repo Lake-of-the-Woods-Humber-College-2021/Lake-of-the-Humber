@@ -275,11 +275,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\StaffInfo\List.cshtml" />
+    <Content Include="Views\StaffInfo\Create.cshtml" />
+    <Content Include="Views\StaffInfo\DeleteConfirm.cshtml" />
+    <Content Include="Views\StaffInfo\Details.cshtml" />
+    <Content Include="Views\StaffInfo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Department\" />
-    <Folder Include="Views\StaffInfo\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

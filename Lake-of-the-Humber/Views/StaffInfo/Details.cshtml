@@ -1,0 +1,74 @@
+﻿@model Lake_of_the_Humber.Models.StaffInfo
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>StaffInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffLanguage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffLanguage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffHasPic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffHasPic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffImagePath)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SatffId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
