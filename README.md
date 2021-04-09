@@ -1,19 +1,21 @@
-<h1>Lake of the Humber</h1>
+# Lake of the Humber: MVP Submission - 09/04/2020
 
-MVP Submition - 09/04/2020
-
+## Team Members
 1. Choo 
 2. Rohit
 3. Asia
 4. Daniel
 5. Praveen
-<h4>CRUD 1: Information Section</h4>
 
-### Description
+## "Features"
 
-### What's Next
+### CRUD 1: Information Section
 
-### Files
+#### Description
+
+#### What's Next
+
+#### Files
 
 Controllers -> InfoSectionsController.cs, InfoSectionsDataController.cs
 
@@ -21,12 +23,14 @@ Models -> InfoSection.cs, WellWish.cs
 
 Views -> InfoSections/
 
+---
 
-### Description
+### CRUD 2: Well Wishes Section
+#### Description
 
-### What's Next
+#### What's Next
 
-### Files
+#### Files
 
 Controllers -> WellWishesController.cs, WellWishesDataController.cs
 
@@ -34,7 +38,53 @@ Models -> WellWish.cs
 
 Views -> WellWishes/
 
-<hr/>
+---
+
+### CRUD 3: Appointments (Daniel)
+#### Description
+- A user can view a list of appointments that have been made
+- A user can create an appointment by selecting a method, writing out a purpose, selecting a date, selecting a time, selecting a Staff(Doctor) ID, and selecting a User(Patient) ID
+- A user can view details for a single appointment (method, purpose, date, time, doctor, patient info)
+- A user can edit all components of an appointment, with the execption of the user(patient) ID (a new appointment can be made instead)
+- A user can delete an appointment  
+
+#### What's Next
+- Displaying Staff(Doctor) Details when creating an appointment (e.g Name, Department, etc.)
+- Displaying Staff(Doctor) and User(Patient) details on Details view
+- Restricting functionality based off of user logged in
+- Automatically including logged in User's ID to be set when creating an appointment
+
+#### Files
+Controllers -> AppointmentController.cs, AppointmentDataController.cs
+
+Models -> Appointment.cs, ViewModels/(ListAppointment.cs, ShowAppointment.cs, UpdateAppointment.cs)
+
+Views -> Appointment/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
+
+---
+
+### CRUD 4: Invoices (Daniel)
+#### Description
+- A user can view a list of invoices that exist
+- A user can create an invoice by writing out a title, description, cost and userID (date and IsPaid status are default)
+- A user can view details for a single invoice (title, description, date, payment status, userID)
+- A user can edit the title, description, cost, and payment status of an invoice
+- A user can delete an invoice  
+
+#### What's Next
+- Displaying User details on Details
+- Restricting functionality based off of user logged in
+- Automatically including logged in User's ID to be set when creating an invoice
+- Fix invoice date to stay as the date it was created
+
+#### Files
+Controllers -> InvoiceController.cs, InvoiceDataController.cs
+
+Models -> Invoice.cs, ViewModels/(ShowInvoice.cs, UpdateInvoice.cs)
+
+Views -> Invoice/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
+
+---
 
 
 ### How to run the project
