@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Lake_of_the_Humber.Models.DepartmentDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentPhone)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentPhone)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DepartmentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DepartmentId })
+        </td>
+    </tr>
+}
+
+</table>
+
+
