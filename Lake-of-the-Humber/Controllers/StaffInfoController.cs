@@ -184,7 +184,7 @@ namespace Lake_of_the_Humber.Controllers
         /// <param name="id">StaffId</param>
         /// <returns>Retreive the data of selected staff and apply the changes and submit thru POST method.</returns>
         // GET: StaffInfo/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             //Sending getupdatestaffResponse request to data controller (thru url string), 
             //If request send succeed (status code 200), get the staff information in edit view.
@@ -217,7 +217,7 @@ namespace Lake_of_the_Humber.Controllers
         // POST: StaffInfo/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        public ActionResult Edit(int id, StaffInfo StaffInfo, HttpPostedFileBase StaffPic)
+        public ActionResult Edit(int? id, StaffInfo StaffInfo, HttpPostedFileBase StaffPic)
         {
 
             string updatestaffurl = "staffinfodata/updatestaff/" + id;
@@ -255,7 +255,7 @@ namespace Lake_of_the_Humber.Controllers
         /// <returns>The staff database will delete the staff record</returns>
         // GET: updatestaffurl/Delete/5
         [HttpGet]
-        public ActionResult DeleteConfirm(int id)
+        public ActionResult DeleteConfirm(int? id)
         {
             //Sending response request to staff data controller (thru url string), 
             //If request send succeed (status code 200), delete the staff information.
@@ -285,7 +285,7 @@ namespace Lake_of_the_Humber.Controllers
         // POST: StaffInfo/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int? id)
         {
             string url = "staffinfodata/deletestaff/" + id;
             //post body is empty

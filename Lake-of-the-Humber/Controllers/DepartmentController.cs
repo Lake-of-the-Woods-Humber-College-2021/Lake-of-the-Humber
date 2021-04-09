@@ -44,7 +44,7 @@ namespace Lake_of_the_Humber.Controllers
         {
             //Sending Departmentlistresponse request to data controller, if request send succeed (status code 200), a list of Department information will displayed.
             //If failed, direct to Error action (View)
-            string listDepartmenturl = "Departmentdata/getDepartment";
+            string listDepartmenturl = "Departmentdata/getDepartments";
             HttpResponseMessage Departmentlistresponse = client.GetAsync(listDepartmenturl).Result;
             if (Departmentlistresponse.IsSuccessStatusCode)
             {

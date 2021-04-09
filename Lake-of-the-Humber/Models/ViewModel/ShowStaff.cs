@@ -8,5 +8,6 @@ namespace Lake_of_the_Humber.Models.ViewModel
     public class ShowStaff
     {
         public StaffInfoDto StaffInfo { get; set; }
+        public DepartmentDto Department { get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace Lake_of_the_Humber.Controllers
         /// <returns>A list of Departments with their information on Name, PhoneNumber, and address</returns>
         ///<example> GET: api/DepartmentData/GetDepartments </example>
         [ResponseType(typeof(IEnumerable<DepartmentDto>))]
-        public IEnumerable<DepartmentDto> GetDepartments()
+        public IHttpActionResult GetDepartments()
         {
             List<Department> Departments = db.Departments.ToList();
             List<DepartmentDto> DepartmentDtos = new List<DepartmentDto> { };
@@ -41,7 +41,7 @@ namespace Lake_of_the_Humber.Controllers
                 DepartmentDtos.Add(NewDepartment);
             }
 
-            return (DepartmentDtos);
+            return Ok(DepartmentDtos);
         }
 
 

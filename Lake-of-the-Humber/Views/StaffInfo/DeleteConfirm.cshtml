@@ -1,4 +1,4 @@
-﻿@model Lake_of_the_Humber.Models.StaffInfo
+﻿@model Lake_of_the_Humber.Models.StaffInfoDto
 
 @{
     ViewBag.Title = "DeleteConfirm";
@@ -11,22 +11,6 @@
     <h4>StaffInfo</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Department.DepartmentName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Department.DepartmentName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.StaffFirstName)
         </dt>
@@ -67,14 +51,22 @@
             @Html.DisplayFor(model => model.StaffImagePath)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
     </dl>
+    <!--Delete Acction using ActionLink-->
+    @Html.ActionLink("Delete", "StaffInfo", new { id = Model.StaffId })) {
+    @Html.AntiForgeryToken()
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
     }
 </div>

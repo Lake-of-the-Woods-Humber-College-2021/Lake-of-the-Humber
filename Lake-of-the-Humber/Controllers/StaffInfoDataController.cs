@@ -27,7 +27,7 @@ namespace Lake_of_the_Humber.Controllers
         /// <returns>A list of  staffs with their information including first and last name, languages, hasPic, and Pic Extension(Image path)</returns>
         ///<example> GET: api/StaffInfoData/GetStaffInfoes </example>
         [ResponseType(typeof(IEnumerable<StaffInfoDto>))]
-        public IEnumerable<StaffInfoDto> GetStaffInfoes()
+        public IHttpActionResult GetStaffInfoes()
         {
             List<StaffInfo> StaffInfoes = db.StaffInfoes.ToList();
             List<StaffInfoDto> StaffInfoDtos = new List<StaffInfoDto> { };
@@ -35,6 +35,15 @@ namespace Lake_of_the_Humber.Controllers
             //Here you can choose which information is exposed to the API
             foreach (var StaffInfo in StaffInfoes)
             {
+                Department Department = db.Departments
+               .Where(d => d.Staffs.Any(s => s.DepartmentId == StaffInfo.DepartmentId))
+               .FirstOrDefault();
+
+                //if not found, return 404 status code.
+                if (Department == null)
+                {
+                    return NotFound();
+                }
                 StaffInfoDto NewStaffInfo = new StaffInfoDto
                 {
                     StaffId = StaffInfo.SatffId,
@@ -42,12 +51,14 @@ namespace Lake_of_the_Humber.Controllers
                     StaffLastName = StaffInfo.StaffLastName,
                     StaffLanguage = StaffInfo.StaffLanguage,
                     StaffHasPic = StaffInfo.StaffHasPic,
-                    StaffImagePath = StaffInfo.StaffImagePath
+                    StaffImagePath = StaffInfo.StaffImagePath,
+                    DepartmentId = StaffInfo.DepartmentId,
+                    DepartmentName = Department.DepartmentName
                 };
                 StaffInfoDtos.Add(NewStaffInfo);
             }
 
-            return (StaffInfoDtos);
+            return Ok(StaffInfoDtos);
 
         }
 
@@ -75,6 +86,10 @@ namespace Lake_of_the_Humber.Controllers
             //Here you can choose which information is exposed to the API
             foreach (var StaffInfo in StaffInfoes)
             {
+                Department Department = db.Departments
+              .Where(d => d.Staffs.Any(s => s.DepartmentId == StaffInfo.DepartmentId))
+              .FirstOrDefault();
+
                 StaffInfoDto NewStaffInfo = new StaffInfoDto
                 {
                     StaffId = StaffInfo.SatffId,
@@ -82,7 +97,9 @@ namespace Lake_of_the_Humber.Controllers
                     StaffLastName = StaffInfo.StaffLastName,
                     StaffLanguage = StaffInfo.StaffLanguage,
                     StaffHasPic = StaffInfo.StaffHasPic,
-                    StaffImagePath = StaffInfo.StaffImagePath
+                    StaffImagePath = StaffInfo.StaffImagePath,
+                    DepartmentId = StaffInfo.DepartmentId,
+                    DepartmentName = Department.DepartmentName
                 };
                 StaffInfoDtos.Add(NewStaffInfo);
             }
@@ -109,8 +126,15 @@ namespace Lake_of_the_Humber.Controllers
             {
                 return NotFound();
             }
+            Department Department = db.Departments
+               .Where(d => d.Staffs.Any(s => s.DepartmentId == StaffInfo.DepartmentId))
+               .FirstOrDefault();
 
-            //put into a 'friendly object format'
+            //if not found, return 404 status code.
+            if (Department == null)
+            {
+                return NotFound();
+            }
             StaffInfoDto StaffInfoDto = new StaffInfoDto
             {
                 StaffId = StaffInfo.SatffId,
@@ -118,7 +142,9 @@ namespace Lake_of_the_Humber.Controllers
                 StaffLastName = StaffInfo.StaffLastName,
                 StaffLanguage = StaffInfo.StaffLanguage,
                 StaffHasPic = StaffInfo.StaffHasPic,
-                StaffImagePath = StaffInfo.StaffImagePath
+                StaffImagePath = StaffInfo.StaffImagePath,
+                DepartmentId = StaffInfo.DepartmentId,
+                DepartmentName = Department.DepartmentName
             };
 
             //pass along data as 200 status code OK response

@@ -1,4 +1,4 @@
-﻿@model Lake_of_the_Humber.Models.StaffInfo
+﻿@model Lake_of_the_Humber.Models.ViewModel.ShowStaff
 
 @{
     ViewBag.Title = "Details";
@@ -7,8 +7,22 @@
 <h2>Details</h2>
 
 <div>
-    <h4>StaffInfo</h4>
+    <h4> @Model.StaffInfo.StaffFirstName @Model.StaffInfo.StaffLastName</h4>
     <hr />
+    <div>@Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.StaffInfo.StaffId })</div>
+    @{
+        //Use server rendering to determine an image
+        string pic = "/Content/Staffs/default.jpg";
+        string alt = "No Staff Picture Provided.";
+        if (Model.StaffInfo.StaffHasPic)
+        {
+            pic = "/Content/Products/" + Model.StaffInfo.StaffId + "." + Model.StaffInfo.StaffImagePath;
+            alt = "Profile shot of " + Model.StaffInfo.StaffFirstName+Model.StaffInfo.StaffLastName;
+        }
+    }
+    <div class="imagecontainer featured">
+        <img src="@pic" alt="@alt" />
+    </div>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Department.DepartmentName)
@@ -19,56 +33,56 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.Email)
+            @Html.DisplayNameFor(model => model.StaffInfo.StaffFirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.Email)
+            @Html.DisplayFor(model => model.StaffInfo.StaffFirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StaffFirstName)
+            @Html.DisplayNameFor(model => model.StaffInfo.StaffLastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StaffFirstName)
+            @Html.DisplayFor(model => model.StaffInfo.StaffLastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StaffLastName)
+            @Html.DisplayNameFor(model => model.StaffInfo.StaffLanguage)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StaffLastName)
+            @Html.DisplayFor(model => model.StaffInfo.StaffLanguage)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StaffLanguage)
+            @Html.DisplayNameFor(model => model.StaffInfo.StaffHasPic)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StaffLanguage)
+            @Html.DisplayFor(model => model.StaffInfo.StaffHasPic)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StaffHasPic)
+            @Html.DisplayNameFor(model => model.StaffInfo.StaffImagePath)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StaffHasPic)
+            @Html.DisplayFor(model => model.StaffInfo.StaffImagePath)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StaffImagePath)
+            @Html.DisplayNameFor(model => model.StaffInfo.DepartmentName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StaffImagePath)
+            @Html.DisplayFor(model => model.StaffInfo.DepartmentName)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SatffId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.StaffInfo.StaffId }) |
+    @Html.ActionLink("Back to List", "List")
 </p>
