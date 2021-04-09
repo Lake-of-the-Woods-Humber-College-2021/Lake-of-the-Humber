@@ -1,0 +1,87 @@
+﻿@model Lake_of_the_Humber.Models.WellWishDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Well Wishes</h2>
+
+<div>
+    <h4>Wish Details</h4>
+    <hr />
+    <div>
+
+        @if (Model.IsReceived == false)
+        {
+            // The only update that can be done is, marking the wellwishes as delivered and its done here
+            @Html.ActionLink("Mark as Delivered", "Edit", new { id = Model.WishId }) 
+        }
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WishId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WishId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceiverName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceiverName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Message)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Message)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatorId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsReceived)
+        </dt>
+
+        @if (Model.IsReceived == true)
+        {
+            <dd> @Html.Encode("Yes") </dd>
+            <dt> @Html.DisplayNameFor(model => model.ReceivedDate) </dt>
+            <dd> @Html.DisplayFor(model => model.ReceivedDate) </dd>
+        }
+        else
+        {
+            <dd> @Html.Encode("No")</dd>
+        }
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "List")
+</p>

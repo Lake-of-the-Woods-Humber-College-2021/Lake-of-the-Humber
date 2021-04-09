@@ -176,8 +176,12 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InfoSectionsController.cs" />
+    <Compile Include="Controllers\InfoSectionsDataController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StaffInfoDataController.cs" />
+    <Compile Include="Controllers\WellWishesController.cs" />
+    <Compile Include="Controllers\WellWishesDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,6 +196,38 @@
     <Compile Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs" />
     <Compile Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.Designer.cs">
       <DependentUpon>202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104081340352_myapp.cs" />
+    <Compile Include="Migrations\202104081340352_myapp.Designer.cs">
+      <DependentUpon>202104081340352_myapp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104081523341_myapp1.cs" />
+    <Compile Include="Migrations\202104081523341_myapp1.Designer.cs">
+      <DependentUpon>202104081523341_myapp1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104081555496_myapp2.cs" />
+    <Compile Include="Migrations\202104081555496_myapp2.Designer.cs">
+      <DependentUpon>202104081555496_myapp2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104081706555_test.cs" />
+    <Compile Include="Migrations\202104081706555_test.Designer.cs">
+      <DependentUpon>202104081706555_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104082149423_myapp3.cs" />
+    <Compile Include="Migrations\202104082149423_myapp3.Designer.cs">
+      <DependentUpon>202104082149423_myapp3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104082328593_myapp4.cs" />
+    <Compile Include="Migrations\202104082328593_myapp4.Designer.cs">
+      <DependentUpon>202104082328593_myapp4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104082349592_myapp5.cs" />
+    <Compile Include="Migrations\202104082349592_myapp5.Designer.cs">
+      <DependentUpon>202104082349592_myapp5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104090309066_myapp6.cs" />
+    <Compile Include="Migrations\202104090309066_myapp6.Designer.cs">
+      <DependentUpon>202104090309066_myapp6.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -268,6 +304,15 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\WellWishes\List.cshtml" />
+    <Content Include="Views\WellWishes\Create.cshtml" />
+    <Content Include="Views\WellWishes\Details.cshtml" />
+    <Content Include="Views\WellWishes\DeleteConfirm.cshtml" />
+    <Content Include="Views\InfoSections\List.cshtml" />
+    <Content Include="Views\InfoSections\Create.cshtml" />
+    <Content Include="Views\InfoSections\Details.cshtml" />
+    <Content Include="Views\InfoSections\DeleteConfirm.cshtml" />
+    <Content Include="Views\InfoSections\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -286,6 +331,30 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.resx">
       <DependentUpon>202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104081340352_myapp.resx">
+      <DependentUpon>202104081340352_myapp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104081523341_myapp1.resx">
+      <DependentUpon>202104081523341_myapp1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104081555496_myapp2.resx">
+      <DependentUpon>202104081555496_myapp2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104081706555_test.resx">
+      <DependentUpon>202104081706555_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104082149423_myapp3.resx">
+      <DependentUpon>202104082149423_myapp3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104082328593_myapp4.resx">
+      <DependentUpon>202104082328593_myapp4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104082349592_myapp5.resx">
+      <DependentUpon>202104082349592_myapp5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104090309066_myapp6.resx">
+      <DependentUpon>202104090309066_myapp6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
