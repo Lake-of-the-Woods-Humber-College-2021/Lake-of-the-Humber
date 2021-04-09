@@ -13,7 +13,7 @@ namespace Lake_of_the_Humber.Models
     {
         public ICollection<InfoSection> InfoSections { get; set; }
         public ICollection<WellWish> WellWishes { get; set; }
-        public ICollection<StaffInfo> Staffs { get; set; }
+        public ICollection<StaffInfo> StaffInfoes { get; set; }
         public ICollection<Department> Departments { get; set; }
 
         //A user can have multiple appointments
@@ -61,7 +61,7 @@ namespace Lake_of_the_Humber.Models
         /// <summary>
         /// This is the model that is linked to Staffs
         /// </summary>
-        public DbSet<StaffInfo> Staffs { get; set; }
+        public DbSet<StaffInfo> StaffInfoes { get; set; }
 
 
         /// <summary>

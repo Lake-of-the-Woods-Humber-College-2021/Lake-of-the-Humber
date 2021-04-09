@@ -49,10 +49,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -175,12 +175,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\AppointmentController.cs" />
-    <Compile Include="Controllers\AppointmentDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InvoiceController.cs" />
-    <Compile Include="Controllers\InvoiceDataController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StaffInfoDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,41 +189,17 @@
     <Compile Include="Migrations\202103251546336_well wishes.Designer.cs">
       <DependentUpon>202103251546336_well wishes.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104041710247_appointment-and-invoice-models.cs" />
-    <Compile Include="Migrations\202104041710247_appointment-and-invoice-models.Designer.cs">
-      <DependentUpon>202104041710247_appointment-and-invoice-models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104061453580_appointments-invoice-staff-models.cs" />
-    <Compile Include="Migrations\202104061453580_appointments-invoice-staff-models.Designer.cs">
-      <DependentUpon>202104061453580_appointments-invoice-staff-models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104070352430_updated-invoice-model.cs" />
-    <Compile Include="Migrations\202104070352430_updated-invoice-model.Designer.cs">
-      <DependentUpon>202104070352430_updated-invoice-model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104082353380_invoice-model-update.cs" />
-    <Compile Include="Migrations\202104082353380_invoice-model-update.Designer.cs">
-      <DependentUpon>202104082353380_invoice-model-update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104082359408_switchback-invoice-model.cs" />
-    <Compile Include="Migrations\202104082359408_switchback-invoice-model.Designer.cs">
-      <DependentUpon>202104082359408_switchback-invoice-model.cs</DependentUpon>
+    <Compile Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs" />
+    <Compile Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.Designer.cs">
+      <DependentUpon>202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InfoSection.cs" />
-    <Compile Include="Models\Invoice.cs" />
-    <Compile Include="Models\LatestPost.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\StaffInfo.cs" />
-    <Compile Include="Models\ViewModels\ListAppointment.cs" />
-    <Compile Include="Models\ViewModels\ShowAppointment.cs" />
-    <Compile Include="Models\ViewModels\ShowInvoice.cs" />
-    <Compile Include="Models\ViewModels\UpdateAppointment.cs" />
-    <Compile Include="Models\ViewModels\UpdateInvoice.cs" />
     <Compile Include="Models\WellWish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -295,18 +268,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Invoice\List.cshtml" />
-    <Content Include="Views\Invoice\Error.cshtml" />
-    <Content Include="Views\Invoice\Details.cshtml" />
-    <Content Include="Views\Invoice\Create.cshtml" />
-    <Content Include="Views\Invoice\DeleteConfirm.cshtml" />
-    <Content Include="Views\Invoice\Edit.cshtml" />
-    <Content Include="Views\Appointment\List.cshtml" />
-    <Content Include="Views\Appointment\Create.cshtml" />
-    <Content Include="Views\Appointment\Error.cshtml" />
-    <Content Include="Views\Appointment\Details.cshtml" />
-    <Content Include="Views\Appointment\DeleteConfirm.cshtml" />
-    <Content Include="Views\Appointment\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -323,20 +284,8 @@
     <EmbeddedResource Include="Migrations\202103251546336_well wishes.resx">
       <DependentUpon>202103251546336_well wishes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104041710247_appointment-and-invoice-models.resx">
-      <DependentUpon>202104041710247_appointment-and-invoice-models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104061453580_appointments-invoice-staff-models.resx">
-      <DependentUpon>202104061453580_appointments-invoice-staff-models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104070352430_updated-invoice-model.resx">
-      <DependentUpon>202104070352430_updated-invoice-model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104082353380_invoice-model-update.resx">
-      <DependentUpon>202104082353380_invoice-model-update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104082359408_switchback-invoice-model.resx">
-      <DependentUpon>202104082359408_switchback-invoice-model.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.resx">
+      <DependentUpon>202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
