@@ -61,7 +61,7 @@ Views -> Product/
 
 ### CRUD 2: Order Section
 #### Description
--A list on orders made by people. Orders can see who made it, the order message and all the product they had purchased.
+-A list of orders made by people. Orders can see who made it, the order message and all the product they had purchased.
 #### What's Next
 -Adding the total of the products and maybe a payment api.
 
