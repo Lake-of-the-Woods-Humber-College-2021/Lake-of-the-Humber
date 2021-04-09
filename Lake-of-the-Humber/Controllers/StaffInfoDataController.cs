@@ -12,7 +12,6 @@ using System.Diagnostics;
 using System.Web;
 using System.IO;
 using Lake_of_the_Humber.Models;
-using Lake_of_the_Humber.Models.ViewModel;
 
 
 namespace Lake_of_the_Humber.Controllers

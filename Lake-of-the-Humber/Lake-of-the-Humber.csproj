@@ -185,49 +185,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202103232002107_info-section model.cs" />
-    <Compile Include="Migrations\202103232002107_info-section model.Designer.cs">
-      <DependentUpon>202103232002107_info-section model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202103251546336_well wishes.cs" />
-    <Compile Include="Migrations\202103251546336_well wishes.Designer.cs">
-      <DependentUpon>202103251546336_well wishes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs" />
-    <Compile Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.Designer.cs">
-      <DependentUpon>202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104081340352_myapp.cs" />
-    <Compile Include="Migrations\202104081340352_myapp.Designer.cs">
-      <DependentUpon>202104081340352_myapp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104081523341_myapp1.cs" />
-    <Compile Include="Migrations\202104081523341_myapp1.Designer.cs">
-      <DependentUpon>202104081523341_myapp1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104081555496_myapp2.cs" />
-    <Compile Include="Migrations\202104081555496_myapp2.Designer.cs">
-      <DependentUpon>202104081555496_myapp2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104081706555_test.cs" />
-    <Compile Include="Migrations\202104081706555_test.Designer.cs">
-      <DependentUpon>202104081706555_test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104082149423_myapp3.cs" />
-    <Compile Include="Migrations\202104082149423_myapp3.Designer.cs">
-      <DependentUpon>202104082149423_myapp3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104082328593_myapp4.cs" />
-    <Compile Include="Migrations\202104082328593_myapp4.Designer.cs">
-      <DependentUpon>202104082328593_myapp4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104082349592_myapp5.cs" />
-    <Compile Include="Migrations\202104082349592_myapp5.Designer.cs">
-      <DependentUpon>202104082349592_myapp5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104090309066_myapp6.cs" />
-    <Compile Include="Migrations\202104090309066_myapp6.Designer.cs">
-      <DependentUpon>202104090309066_myapp6.cs</DependentUpon>
+    <Compile Include="Migrations\202104091955398_myapp.cs" />
+    <Compile Include="Migrations\202104091955398_myapp.Designer.cs">
+      <DependentUpon>202104091955398_myapp.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -323,38 +283,8 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202103232002107_info-section model.resx">
-      <DependentUpon>202103232002107_info-section model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202103251546336_well wishes.resx">
-      <DependentUpon>202103251546336_well wishes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.resx">
-      <DependentUpon>202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104081340352_myapp.resx">
-      <DependentUpon>202104081340352_myapp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104081523341_myapp1.resx">
-      <DependentUpon>202104081523341_myapp1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104081555496_myapp2.resx">
-      <DependentUpon>202104081555496_myapp2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104081706555_test.resx">
-      <DependentUpon>202104081706555_test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104082149423_myapp3.resx">
-      <DependentUpon>202104082149423_myapp3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104082328593_myapp4.resx">
-      <DependentUpon>202104082328593_myapp4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104082349592_myapp5.resx">
-      <DependentUpon>202104082349592_myapp5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104090309066_myapp6.resx">
-      <DependentUpon>202104090309066_myapp6.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202104091955398_myapp.resx">
+      <DependentUpon>202104091955398_myapp.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
