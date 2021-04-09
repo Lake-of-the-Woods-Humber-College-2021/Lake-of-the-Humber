@@ -18,6 +18,7 @@ namespace Lake_of_the_Humber.Models
         public ICollection<WellWish> WellWishes { get; set; }
         public ICollection<StaffInfo> StaffInfoes { get; set; }
         public ICollection<Department> Departments { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -68,6 +69,15 @@ namespace Lake_of_the_Humber.Models
         /// </summary>
         public DbSet<Department> Departments { get; set; }
 
+        /// <summary>
+        /// This is the model that is linked to the Products
+        /// </summary>
+        public DbSet<Product> Products { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to the Orders
+        /// </summary>
+        public DbSet<Order> Orders { get; set; }
 
         public static ApplicationDbContext Create()
         {
