@@ -205,6 +205,7 @@
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InfoSection.cs" />
+    <Compile Include="Models\LatestPost.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\StaffInfo.cs" />
     <Compile Include="Models\ViewModel\ShowDepartment.cs" />
@@ -279,6 +280,22 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\List.cshtml" />
+    <Content Include="Views\StaffInfo\Create.cshtml" />
+    <Content Include="Views\StaffInfo\DeleteConfirm.cshtml" />
+    <Content Include="Views\StaffInfo\Details.cshtml" />
+    <Content Include="Views\StaffInfo\Edit.cshtml" />
+    <Content Include="Views\StaffInfo\List.cshtml" />
+    <Content Include="Views\WellWishes\Create.cshtml" />
+    <Content Include="Views\WellWishes\DeleteConfirm.cshtml" />
+    <Content Include="Views\WellWishes\Details.cshtml" />
+    <Content Include="Views\WellWishes\List.cshtml" />
+    <Content Include="Views\InfoSections\Create.cshtml" />
+    <Content Include="Views\InfoSections\DeleteConfirm.cshtml" />
+    <Content Include="Views\InfoSections\Details.cshtml" />
+    <Content Include="Views\InfoSections\Edit.cshtml" />
+    <Content Include="Views\InfoSections\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
