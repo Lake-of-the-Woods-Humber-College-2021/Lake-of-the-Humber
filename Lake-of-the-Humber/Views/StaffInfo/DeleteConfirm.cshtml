@@ -1,0 +1,72 @@
+﻿@model Lake_of_the_Humber.Models.StaffInfoDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>DeleteConfirm</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>StaffInfo</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffFirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffFirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffLastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffLastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffLanguage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffLanguage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffHasPic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffHasPic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StaffImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffImagePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+    </dl>
+    <!--Delete Acction using ActionLink-->
+    @Html.ActionLink("Delete", "StaffInfo", new { id = Model.StaffId })) {
+    @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    }
+</div>

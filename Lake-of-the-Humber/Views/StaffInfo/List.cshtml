@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Lake_of_the_Humber.Models.StaffInfoDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p class="btn-lg">
+    @Html.ActionLink("Create New", "Create")
+</p>
+<!--Set the number of record per page on staffInfo controller-->
+<div class="pagination-lg text-right">
+    @{
+        int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+        int NextPage = Convert.ToInt32(ViewData["PageNum"]) + 1;
+        @Html.ActionLink("Prev", "List", new { PageNum = PrevPage })
+        @ViewData["PageSummary"]
+        @Html.ActionLink("Next", "List", new { PageNum = NextPage })
+    }
+</div>
+<!--Next Step to display more information when click on the picture!-->
+<div class="record-container">
+    @foreach (var StaffInfo in Model)
+    {
+        <div class="record ">
+            <div class="_record">
+                @{
+                    //Use server rendering to determine an image
+                    string pic = "/Content/StaffInfos/default.jpg";
+                    string alt = "No StaffInfo Picture Provided.";
+                    if (StaffInfo.StaffHasPic)
+                    {
+                        pic = "/Content/StaffInfoes/" + StaffInfo.StaffId + "." + StaffInfo.StaffImagePath;
+                        alt = "StaffInfo shot of " + StaffInfo.StaffFirstName + StaffInfo.StaffLastName;
+                    }
+                }
+
+                <div class="imagecontainer">
+                    <a data-lightbox="StaffInfo-@StaffInfo.StaffId" href="@pic" data-title="@alt">
+                        <img src="@pic" alt="@alt" height="350" />
+                    </a>
+                </div>
+                <div class="recordtitle">
+                    @Html.ActionLink(StaffInfo.StaffFirstName + StaffInfo.StaffLastName,
+                   "Details",
+                   new { id = StaffInfo.StaffId })
+                </div>
+                <nav class="linknav  btn">
+                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = StaffInfo.StaffId })</span>
+                </nav>
+
+
+            </div>
+        </div>
+    }
+</div>
+

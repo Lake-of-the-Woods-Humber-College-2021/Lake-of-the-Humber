@@ -1,0 +1,92 @@
+﻿@model Lake_of_the_Humber.Models.ViewModel.UpdateStaff
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm("Edit", "StaffInfo", new { id = Model.StaffInfo.StaffId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>StaffInfo</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.StaffInfo.StaffId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StaffInfo.StaffFirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StaffInfo.StaffFirstName, new { htmlAttributes = new { @class = "form-control", Name = "StaffFirstName" } })
+            @Html.ValidationMessageFor(model => model.StaffInfo.StaffFirstName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StaffInfo.StaffLastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StaffInfo.StaffLastName, new { htmlAttributes = new { @class = "form-control", Name = "StaffLastName" } })
+            @Html.ValidationMessageFor(model => model.StaffInfo.StaffLastName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.StaffInfo.StaffLanguage, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.StaffInfo.StaffLanguage, new { htmlAttributes = new { @class = "form-control", Name = "StaffLanguage" } })
+            @Html.ValidationMessageFor(model => model.StaffInfo.StaffLanguage, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="form-group">
+            <div class="col-md-12">Picture:</div>
+            <div class="col-md-12">
+                <input type="file" name="StaffPic" />
+
+            </div>
+
+        </div>
+    </div>
+
+    @*
+        <div class="form-group">
+            @Html.LabelFor(model => model.StaffInfo.StaffImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.StaffInfo.StaffImagePath, new { htmlAttributes = new { @class = "form-control", Name = "StaffImagePath" } })
+                @Html.ValidationMessageFor(model => model.StaffInfo.StaffImagePath, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    *@
+    <div class="form-group">
+        @Html.LabelFor(model => model.StaffInfo.DepartmentId, "DepartmentId", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <select name="DepartmentId">
+                @foreach (var department in Model.alldepartments)
+                {
+                    <option value="@department.DepartmentId">@department.DepartmentName</option>
+                }
+            </select>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "List")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
