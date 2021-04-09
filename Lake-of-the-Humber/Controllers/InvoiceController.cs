@@ -72,10 +72,10 @@ namespace Lake_of_the_Humber.Controllers
                 ViewModel.invoice = SelectedInvoice;
 
                 //Finds user that owns invoice, buts data into user DTO
-                //url = "invoicedata/finduserforinvoice/" + id;
-                //response = client.GetAsync(url).Result;
-                //UserDto SelectedUser = response.Content.ReadAsAsync<UserDto>().Result;
-                //ViewModel.user = SelectedUser;
+                url = "invoicedata/finduserforinvoice/" + id;
+                response = client.GetAsync(url).Result;
+                ApplicationUser UserInfo = response.Content.ReadAsAsync<ApplicationUser>().Result;
+                ViewModel.userInfo = UserInfo;
 
                 return View(ViewModel);
 

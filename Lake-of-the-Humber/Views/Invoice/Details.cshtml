@@ -5,7 +5,7 @@
 }
 
 
-<h2>Appointment #@Model.invoice.InvoiceId</h2>
+<h2>Invoice (ID:@Model.invoice.InvoiceId)</h2>
 
 <div>
     <hr />
@@ -58,11 +58,11 @@
         </dd>
 
         <dt>
-            Patient ID
+            Patient Information
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.invoice.UserId)
+            @Model.userInfo.UserName [ ID: @Model.userInfo.Id ]
         </dd>
 
     </dl>

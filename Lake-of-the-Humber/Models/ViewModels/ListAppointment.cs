@@ -10,6 +10,6 @@ namespace Lake_of_the_Humber.Models.ViewModels
 
         public IEnumerable<AppointmentDto> appointment { get; set; }
 
-        public IEnumerable<StaffInfoDto> staffinfo { get; set; }
+        public StaffInfoDto staffinfo { get; set; }
     }
 }

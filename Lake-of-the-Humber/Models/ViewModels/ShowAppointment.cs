@@ -10,9 +10,9 @@ namespace Lake_of_the_Humber.Models.ViewModels
         public AppointmentDto appointment { get; set; }
 
         //Information about the staff associated with an appointment
-        public StaffInfoDto staffinfo { get; set; }
+        public StaffInfoDto staffInfo { get; set; }
 
         //Information about user associated with an appointment
-        public virtual ApplicationUser user { get; set; }
+        public virtual ApplicationUser userInfo { get; set; }
     }
 }

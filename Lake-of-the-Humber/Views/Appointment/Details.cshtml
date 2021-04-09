@@ -42,19 +42,19 @@
         </dd>
 
         <dt>
-            Doctor ID
+            Doctor Information
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.appointment.StaffId)
+            Dr. @Model.staffInfo.StaffFirstName @Model.staffInfo.StaffLastName [ ID: @Model.staffInfo.StaffId ]
         </dd>
 
         <dt>
-            Patient ID
+            Patient Information
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.appointment.UserId)
+            @Model.userInfo.UserName [ID: @Model.userInfo.Id ]
         </dd>
 
 

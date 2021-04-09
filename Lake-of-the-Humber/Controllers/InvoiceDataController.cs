@@ -93,6 +93,33 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         /// <summary>
+        /// Finds user that is associated with particular invoice
+        /// </summary>
+        /// <param name="id">The invoice id</param>
+        /// <returns>Information about the user associated with invoice</returns>
+        /// <example>
+        /// GET: api/InvoiceData/FindUserForInvoice/5
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(InvoiceDto))]
+        public IHttpActionResult FindUserForInvoice(int id)
+        {
+            //Find data
+            ApplicationUser User = db.Users.Where(u => u.Invoice.Any(a => a.InvoiceId == id)).FirstOrDefault();
+            if (User == null)
+            {
+                return NotFound();
+            }
+
+            ApplicationUser UserDto = new ApplicationUser
+            {
+                UserName = User.UserName
+            };
+            return Ok(UserDto);
+
+        }
+
+        /// <summary>
         /// Update an invoice in the database given information about the invoice
         /// </summary>
         /// <param name="id">Invoice Id</param>

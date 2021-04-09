@@ -85,8 +85,6 @@ namespace Lake_of_the_Humber.Controllers
         }
 
 
-
-
         /// <summary>
         /// Get a single appointment in database with a 200 status code. Returns 404 status code if appointment is not found
         /// </summary>
@@ -121,6 +119,63 @@ namespace Lake_of_the_Humber.Controllers
 
             //Passes data as 200 status code
             return Ok(AppointmentDto);
+        }
+
+
+        /// <summary>
+        /// Finds staff that is associated with particular appointment
+        /// </summary>
+        /// <param name="id">The appointment id</param>
+        /// <returns>Information about the staff member associated with appointment</returns>
+        /// <example>
+        /// GET: api/AppointmentData/FindStaffForAppointment/5
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(AppointmentDto))]
+        public IHttpActionResult FindStaffForAppointment(int id)
+        {
+            //Find data
+            StaffInfo Staff = db.Staffs.Where(s => s.Appointment.Any(a => a.AppId == id)).FirstOrDefault();
+            if (Staff == null)
+            { 
+                return NotFound();
+            }
+
+            StaffInfoDto StaffInfoDto = new StaffInfoDto
+            {
+                StaffId = Staff.SatffId,
+                StaffFirstName = Staff.StaffFirstName,
+                StaffLastName = Staff.StaffLastName
+            };
+            return Ok(StaffInfoDto);
+
+        }
+
+        /// <summary>
+        /// Finds user that is associated with particular appointment
+        /// </summary>
+        /// <param name="id">The appointment id</param>
+        /// <returns>Information about the user associated with appointment</returns>
+        /// <example>
+        /// GET: api/AppointmentData/FindUserForAppointment/5
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(AppointmentDto))]
+        public IHttpActionResult FindUserForAppointment(int id)
+        {
+            //Find data
+            ApplicationUser User = db.Users.Where(u => u.Appointments.Any(a => a.AppId == id)).FirstOrDefault();
+            if (User == null)
+            {
+                return NotFound();
+            }
+
+            ApplicationUser UserDto = new ApplicationUser
+            {
+                UserName = User.UserName
+            };
+            return Ok(UserDto);
+
         }
 
         /// <summary>

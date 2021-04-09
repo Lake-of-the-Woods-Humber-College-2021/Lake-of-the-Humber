@@ -204,6 +204,14 @@
     <Compile Include="Migrations\202104070352430_updated-invoice-model.Designer.cs">
       <DependentUpon>202104070352430_updated-invoice-model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104082353380_invoice-model-update.cs" />
+    <Compile Include="Migrations\202104082353380_invoice-model-update.Designer.cs">
+      <DependentUpon>202104082353380_invoice-model-update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104082359408_switchback-invoice-model.cs" />
+    <Compile Include="Migrations\202104082359408_switchback-invoice-model.Designer.cs">
+      <DependentUpon>202104082359408_switchback-invoice-model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -323,6 +331,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104070352430_updated-invoice-model.resx">
       <DependentUpon>202104070352430_updated-invoice-model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104082353380_invoice-model-update.resx">
+      <DependentUpon>202104082353380_invoice-model-update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104082359408_switchback-invoice-model.resx">
+      <DependentUpon>202104082359408_switchback-invoice-model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

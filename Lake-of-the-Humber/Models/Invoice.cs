@@ -15,6 +15,12 @@ namespace Lake_of_the_Humber.Models
         public string InvoiceTitle { get; set; }
         public string InvoiceDesc { get; set; }
         public DateTime InvoiceDate { get; set; }
+
+        public Invoice()
+        {
+            this.InvoiceDate = DateTime.Now;
+        }
+
         public decimal InvoiceCost { get; set; }
         public bool IsPaid { get; set; }
 
@@ -44,7 +50,7 @@ namespace Lake_of_the_Humber.Models
             this.InvoiceDate = DateTime.Now;
         }
 
-            [DisplayName("Invoice Cost")]
+        [DisplayName("Invoice Cost")]
         public decimal InvoiceCost { get; set; }
 
 

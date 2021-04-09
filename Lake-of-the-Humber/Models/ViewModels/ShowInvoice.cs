@@ -10,5 +10,8 @@ namespace Lake_of_the_Humber.Models.ViewModels
 
         public InvoiceDto invoice { get; set; }
 
+        //Information about user associated with an appointment
+        public virtual ApplicationUser userInfo { get; set; }
+
     }
 }

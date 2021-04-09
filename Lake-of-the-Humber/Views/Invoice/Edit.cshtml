@@ -19,6 +19,9 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.invoice.InvoiceDate, new { Name = "InvoiceDate" })
 
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.invoice.UserId, new { Name = "UserId" })
+
     <div class="form-group">
         @Html.LabelFor(model => model.invoice.InvoiceTitle, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
@@ -45,20 +48,10 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.invoice.IsPaid, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <div class="dropdown">
-                @Html.DropDownListFor(model => model.invoice.IsPaid, new SelectList(
-                new[]
-                {
-                    new { Value = "True", Text = "Paid"},
-                    new { Value = "False", Text = "Outstanding"}
-                },
-                "Value",
-                "Text",
-                Model.ToString()
-                ))
-            </div>
-        </div>
+        <select class="form-control" asp-for="invoice.IsPaid" name="IsPaid">
+            <option value="True">Paid</option>
+            <option value="False">Outstanding</option>
+        </select>
     </div>
 
     <div class="form-group">

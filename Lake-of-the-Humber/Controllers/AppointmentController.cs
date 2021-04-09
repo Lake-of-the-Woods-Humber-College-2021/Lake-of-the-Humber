@@ -70,11 +70,24 @@ namespace Lake_of_the_Humber.Controllers
                 AppointmentDto SelectedAppointment = response.Content.ReadAsAsync<AppointmentDto>().Result;
                 ViewModel.appointment = SelectedAppointment;
 
+                //Finds doctors associated with an appointment, puts data into user DTO
+                url = "appointmentdata/findstaffforappointment/" + id;
+                response = client.GetAsync(url).Result;
+                StaffInfoDto StaffInfo = response.Content.ReadAsAsync<StaffInfoDto>().Result;
+                ViewModel.staffInfo = StaffInfo;
+
+                url = "appointmentdata/finduserforappointment/" + id;
+                response = client.GetAsync(url).Result;
+                ApplicationUser UserInfo = response.Content.ReadAsAsync<ApplicationUser>().Result;
+                ViewModel.userInfo = UserInfo;
+
                 //Finds user that owns appointment, puts data into user DTO
                 //url = "appointmentdata/findappointment/" + id;
                 //response = client.GetAsync(url).Result;
                 //UserDto SelectedUser = response.Content.ReadAsAsync<UserDto>().Result;
                 //ViewModel.user = SelectedUser;
+
+
 
                 return View(ViewModel);
 
