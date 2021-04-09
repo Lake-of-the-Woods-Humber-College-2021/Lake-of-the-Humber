@@ -9,9 +9,11 @@ MVP Submition - 09/04/2020
 5. Praveen
 <h4>CRUD 1: Information Section</h4>
 
-Description : 
+<h5>Description</h5> 
 
-What's Next:
+<h5>What's Next</h5>
+
+<h5>Files</h5>
 
 Controllers -> InfoSectionsController.cs, InfoSectionsDataController.cs
 
@@ -20,11 +22,11 @@ Models -> InfoSection.cs, WellWish.cs
 Views -> InfoSections/
 
 
-<h4>CRUD 2: Well Wishes</h4>
+<h5>Description</h5> 
 
-Description : 
+<h5>What's Next</h5>
 
-What's Next:
+<h5>Files</h5>
 
 Controllers -> WellWishesController.cs, WellWishesDataController.cs
 
