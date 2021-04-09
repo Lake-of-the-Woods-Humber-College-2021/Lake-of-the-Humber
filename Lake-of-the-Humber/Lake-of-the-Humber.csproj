@@ -196,6 +196,10 @@
     <Compile Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.Designer.cs">
       <DependentUpon>202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104090822013_update-on-staffInfo-model.cs" />
+    <Compile Include="Migrations\202104090822013_update-on-staffInfo-model.Designer.cs">
+      <DependentUpon>202104090822013_update-on-staffInfo-model.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Department.cs" />
@@ -277,13 +281,15 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\StaffInfo\List.cshtml" />
     <Content Include="Views\StaffInfo\Create.cshtml" />
+    <Content Include="Views\StaffInfo\Edit.cshtml" />
     <Content Include="Views\StaffInfo\DeleteConfirm.cshtml" />
     <Content Include="Views\StaffInfo\Details.cshtml" />
-    <Content Include="Views\StaffInfo\Edit.cshtml" />
+    <Content Include="Views\Department\List.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Department\" />
+    <Folder Include="Content\Staffs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -299,6 +305,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104050435442_update-DBset-StaffInfo-to-StaffInfoes.resx">
       <DependentUpon>202104050435442_update-DBset-StaffInfo-to-StaffInfoes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104090822013_update-on-staffInfo-model.resx">
+      <DependentUpon>202104090822013_update-on-staffInfo-model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
