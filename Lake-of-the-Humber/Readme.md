@@ -8,5 +8,7 @@ MVP Submition - 09/04/2020
 4. Daniel
 5. Praveen
 <h4>CRUD 1: Information Section</h4>
+Controllers -> InfoSectionsController.cs, InfoSectionsDataController.cs
 
 <h4>CRUD 2: Well Wishes</h4>
+Controllers -> WellWishesController.cs, WellWishesDataController.cs
