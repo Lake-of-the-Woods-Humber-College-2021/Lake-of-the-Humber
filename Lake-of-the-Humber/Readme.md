@@ -7,3 +7,6 @@ MVP Submition - 09/04/2020
 3. Asia
 4. Daniel
 5. Praveen
+<h4>CRUD 1: Information Section</h4>
+
+<h4>CRUD 2: Well Wishes</h4>
