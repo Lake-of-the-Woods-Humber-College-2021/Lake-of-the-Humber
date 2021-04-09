@@ -67,7 +67,7 @@ namespace Lake_of_the_Humber.Controllers
         public IHttpActionResult GetStaffForAppointment(int id)
         {
             //Change later to only get staff based off of deparments
-            List<StaffInfo> StaffInfos = db.Staffs.ToList();
+            List<StaffInfo> StaffInfos = db.StaffInfoes.ToList();
             List<StaffInfoDto> StaffInfoDtos = new List<StaffInfoDto> { };
 
             foreach (var Staff in StaffInfos)
@@ -135,7 +135,7 @@ namespace Lake_of_the_Humber.Controllers
         public IHttpActionResult FindStaffForAppointment(int id)
         {
             //Find data
-            StaffInfo Staff = db.Staffs.Where(s => s.Appointment.Any(a => a.AppId == id)).FirstOrDefault();
+            StaffInfo Staff = db.StaffInfoes.Where(s => s.Appointment.Any(a => a.AppId == id)).FirstOrDefault();
             if (Staff == null)
             { 
                 return NotFound();
