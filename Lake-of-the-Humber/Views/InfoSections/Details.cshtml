@@ -1,0 +1,89 @@
+﻿@model Lake_of_the_Humber.Models.InfoSectionDto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Information Section</h2>
+
+<div>
+    <h4>Section Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Link)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Link)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkBtnName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkBtnName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsArchive)
+        </dt>
+
+        <dd>
+            @if (Model.IsArchive == true)
+            {
+                @Html.Encode("Yes")
+            }
+            else
+            {
+                @Html.Encode("No")
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatorId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.SectionId }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

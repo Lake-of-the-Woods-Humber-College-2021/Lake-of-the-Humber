@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Lake_of_the_Humber.Models.InfoSectionDto>
+
+@{
+    ViewBag.Title = "Information Sections";
+}
+
+<h2>Information Sections</h2>
+
+<p>
+    @Html.ActionLink("Create New Section", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SectionTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SectionDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PriorityNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsArchive)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.SectionTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SectionDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PriorityNumber)
+    </td>
+    <td>
+        @if (item.IsArchive == true)
+        {
+            @Html.Encode("Yes")
+        }
+        else
+        {
+            @Html.Encode("No")
+        }
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new {  id=item.SectionId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.SectionId }) |
+        @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.SectionId })
+    </td>
+</tr>
+}
+
+</table>
