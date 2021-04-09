@@ -39,6 +39,39 @@ Models -> WellWish.cs
 Views -> WellWishes/
 
 ---
+## "Feature: Gift Shop Rohit"
+
+### CRUD 1: Product Section
+
+#### Description
+-A list of products that are sold in the Gift Shop. CRUD on products.
+
+#### What's Next
+-Image Upload, so users can see the images of the products.
+
+#### Files
+
+Controllers -> ProductController.cs, ProductDataController.cs
+
+Models -> Product.cs
+
+Views -> Product/
+
+---
+
+### CRUD 2: Order Section
+#### Description
+-A list on orders made by people. Orders can see who made it, the order message and all the product they had purchased.
+#### What's Next
+-Adding the total of the products and maybe a payment api.
+
+#### Files
+
+Controllers -> OrderController.cs, OrderDataController.cs
+
+Models -> Order.cs
+
+Views -> Order/
 
 ### CRUD 3: Appointments (Daniel)
 #### Description
