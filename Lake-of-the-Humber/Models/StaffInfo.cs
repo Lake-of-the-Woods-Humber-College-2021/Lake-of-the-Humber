@@ -22,6 +22,7 @@ namespace Lake_of_the_Humber.Models
         //A Staff belong to one department
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
         public virtual Department Department { get; set; }
 
         [ForeignKey("User")]
@@ -54,6 +55,9 @@ namespace Lake_of_the_Humber.Models
         public string StaffImagePath { get; set; }
 
         public string StaffCreatorId { get; set; }
+
+        public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; }
     }
 
 }
