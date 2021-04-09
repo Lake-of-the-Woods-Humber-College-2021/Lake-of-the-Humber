@@ -24,6 +24,7 @@ Models -> WellWish.cs
 
 Views -> WellWishes/
 
+<hr/>
 
 
 ### How to run the project
