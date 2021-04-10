@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
+using System.Security.Permissions;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -14,7 +15,9 @@ namespace Lake_of_the_Humber.Models
         public ICollection<InfoSection> InfoSections { get; set; }
         public ICollection<WellWish> WellWishes { get; set; }
         public ICollection<StaffInfo> StaffInfoes { get; set; }
+        
         public ICollection<Department> Departments { get; set; }
+        public DbSet<Faq> Faqs { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -65,10 +68,15 @@ namespace Lake_of_the_Humber.Models
         /// </summary>
         public DbSet<Department> Departments { get; set; }
 
+        /// <summary>
+        /// This the model that allows us to view our FAQ:
+        /// </summary>
+        public DbSet<Faq> Faqs { get; set; }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+       
     }
 }
