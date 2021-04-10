@@ -31,10 +31,7 @@ namespace Lake_of_the_Humber.Controllers
             client.BaseAddress = new Uri("https://localhost:44336/api/");
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
-
-
         }
-
         // GET: Faq/List
         public ActionResult List()
         {

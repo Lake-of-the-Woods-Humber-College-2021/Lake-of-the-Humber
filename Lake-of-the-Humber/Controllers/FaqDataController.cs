@@ -14,7 +14,7 @@ namespace Lake_of_the_Humber.Controllers
 {
     public class FaqDataController : ApiController
     {
-
+        
         //LIST ALL FAQs:
         private ApplicationDbContext db = new ApplicationDbContext();
         //EXAMPLE GET: /api/FaqData/GetFaqs <- returns json of all FAQs
