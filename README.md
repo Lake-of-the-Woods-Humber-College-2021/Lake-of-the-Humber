@@ -14,7 +14,7 @@
 #### Description
 - A user can create, delete, update, read the information section
 #### What's Next
-- Authentication
+- Authentication (based on user roles)
 - Image Upload on information section
 - showing information section on homepage
 
@@ -32,7 +32,7 @@ Views -> InfoSections/
 #### Description
 - A user can send and read well wishes, admin should be able to update, delete and read the wellwishes
 #### What's Next
-- Authentication.
+- Authentication (based on user roles)
 - Email Notification for user once well wish is delivered.
 
 #### Files
