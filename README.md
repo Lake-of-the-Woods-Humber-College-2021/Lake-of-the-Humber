@@ -12,8 +12,11 @@
 ### CRUD 1: Information Section (Praveen)
 
 #### Description
-
+- A user can create, delete, update, read the information section
 #### What's Next
+- Authentication
+- Image Upload on information section
+- showing information section on homepage
 
 #### Files
 
@@ -27,8 +30,10 @@ Views -> InfoSections/
 
 ### CRUD 2: Well Wishes Section (Praveen)
 #### Description
-
+- A user can send and read well wishes, admin should be able to update, delete and read the wellwishes
 #### What's Next
+- Authentication.
+- Email Notification for user once well wish is delivered.
 
 #### Files
 
