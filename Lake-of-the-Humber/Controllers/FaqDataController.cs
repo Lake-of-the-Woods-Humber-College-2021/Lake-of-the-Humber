@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
+using System.IO;
 using System.Net.Http;
-using System.Web.Http;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Web.Http.Description;
+using System.Net.Http.Headers;
+using System.Diagnostics;
+using System.Web.Script.Serialization;
 using Lake_of_the_Humber.Models;
-
+using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Lake_of_the_Humber.Controllers
 {
@@ -17,6 +20,7 @@ namespace Lake_of_the_Humber.Controllers
 
         //LIST ALL FAQs:
         private ApplicationDbContext db = new ApplicationDbContext();
+
         //EXAMPLE GET: /api/FaqData/GetFaqs <- returns json of all FAQs
         [ResponseType(typeof(IEnumerable<FaqDto>))]
         //Retrieves All Faqs and uses list method to list them.

@@ -17,7 +17,7 @@ namespace Lake_of_the_Humber.Models
         public ICollection<StaffInfo> StaffInfoes { get; set; }
         
         public ICollection<Department> Departments { get; set; }
-        public DbSet<Faq> Faqs { get; set; }
+        public ICollection<Faq> Faqs { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
