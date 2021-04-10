@@ -9,7 +9,7 @@
 
 ## "Features"
 
-### CRUD 1: Information Section
+### CRUD 1: Information Section (Praveen)
 
 #### Description
 
@@ -25,7 +25,7 @@ Views -> InfoSections/
 
 ---
 
-### CRUD 2: Well Wishes Section
+### CRUD 2: Well Wishes Section (Praveen)
 #### Description
 
 #### What's Next
