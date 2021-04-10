@@ -30,7 +30,7 @@ Views -> InfoSections/
 
 ### CRUD 2: Well Wishes Section (Praveen)
 #### Description
-- A user can send and read well wishes, admin should be able to update, delete and read the wellwishes
+- A user can send(create), read, update, delete wellwishes
 #### What's Next
 - Authentication (based on user roles)
 - Email Notification for user once well wish is delivered.
