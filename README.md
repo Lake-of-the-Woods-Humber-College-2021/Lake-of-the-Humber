@@ -44,9 +44,8 @@ Models -> WellWish.cs
 Views -> WellWishes/
 
 ---
-## "Feature: Gift Shop Rohit"
 
-### CRUD 1: Product Section
+### CRUD 3: Gift Shop, Product Section (Rohit)
 
 #### Description
 -A list of products that are sold in the Gift Shop. CRUD on products.
@@ -64,7 +63,7 @@ Views -> Product/
 
 ---
 
-### CRUD 2: Order Section
+### CRUD 4: Gift Shop, Order Section (Rohit)
 #### Description
 -A list of orders made by people. Orders can see who made it, the order message and all the product they had purchased.
 #### What's Next
@@ -78,7 +77,9 @@ Models -> Order.cs
 
 Views -> Order/
 
-### CRUD 3: Appointments (Daniel)
+---
+
+### CRUD 5: Appointments (Daniel)
 #### Description
 - A user can view a list of appointments that have been made
 - A user can create an appointment by selecting a method, writing out a purpose, selecting a date, selecting a time, selecting a Staff(Doctor) ID, and selecting a User(Patient) ID
@@ -101,7 +102,7 @@ Views -> Appointment/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, D
 
 ---
 
-### CRUD 4: Invoices (Daniel)
+### CRUD 6: Invoices (Daniel)
 #### Description
 - A user can view a list of invoices that exist
 - A user can create an invoice by writing out a title, description, cost and userID (date and IsPaid status are default)
