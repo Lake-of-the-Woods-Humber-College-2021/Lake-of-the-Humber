@@ -214,6 +214,10 @@
     <Compile Include="Migrations\202104092159567_added nullables.Designer.cs">
       <DependentUpon>202104092159567_added nullables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104100246224_identity-model-update.cs" />
+    <Compile Include="Migrations\202104100246224_identity-model-update.Designer.cs">
+      <DependentUpon>202104100246224_identity-model-update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Department.cs" />
@@ -419,6 +423,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104092159567_added nullables.resx">
       <DependentUpon>202104092159567_added nullables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104100246224_identity-model-update.resx">
+      <DependentUpon>202104100246224_identity-model-update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
