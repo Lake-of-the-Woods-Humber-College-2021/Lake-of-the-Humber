@@ -124,7 +124,42 @@ Models -> Invoice.cs, ViewModels/(ShowInvoice.cs, UpdateInvoice.cs)
 Views -> Invoice/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
 
 ---
+### CRUD 7: Department (Choo)
+#### Description
+- A list of department will be displayed when user click on the "department" link on the website. 
+- Public user allowed to view and read the list.
+- Admin user will be able to do CRUD oepration for staff Information.
 
+#### What's Next
+- Add search functionality to filter the list based on user's selection.
+
+#### Files
+Controllers -> DeaprtmentController.cs, DepartmentDataController.cs
+
+Models -> Department.cs, ViewModels/(ShowDepartment.cs, UpdateDepartmentt.cs)
+
+Views -> Department/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
+
+---
+### CRUD 8: Staff Infromation (Choo)
+#### Description
+-  A list of staff information will be displayed when user click on the "staff Information" link on the website. 
+-  Public user allowed to view and do basic search functionality
+-  Admin user will be able to do CRUD oepration for staff Information. 
+
+#### What's Next
+- Add images , pagination 
+- when user clicked on the image, it will show more information bout the doctor (like image Card)
+- Add search functionality to filter the list based on user's selection.
+
+#### Files
+Controllers -> StaffInfoController.cs, StaffInfoDataController.cs
+
+Models -> StaffInfo.cs, ViewModels/(ShowStafft.cs, UpdateStaff.cs)
+
+Views -> StaffInfo/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
+
+---
 
 ### How to run the project
 1. Clone the repository
