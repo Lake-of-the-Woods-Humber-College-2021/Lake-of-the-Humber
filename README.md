@@ -3,8 +3,8 @@ Northern Ontario Hospital Website Redesign
 
 
 ### Asia Levesque Gault
-*Feature1: FAQ
-*Feature2: Volunteer
+-Feature1: FAQ
+-Feature2: Volunteer
 
 The Purpose of the FAQ feature is to Allow the websites visitors to see freequently asked questions. These Question's CRUD (Create, Read, Update, Delete) operations are controled by the website's Administrators. They will be able to login with Administrator credentials and have their own CMS(Content Management System) to easily add an FAQ, Publish an FAQ, Edit an FAQ and delete an FAQ. Vistitors who are not Administrators will be able to view all FAQs and view the Details of an FAQ.
 
