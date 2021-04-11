@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Lake_of_the_Humber.Models.StaffInfoDto>
+﻿@model IEnumerable<Lake_of_the_Humber.Models.ViewModel.UpdateStaff>
 
 @{
     ViewBag.Title = "List";
@@ -29,25 +29,25 @@
                     //Use server rendering to determine an image
                     string pic = "/Content/StaffInfos/default.jpg";
                     string alt = "No StaffInfo Picture Provided.";
-                    if (StaffInfo.StaffHasPic)
+                    if (StaffInfo.StaffInfo.StaffHasPic)
                     {
-                        pic = "/Content/StaffInfoes/" + StaffInfo.StaffId + "." + StaffInfo.StaffImagePath;
-                        alt = "StaffInfo shot of " + StaffInfo.StaffFirstName + StaffInfo.StaffLastName;
+                        pic = "/Content/StaffInfoes/" + StaffInfo.StaffInfo.StaffId + "." + StaffInfo.StaffInfo.StaffImagePath;
+                        alt = "StaffInfo shot of " + StaffInfo.StaffInfo.StaffFirstName + StaffInfo.StaffInfo.StaffLastName;
                     }
                 }
 
                 <div class="imagecontainer">
-                    <a data-lightbox="StaffInfo-@StaffInfo.StaffId" href="@pic" data-title="@alt">
+                    <a data-lightbox="StaffInfo-@StaffInfo.StaffInfo.StaffId" href="@pic" data-title="@alt">
                         <img src="@pic" alt="@alt" height="350" />
                     </a>
                 </div>
                 <div class="recordtitle">
-                    @Html.ActionLink(StaffInfo.StaffFirstName + StaffInfo.StaffLastName,
+                    @Html.ActionLink(StaffInfo.StaffInfo.StaffFirstName + StaffInfo.StaffInfo.StaffLastName,
                    "Details",
-                   new { id = StaffInfo.StaffId })
+                   new { id = StaffInfo.StaffInfo.StaffId })
                 </div>
                 <nav class="linknav  btn">
-                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = StaffInfo.StaffId })</span>
+                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = StaffInfo.StaffInfo.StaffId })</span>
                 </nav>
 
 
