@@ -6,5 +6,21 @@
     ViewBag.Title = "List Faqs";
 }
 
-<h2>FAQs</h2>
-<p>Doggos are cute</p>
+<h1>FAQs:</h1>
+
+    @foreach (var faqitem in Model)
+    {
+        <a href="/faq/Details/@faqitem.FaqId">
+            <div class="panel-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">@faqitem.Question</div>
+                    <div class="panel-body">@faqitem.Answer</div>
+                </div>
+             </div>
+        </a>
+
+       @* <a href="/faq/show/@faqitem.FaqId"><h2>@faqitem.Question</h2> </a>*@
+              
+    }
+
+

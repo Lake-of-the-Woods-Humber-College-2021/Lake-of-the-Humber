@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
+using Lake_of_the_Humber.Models.ViewModels;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
 using Lake_of_the_Humber.Models;
+using System.Net;
 
 
 
@@ -31,11 +33,14 @@ namespace Lake_of_the_Humber.Controllers
             client.BaseAddress = new Uri("https://localhost:44336/api/");
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+            //warning function ignoring:
+            ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;
         }
         // GET: Faq/List
         public ActionResult List()
         {
             string url = "FaqData/GetFaqs";// from data controller GetFaqs
+            
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
@@ -47,5 +52,66 @@ namespace Lake_of_the_Humber.Controllers
                 return RedirectToAction("Error");
             }
         }
+
+        //GET Faq/Details/6
+        public ActionResult Details(int id)
+        {
+            ShowFaq ViewModels = new ShowFaq();
+            string FaqDetailurl = "Faqdata/findFaq/" + id;
+
+            HttpResponseMessage findFaqresponse = client.GetAsync(FaqDetailurl).Result;
+
+            if (findFaqresponse.IsSuccessStatusCode)
+            {
+
+                FaqDto SelectedFaq = findFaqresponse.Content.ReadAsAsync<FaqDto>().Result;
+                ViewModels.Faq = SelectedFaq;
+
+                return View(ViewModels);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        //Get Request Faq/Delete/9
+        [HttpGet]
+        public ActionResult DeleteConfirm(int id)
+        {
+            string GetFaqDeleteUrl = "Faqdata/findFaq/" + id;//find the relevent faq
+            HttpResponseMessage DeleteFaqResponse = client.GetAsync(GetFaqDeleteUrl).Result;
+
+            if (DeleteFaqResponse.IsSuccessStatusCode)
+            {
+                //Put data into player data transfer object
+                FaqDto SelectedFaq = DeleteFaqResponse.Content.ReadAsAsync<FaqDto>().Result;
+                return View(SelectedFaq);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        //POST REQUEST TO DELETE
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Delete(int id)
+        {
+            string PostFaqDeleteUrl = "Faqdata/deleteFaq/" + id;
+
+            HttpContent content = new StringContent("");
+            HttpResponseMessage response = client.PostAsync(PostFaqDeleteUrl, content).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
     }
 }
