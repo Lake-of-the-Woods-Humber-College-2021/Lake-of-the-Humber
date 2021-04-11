@@ -404,6 +404,7 @@
     <Content Include="Views\Faq\List.cshtml" />
     <Content Include="Views\Faq\Details.cshtml" />
     <Content Include="Views\Faq\DeleteConfirm.cshtml" />
+    <Content Include="Views\Faq\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

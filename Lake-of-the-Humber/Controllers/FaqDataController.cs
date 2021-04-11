@@ -108,5 +108,24 @@ namespace Lake_of_the_Humber.Controllers
             }
             base.Dispose(disposing);
         }
+
+        //ADD/CREATE A NEW FAQ IN THE DB:
+        //POST: api/FaqData/AddFaq
+        [ResponseType(typeof(Faq))]
+        [HttpPost]
+        public IHttpActionResult AddFaq([FromBody] Faq Faq)//AddFaq Called on in faqcontroller
+        {
+            
+            if (!ModelState.IsValid)//Is it acceptable against the db model parameters
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Faqs.Add(Faq);
+            db.SaveChanges();
+
+            return Ok(Faq.FaqId);//Return based on faqId set ID.
+        }
+
     }
 }

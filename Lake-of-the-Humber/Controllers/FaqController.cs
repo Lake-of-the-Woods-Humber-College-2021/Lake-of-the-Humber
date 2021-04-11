@@ -113,5 +113,40 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
+        //ADD/CREATE new FAQ
+        // GET:Faq/Create 
+        [HttpGet]
+        public ActionResult Create()//FORM Imputs from view
+        {
+            return View();
+        }
+        //POST Faq/Create
+        //Posts to DB and creats new FAQ if form entries are correct
+        //send request to Data controller. 
+
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Create(Faq FaqInfo)
+        {
+            string AddFaqUrl = "FaqData/AddFaq"; //AddFaq model created in data controller
+
+            HttpContent content = new StringContent(jss.Serialize(FaqInfo));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage AddFaqResponse = client.PostAsync(AddFaqUrl, content).Result;
+
+            if (AddFaqResponse.IsSuccessStatusCode)
+            {
+
+                int FaqId = AddFaqResponse.Content.ReadAsAsync<int>().Result;
+                return RedirectToAction("Details", new { id = FaqId });
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+
+        }
+
+
     }
 }
