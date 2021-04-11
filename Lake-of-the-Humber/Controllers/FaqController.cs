@@ -147,6 +147,53 @@ namespace Lake_of_the_Humber.Controllers
 
         }
 
+        //EDIT FAQS callls on update 
+        //GET: Faq/Edit/5
+        public ActionResult Edit(int id)
+        {
+
+            UpdateFaq ViewModels = new UpdateFaq();
+
+            string GetUpdateFaqUrl = "FaqData/findFaq/" + id;//locate faq by id
+            HttpResponseMessage FindFaqResponse = client.GetAsync(GetUpdateFaqUrl).Result;
+
+            if (FindFaqResponse.IsSuccessStatusCode)
+            {
+                //Put data into DepartmentDto
+                FaqDto SelectedFaq = FindFaqResponse.Content.ReadAsAsync<FaqDto>().Result;
+                ViewModels.Faq = SelectedFaq;
+
+                return View(ViewModels);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        //POST UPDATE
+        // POST: Department/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Edit(int id, Faq FaqInfo)
+        {
+            string PostUpdateFaqUrl = "FaqData/UpdateFaq/" + id;
+            Debug.WriteLine(FaqInfo);
+            HttpContent content = new StringContent(jss.Serialize(FaqInfo));
+            Debug.WriteLine(FaqInfo);
+
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage UpdateFaqResponse = client.PostAsync(PostUpdateFaqUrl, content).Result;
+
+            if (UpdateFaqResponse.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Details", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
 
     }
 }

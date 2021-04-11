@@ -5,22 +5,28 @@
 @{
     ViewBag.Title = "List Faqs";
 }
-
 <h1>FAQs:</h1>
-
-    @foreach (var faqitem in Model)
-    {
-        <a href="/faq/Details/@faqitem.FaqId">
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">@faqitem.Question</div>
-                    <div class="panel-body">@faqitem.Answer</div>
+<button>
+    @Html.ActionLink("Add New", "Create")
+</button>
+@foreach (var faqitem in Model)
+{
+    <a href="/faq/Details/@faqitem.FaqId">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">@faqitem.Question</div>
+                <div class="panel-body">@faqitem.Answer</div>
+                <div class="panel-body">
+                    @Html.ActionLink("Edit", "Edit", new { id = faqitem.FaqId }) |
+                    @Html.ActionLink("Details", "Details", new { id = faqitem.FaqId })
                 </div>
-             </div>
-        </a>
 
-       @* <a href="/faq/show/@faqitem.FaqId"><h2>@faqitem.Question</h2> </a>*@
-              
-    }
+            </div>
+        </div>
+    </a>
+
+    @* <a href="/faq/show/@faqitem.FaqId"><h2>@faqitem.Question</h2> </a>*@
+
+}
 
 

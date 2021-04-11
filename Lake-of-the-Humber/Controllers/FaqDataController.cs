@@ -24,8 +24,8 @@ namespace Lake_of_the_Humber.Controllers
 {
     public class FaqDataController : ApiController
     {
-        
-       
+
+
         private ApplicationDbContext db = new ApplicationDbContext();
 
         //EXAMPLE GET: /api/FaqData/GetFaqs <- returns json of all FAQs
@@ -115,7 +115,7 @@ namespace Lake_of_the_Humber.Controllers
         [HttpPost]
         public IHttpActionResult AddFaq([FromBody] Faq Faq)//AddFaq Called on in faqcontroller
         {
-            
+
             if (!ModelState.IsValid)//Is it acceptable against the db model parameters
             {
                 return BadRequest(ModelState);
@@ -127,5 +127,46 @@ namespace Lake_of_the_Humber.Controllers
             return Ok(Faq.FaqId);//Return based on faqId set ID.
         }
 
+        //UPDATE FAQ
+        //POST api/FaqData/UpdateFaq/11
+
+        [ResponseType(typeof(void))]
+        [HttpPost]
+        public IHttpActionResult UpdateFaq(int id, [FromBody] Faq Faq)//Update faq called in controller
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != Faq.FaqId)//id not eual faq Id
+            {
+                return BadRequest();
+            }
+
+            db.Entry(Faq).State = EntityState.Modified;
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!FaqExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+        private bool FaqExists(int id) //called by the update method to insure exsistance of FAQID 
+        {
+            return db.Faqs.Count(f => f.FaqId == id) > 0;
+        }
     }
 }
