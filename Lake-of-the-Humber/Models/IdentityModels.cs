@@ -50,6 +50,15 @@ namespace Lake_of_the_Humber.Models
         /// </summary>
         // public DbSet<LatestPost> LatestPosts { get; set; }
 
+        /// <summary>
+        /// This is the model that is linked to the Products
+        /// </summary>
+        public DbSet<Product> Products { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to the Orders
+        /// </summary>
+        public DbSet<Order> Orders { get; set; }
 
 
         /// <summary>

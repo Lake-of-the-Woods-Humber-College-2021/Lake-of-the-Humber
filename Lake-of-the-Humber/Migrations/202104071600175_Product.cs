@@ -1,9 +1,9 @@
-namespace Lake_of_the_Humber.Migrations
+﻿namespace Lake_of_the_Humber.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class infosectionmodel : DbMigration
+    public partial class Product : DbMigration
     {
         public override void Up()
         {
@@ -15,8 +15,9 @@ namespace Lake_of_the_Humber.Migrations
                         SectionTitle = c.String(),
                         SectionDescription = c.String(),
                         PriorityNumber = c.Int(nullable: false),
-                        link = c.String(),
+                        Link = c.String(),
                         SectionImageExt = c.String(),
+                        IsArchive = c.Boolean(nullable: false),
                         CreatorId = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.SectionId)
@@ -82,6 +83,34 @@ namespace Lake_of_the_Humber.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.WellWishes",
+                c => new
+                    {
+                        WishId = c.Int(nullable: false, identity: true),
+                        Message = c.String(),
+                        RoomNumber = c.String(),
+                        ReceiverName = c.String(),
+                        CreatedDate = c.DateTime(nullable: false),
+                        IsReceived = c.Boolean(nullable: false),
+                        ReceivedDate = c.DateTime(nullable: false),
+                        CreatorId = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.WishId)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatorId)
+                .Index(t => t.CreatorId);
+            
+            CreateTable(
+                "dbo.Products",
+                c => new
+                    {
+                        ProductID = c.Int(nullable: false, identity: true),
+                        ProductName = c.String(),
+                        ProductPrice = c.Double(nullable: false),
+                        ProductDescription = c.String(),
+                    })
+                .PrimaryKey(t => t.ProductID);
+            
+            CreateTable(
                 "dbo.AspNetRoles",
                 c => new
                     {
@@ -97,10 +126,12 @@ namespace Lake_of_the_Humber.Migrations
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
             DropForeignKey("dbo.InfoSections", "CreatorId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.WellWishes", "CreatorId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropIndex("dbo.WellWishes", new[] { "CreatorId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -108,6 +139,8 @@ namespace Lake_of_the_Humber.Migrations
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.InfoSections", new[] { "CreatorId" });
             DropTable("dbo.AspNetRoles");
+            DropTable("dbo.Products");
+            DropTable("dbo.WellWishes");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
