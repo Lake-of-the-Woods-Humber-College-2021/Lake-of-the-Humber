@@ -187,6 +187,8 @@ Models -> StaffInfo.cs, ViewModels/(ShowStafft.cs, UpdateStaff.cs)
 
 Views -> StaffInfo/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
 
+---
+
 ### Asia Levesque Gault
 - [X] Feature1: FAQ
 - [ ] Feature2: Volunteer
