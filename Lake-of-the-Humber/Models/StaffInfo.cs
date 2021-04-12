@@ -22,12 +22,14 @@ namespace Lake_of_the_Humber.Models
         //A Staff belong to one department
         [ForeignKey("Department")]
         public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
         public virtual Department Department { get; set; }
 
         [ForeignKey("User")]
         public string StaffCreatorId { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+        //A staff can have many appointments
+        public ICollection<Appointment> Appointment { get; set; }
 
     }
 

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Security.Claims;
-using System.Security.Permissions;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -12,12 +11,19 @@ namespace Lake_of_the_Humber.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
         public ICollection<InfoSection> InfoSections { get; set; }
         public ICollection<WellWish> WellWishes { get; set; }
         public ICollection<StaffInfo> StaffInfoes { get; set; }
-        
         public ICollection<Department> Departments { get; set; }
-        public ICollection<Faq> Faqs { get; set; }
+
+        //A user can have multiple appointments
+        public ICollection<Appointment> Appointments { get; set; }
+        //A user can have multiple invoices
+        public ICollection<Invoice> Invoice { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -50,15 +56,6 @@ namespace Lake_of_the_Humber.Models
         /// </summary>
         // public DbSet<LatestPost> LatestPosts { get; set; }
 
-        /// <summary>
-        /// This is the model that is linked to the Products
-        /// </summary>
-        public DbSet<Product> Products { get; set; }
-
-        /// <summary>
-        /// This is the model that is linked to the Orders
-        /// </summary>
-        public DbSet<Order> Orders { get; set; }
 
 
         /// <summary>
@@ -78,14 +75,28 @@ namespace Lake_of_the_Humber.Models
         public DbSet<Department> Departments { get; set; }
 
         /// <summary>
-        /// This the model that allows us to view our FAQ:
+        /// This is the model that is linked to the Products
         /// </summary>
-        public DbSet<Faq> Faqs { get; set; }
+        public DbSet<Product> Products { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to the Orders
+        /// </summary>
+        public DbSet<Order> Orders { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to Appointments
+        /// </summary>
+        public DbSet<Appointment> Appointments { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to Invoices
+        /// </summary>
+        public DbSet<Invoice> Invoices { get; set; }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
-       
     }
 }

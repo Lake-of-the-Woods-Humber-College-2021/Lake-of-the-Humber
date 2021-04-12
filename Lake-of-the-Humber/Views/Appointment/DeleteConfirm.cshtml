@@ -1,0 +1,73 @@
+﻿@model Lake_of_the_Humber.Models.AppointmentDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete Appointment #@Model.AppId</h2>
+
+<h3>Warning: This action cannot be reversed.</h3>
+@Html.ActionLink("Cancel", "List")
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AppMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppMethod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppPurpose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppPurpose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AppTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AppTime)
+        </dd>
+
+        <dt>
+            Doctor ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StaffId)
+        </dd>
+
+        <dt>
+            Patient ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Appointment", new { id = Model.AppId }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "List")
+        </div>
+    }
+</div>
