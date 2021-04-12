@@ -1,0 +1,73 @@
+﻿@model Lake_of_the_Humber.Models.ViewModels.ShowInvoice
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<h2>Invoice (ID:@Model.invoice.InvoiceId)</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.invoice.InvoiceTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoice.InvoiceTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoice.InvoiceDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoice.InvoiceDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoice.InvoiceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.invoice.DInvoiceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.invoice.InvoiceCost)
+        </dt>
+
+        <dd>
+            $@Html.DisplayFor(model => model.invoice.InvoiceCost)
+        </dd>
+
+        <dt>
+            Payment Status
+        </dt>
+
+        <dd>
+            @if (Convert.ToBoolean(Model.invoice.IsPaid) != true)
+            {
+                <p> Outstanding Payment </p>
+            }
+            else
+            {
+                <p> Paid </p>
+            }
+        </dd>
+
+        <dt>
+            Patient Information
+        </dt>
+
+        <dd>
+            @Model.userInfo.UserName [ ID: @Model.userInfo.Id ]
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.invoice.InvoiceId }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

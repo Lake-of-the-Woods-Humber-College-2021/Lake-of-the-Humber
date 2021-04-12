@@ -1,0 +1,89 @@
+﻿@model Lake_of_the_Humber.Models.InfoSectionDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Information Section</h2>
+
+<h3>Are you sure you want to delete this Information Section?</h3>
+<div>
+    <h4>Delete Confirmation</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SectionDescription)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SectionDescription)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PriorityNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PriorityNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Link)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Link)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LinkBtnName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LinkBtnName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsArchive)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IsArchive)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatorId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatorId)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Delete", "InfoSections", new { id = Model.SectionId }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

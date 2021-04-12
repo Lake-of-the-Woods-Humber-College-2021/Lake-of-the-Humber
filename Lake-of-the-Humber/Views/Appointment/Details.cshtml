@@ -1,0 +1,66 @@
+﻿@model Lake_of_the_Humber.Models.ViewModels.ShowAppointment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Appointment #@Model.appointment.AppId</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.appointment.AppMethod)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.appointment.AppMethod)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.appointment.AppPurpose)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.appointment.AppPurpose)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.appointment.AppDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.appointment.DAppDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.appointment.AppTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.appointment.AppTime)
+        </dd>
+
+        <dt>
+            Doctor Information
+        </dt>
+
+        <dd>
+            Dr. @Model.staffInfo.StaffFirstName @Model.staffInfo.StaffLastName [ ID: @Model.staffInfo.StaffId ]
+        </dd>
+
+        <dt>
+            Patient Information
+        </dt>
+
+        <dd>
+            @Model.userInfo.UserName [ID: @Model.userInfo.Id ]
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.appointment.AppId }) |
+    @Html.ActionLink("Back to List", "List")
+</p>
