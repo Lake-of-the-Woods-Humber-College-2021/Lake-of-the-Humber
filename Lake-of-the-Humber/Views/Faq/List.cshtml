@@ -6,9 +6,11 @@
     ViewBag.Title = "List Faqs";
 }
 <h1>FAQs:</h1>
-<button>
-    @Html.ActionLink("Add New", "Create")
+<button  type="button" class="btn btn-outline-primary" >
+    @Html.ActionLink("Add FAQ", "Create")
 </button>
+@*<a class="btn btn-primary" href=' @Html.ActionLink("Add FAQ", "Create")' role="button">Add FAQ</a>*@
+<br/>
 @foreach (var faqitem in Model)
 {
     <a href="/faq/Details/@faqitem.FaqId">

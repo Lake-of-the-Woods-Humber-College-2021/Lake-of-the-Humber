@@ -1,0 +1,17 @@
+﻿@model Lake_of_the_Humber.Models.ViewModels.ShowVolunteer
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details @Model.Volunteer.VolunteerId</h2>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Volunteer.VolunteerTitle</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.Volunteer.VolunteerDate</h6>
+        <p class="card-text">@Model.Volunteer.VolunteerDescription</p>
+        <a href="/volunteer/List" class="card-link"> @Html.ActionLink("List", "List", new { id = Model.Volunteer.VolunteerId })</a>
+        <a href="#" class="card-link"> @Html.ActionLink("Update", "Edit", new { id = Model.Volunteer.VolunteerId })</a>
+        <a href="#" class="card-link"> @Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.Volunteer.VolunteerId })</a>
+    </div>
+</div>

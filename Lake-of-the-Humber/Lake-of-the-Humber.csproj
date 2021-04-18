@@ -52,10 +52,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -178,12 +178,28 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AppointmentController.cs" />
+    <Compile Include="Controllers\AppointmentDataController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DepartmentDataController.cs" />
+    <Compile Include="Controllers\FaqController.cs" />
+    <Compile Include="Controllers\FaqDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InfoSectionsController.cs" />
+    <Compile Include="Controllers\InfoSectionsDataController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\InvoiceDataController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\OrderDataController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductDataController.cs" />
+    <Compile Include="Controllers\StaffInfoController.cs" />
+    <Compile Include="Controllers\StaffInfoDataController.cs" />
+    <Compile Include="Controllers\VolunteerController.cs" />
+    <Compile Include="Controllers\VolunteerDataController.cs" />
+    <Compile Include="Controllers\WellWishesController.cs" />
+    <Compile Include="Controllers\WellWishesDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -195,16 +211,52 @@
     <Compile Include="Migrations\202104071843240_Orders.designer.cs">
       <DependentUpon>202104071843240_Orders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104121649419_merger with rebuilds.cs" />
+    <Compile Include="Migrations\202104121649419_merger with rebuilds.Designer.cs">
+      <DependentUpon>202104121649419_merger with rebuilds.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104172125253_volunteer table + id model.cs" />
+    <Compile Include="Migrations\202104172125253_volunteer table + id model.Designer.cs">
+      <DependentUpon>202104172125253_volunteer table + id model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104172301240_volunteer viewmodel.cs" />
+    <Compile Include="Migrations\202104172301240_volunteer viewmodel.Designer.cs">
+      <DependentUpon>202104172301240_volunteer viewmodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104180026163_viewmodel update.cs" />
+    <Compile Include="Migrations\202104180026163_viewmodel update.Designer.cs">
+      <DependentUpon>202104180026163_viewmodel update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Appointment.cs" />
+    <Compile Include="Models\Department.cs" />
+    <Compile Include="Models\Faq.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InfoSection.cs" />
+    <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\LatestPost.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\StaffInfo.cs" />
+    <Compile Include="Models\ViewModels\ListAppointment.cs" />
+    <Compile Include="Models\ViewModels\ShowAppointment.cs" />
+    <Compile Include="Models\ViewModels\ShowFaq.cs" />
+    <Compile Include="Models\ViewModels\ShowInvoice.cs" />
     <Compile Include="Models\ViewModels\ShowProduct.cs" />
+    <Compile Include="Models\ViewModels\ShowVolunteer.cs" />
+    <Compile Include="Models\ViewModels\UpdateAppointment.cs" />
+    <Compile Include="Models\ViewModels\UpdateFaq.cs" />
+    <Compile Include="Models\ViewModels\UpdateInvoice.cs" />
     <Compile Include="Models\ViewModels\UpdateOrder.cs" />
     <Compile Include="Models\ViewModels\UpdateProduct.cs" />
+    <Compile Include="Models\ViewModels\UpdateVolunteer.cs" />
+    <Compile Include="Models\ViewModel\ShowDepartment.cs" />
+    <Compile Include="Models\ViewModel\ShowStaff.cs" />
+    <Compile Include="Models\ViewModel\UpdateDepartment.cs" />
+    <Compile Include="Models\ViewModel\UpdateStaff.cs" />
+    <Compile Include="Models\Volunteer.cs" />
     <Compile Include="Models\WellWish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -236,12 +288,12 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-grid.min.css.map" />
     <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.6.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
@@ -381,12 +433,51 @@
     <Content Include="Views\Order\Edit.cshtml" />
     <Content Include="Views\Order\Error.cshtml" />
     <Content Include="Views\Order\List.cshtml" />
+    <Content Include="Views\Appointment\Create.cshtml" />
+    <Content Include="Views\Appointment\DeleteConfirm.cshtml" />
+    <Content Include="Views\Appointment\Details.cshtml" />
+    <Content Include="Views\Appointment\Edit.cshtml" />
+    <Content Include="Views\Appointment\Error.cshtml" />
+    <Content Include="Views\Appointment\List.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\List.cshtml" />
+    <Content Include="Views\Faq\Create.cshtml" />
+    <Content Include="Views\Faq\DeleteConfirm.cshtml" />
+    <Content Include="Views\Faq\Details.cshtml" />
+    <Content Include="Views\Faq\Edit.cshtml" />
+    <Content Include="Views\Faq\List.cshtml" />
+    <Content Include="Views\InfoSections\Create.cshtml" />
+    <Content Include="Views\InfoSections\DeleteConfirm.cshtml" />
+    <Content Include="Views\InfoSections\Details.cshtml" />
+    <Content Include="Views\InfoSections\Edit.cshtml" />
+    <Content Include="Views\InfoSections\List.cshtml" />
+    <Content Include="Views\Invoice\Create.cshtml" />
+    <Content Include="Views\Invoice\DeleteConfirm.cshtml" />
+    <Content Include="Views\Invoice\Details.cshtml" />
+    <Content Include="Views\Invoice\Edit.cshtml" />
+    <Content Include="Views\Invoice\Error.cshtml" />
+    <Content Include="Views\Invoice\List.cshtml" />
+    <Content Include="Views\StaffInfo\Create.cshtml" />
+    <Content Include="Views\StaffInfo\DeleteConfirm.cshtml" />
+    <Content Include="Views\StaffInfo\Details.cshtml" />
+    <Content Include="Views\StaffInfo\Edit.cshtml" />
+    <Content Include="Views\StaffInfo\List.cshtml" />
+    <Content Include="Views\WellWishes\Create.cshtml" />
+    <Content Include="Views\WellWishes\DeleteConfirm.cshtml" />
+    <Content Include="Views\WellWishes\Details.cshtml" />
+    <Content Include="Views\WellWishes\List.cshtml" />
+    <Content Include="Views\Volunteer\List.cshtml" />
+    <Content Include="Views\Volunteer\Details.cshtml" />
+    <Content Include="Views\Volunteer\DeleteConfirm.cshtml" />
+    <Content Include="Views\Volunteer\Create.cshtml" />
+    <Content Include="Views\Volunteer\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Cart\" />
     <Folder Include="Views\OrderData\" />
     <Folder Include="Views\ProductData\" />
+    <Folder Include="Views\VolunteerData\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
@@ -404,6 +495,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104071843240_Orders.resx">
       <DependentUpon>202104071843240_Orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104121649419_merger with rebuilds.resx">
+      <DependentUpon>202104121649419_merger with rebuilds.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104172125253_volunteer table + id model.resx">
+      <DependentUpon>202104172125253_volunteer table + id model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104172301240_volunteer viewmodel.resx">
+      <DependentUpon>202104172301240_volunteer viewmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104180026163_viewmodel update.resx">
+      <DependentUpon>202104180026163_viewmodel update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

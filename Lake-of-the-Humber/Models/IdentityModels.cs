@@ -64,6 +64,11 @@ namespace Lake_of_the_Humber.Models
         public DbSet<WellWish> WellWishes { get; set; }
 
         /// <summary>
+        /// This is the model that is linked to the Wellwishes
+        /// </summary>
+        public DbSet<Volunteer> Volunteers { get; set; }
+
+        /// <summary>
         /// This is the model that is linked to Staffs
         /// </summary>
         public DbSet<StaffInfo> StaffInfoes { get; set; }
@@ -93,7 +98,7 @@ namespace Lake_of_the_Humber.Models
         /// This is the model that is linked to Invoices
         /// </summary>
         public DbSet<Invoice> Invoices { get; set; }
-
+        public DbSet<Faq> Faqs { get; set; }
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
