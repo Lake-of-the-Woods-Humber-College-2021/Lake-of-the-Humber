@@ -279,7 +279,7 @@ namespace Lake_of_the_Humber.Controllers
         /// <returns>status code of 200 OK</returns>
         [HttpGet]
         [Route("api/orderdata/order/{productid}/{orderid}")]
-        public IHttpActionResult Injury(int productid, int orderid)
+        public IHttpActionResult Order(int productid, int orderid)
         {
             //First select the Order (also loading in product data)
             Order SelectedOrder = db.Orders
@@ -297,7 +297,7 @@ namespace Lake_of_the_Humber.Controllers
             }
             else
             {
-                //Add the injury from the product
+                //Add the order from the product
                 SelectedOrder.Products.Add(SelectedProduct);
                 db.SaveChanges();
                 return Ok();

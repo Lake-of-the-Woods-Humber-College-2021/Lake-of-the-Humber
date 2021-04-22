@@ -4,47 +4,51 @@
     ViewBag.Title = "View";
 }
 
-<h2>View</h2>
+<h2>Products</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductDescription)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.ProductID })
-
-            </td>
-
-            
-        </tr>
+<div class="paginate">
+    @{
+        int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+        int NextPage = Convert.ToInt32(ViewData["PageNum"]) + 1;
+        @Html.ActionLink("Prev", "List", new { PageNum = PrevPage })
+        @ViewData["PageSummary"]
+        @Html.ActionLink("Next", "List", new { PageNum = NextPage })
     }
+</div>
+<div class="record-container">
+    @foreach (var product in Model)
+    {
+        <div class="record">
+            <div class="_record">
+                @{
+                    //Use server rendering to determine an image
+                    string pic = "/Content/Products/default.jpg";
+                    string alt = "No Profile Picture Provided.";
+                    if (product.ProductHasPic)
+                    {
+                        pic = "/Content/Products/" + product.ProductID + "." + product.ProductPicExtension;
+                        alt = "Profile shot of " + product.ProductName;
+                    }
+                }
+                <nav class="linknav">
+                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = product.ProductID })</span>
+                </nav>
+                <div class="imagecontainer">
+                    <a data-lightbox="product-@product.ProductID" href="@pic" data-title="@alt">
+                        <img src="@pic" alt="@alt" />
+                    </a>
+                </div>
+                <div class="recordtitle">
+                    @Html.ActionLink(product.ProductName,
+                   "Details",
+                   new { id = product.ProductID })
+                </div>
 
-</table>
+
+            </div>
+        </div>
+    }
+</div>
