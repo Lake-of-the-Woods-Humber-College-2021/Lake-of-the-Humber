@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Lake_of_the_Humber.Models.WellWishDto>
+
+@{
+    ViewBag.Title = "Well Wishes";
+}
+
+<h2>Well Wishes</h2>
+
+<p>
+    @Html.ActionLink("Send Well Wishes", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RoomNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceiverName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsReceived)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReceiverName)
+        </td>
+        <td>
+            @if (item.IsReceived == true)
+            {
+                @Html.Encode("Yes")
+            }
+            else
+            {
+                @Html.Encode("No")
+            }
+        </td>
+        <td>
+            @Html.ActionLink("View Message", "Details", new { id=item.WishId }) |
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.WishId })
+        </td>
+    </tr>
+}
+
+</table>

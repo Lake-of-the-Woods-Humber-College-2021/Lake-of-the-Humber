@@ -1,0 +1,18 @@
+﻿@model Lake_of_the_Humber.Models.ViewModels.ShowFaq
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details @Model.Faq.FaqId</h2>
+
+<div class="card" style="width: 18rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Faq.Question</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.Faq.FaqDate</h6>
+        <p class="card-text">@Model.Faq.Answer</p>
+        <a href="/faq/List" class="card-link"> @Html.ActionLink("List", "List", new { id = Model.Faq.FaqId })</a>
+        <a href="#" class="card-link"> @Html.ActionLink("Update", "Edit", new { id = Model.Faq.FaqId })</a>
+        <a href="#" class="card-link"> @Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.Faq.FaqId })</a>
+</div>
+</div>

@@ -1,0 +1,77 @@
+﻿@model Lake_of_the_Humber.Models.InvoiceDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+
+<h2>Are you sure you want to delete Invoice #@Model.InvoiceId</h2>
+
+<h3>Warning: This action cannot be reversed.</h3>
+@Html.ActionLink("Cancel", "List")
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceDesc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceDesc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InvoiceCost)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InvoiceCost)
+        </dd>
+
+        <dt>
+            Payment Status
+        </dt>
+
+        <dd>
+            @if (Convert.ToBoolean(Model.IsPaid) != true)
+            {
+                <p> Outstanding Payment </p>
+            }
+            else
+            {
+                <p> Paid </p>
+            }
+        </dd>
+        <dt>
+            Patient Information
+        </dt>
+        <dd>
+            @Model.UserId
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Invoice", new { id = Model.InvoiceId } )) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "List")
+        </div>
+    }
+</div>
