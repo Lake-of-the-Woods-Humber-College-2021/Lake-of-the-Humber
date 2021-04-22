@@ -78,8 +78,8 @@ Views -> WellWishes/
 #### Description
 -A list of products that are sold in the Gift Shop. CRUD on products.
 
-#### What's Next
--Image Upload, so users can see the images of the products.
+New Additions
+-Image upload on products and admin authorization for products. Only admin are allowed to preform CRUD on products.
 
 #### Files
 
