@@ -24,6 +24,8 @@ namespace Lake_of_the_Humber.Models
         //A department can place many staffs
         public ICollection<StaffInfo> Staffs { get; set; }
 
+        //A department can have many infomration sections related to them
+        public ICollection<InfoSection> InfoSections { get; set; }
     }
 
     public class DepartmentDto

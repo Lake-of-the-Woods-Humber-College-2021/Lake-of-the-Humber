@@ -156,7 +156,7 @@ namespace Lake_of_the_Humber.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            Debug.WriteLine("2. DepartmentId:-- " + Section.DepartmentId);
             InfoSection InfoSection = new InfoSection()
             {
                 SectionTitle = Section.SectionTitle,
@@ -166,7 +166,8 @@ namespace Lake_of_the_Humber.Controllers
                 LinkBtnName = Section.LinkBtnName,
                 SectionImageExt = Section.SectionImageExt,
                 IsArchive = Section.IsArchive,
-                CreatorId = Section.CreatorId
+                CreatorId = Section.CreatorId,
+                DepartmentId = Int32.Parse(Section.DepartmentId)
             };
 
             db.InfoSections.Add(InfoSection);
@@ -228,6 +229,28 @@ namespace Lake_of_the_Humber.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+
+        [ResponseType(typeof(InfoSectionDto))]
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult FindDepartmentForSection(int id)
+        {
+            Department Department = db.Departments.Where(dep => dep.InfoSections.Any(section => section.SectionId == id)).FirstOrDefault(); ;
+
+            //if not found, return 404 status code.
+            if (Department == null)
+            {
+                return NotFound();
+            }
+
+            DepartmentDto DepartmentDto = new DepartmentDto
+            {
+                DepartmentId = Department.DepartmentId,
+                DepartmentName = Department.DepartmentName
+            };
+            return Ok(DepartmentDto);
         }
 
         protected override void Dispose(bool disposing)

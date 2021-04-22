@@ -1,4 +1,5 @@
 ﻿using Lake_of_the_Humber.Models;
+using Lake_of_the_Humber.Models.ViewModels.InfoSections;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -87,13 +88,19 @@ namespace Lake_of_the_Humber.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            return View();
+            UpdateInfoSection ViewModel = new UpdateInfoSection();
+            string url = "DepartmentData/GetDepartments";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<DepartmentDto> PotentialDepartments = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+            ViewModel.allDepartments = PotentialDepartments;
+            return View(ViewModel);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult Create(InfoSectionDto Section)
         {
+            Debug.WriteLine("1.DepartmentId:-- " + Section.DepartmentId);
             GetApplicationCookie();
             Section.CreatorId = User.Identity.GetUserId();
             string url = "InfoSectionsData/AddSection";
