@@ -52,9 +52,10 @@ namespace Lake_of_the_Humber.Controllers
         /// </summary>
         /// <returns>A list of all sections and their information.</returns>
         /// <example>
-        /// GET : api/InfoSectionsData/GetAllSections
+        /// GET : api/InfoSectionsData/;
         /// </example>
         [ResponseType(typeof(IEnumerable<InfoSectionDto>))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetAllSections()
         {
             List<InfoSection> InfoSections = db.InfoSections.ToList();
@@ -89,6 +90,7 @@ namespace Lake_of_the_Humber.Controllers
         /// GET: api/InfoSectionsData/GetSection/5
         /// </example>
         [ResponseType(typeof(InfoSectionDto))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetSection(int id)
         {
             InfoSection InfoSection = db.InfoSections.Find(id);
@@ -120,6 +122,7 @@ namespace Lake_of_the_Humber.Controllers
         /// POST: api/InfoSectionsData/DeleteSection/5
         /// </example>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteSection(int id)
         {
             InfoSection InfoSection = db.InfoSections.Find(id);
@@ -146,6 +149,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(int))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult AddSection([FromBody] InfoSectionDto Section)
         {
             if (!ModelState.IsValid)
@@ -182,6 +186,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(InfoSectionDto))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateSection(int id, [FromBody] InfoSectionDto Section)
         {
             if (!ModelState.IsValid)

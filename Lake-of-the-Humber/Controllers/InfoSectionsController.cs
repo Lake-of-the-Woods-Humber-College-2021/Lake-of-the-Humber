@@ -20,7 +20,8 @@ namespace Lake_of_the_Humber.Controllers
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                UseCookies = false 
             };
             client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44336/api/");
@@ -48,9 +49,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         // GET: WellWishes/List
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/GetAllSections";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
@@ -64,9 +66,10 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/GetSection/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
@@ -81,16 +84,17 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(InfoSectionDto Section)
         {
+            GetApplicationCookie();
             Section.CreatorId = User.Identity.GetUserId();
             string url = "InfoSectionsData/AddSection";
             HttpContent content = new StringContent(jss.Serialize(Section));
@@ -110,9 +114,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/GetSection/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
@@ -127,9 +132,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/DeleteSection/" + id;
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -144,10 +150,10 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-
+            GetApplicationCookie();
             string url = "InfoSectionsData/GetSection/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
@@ -163,9 +169,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, InfoSectionDto Section)
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/UpdateSection/" + id;
             HttpContent content = new StringContent(jss.Serialize(Section));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

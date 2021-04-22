@@ -40,6 +40,7 @@ namespace Lake_of_the_Humber.Controllers
                     ReceiverName = Wish.ReceiverName,
                     CreatedDate = Wish.CreatedDate,
                     IsReceived = Wish.IsReceived,
+                    CreatorName = Wish.User.FirstName + " " + Wish.User.LastName
                     // ReceivedDate = Wish.ReceivedDate
                 };
 
@@ -72,6 +73,7 @@ namespace Lake_of_the_Humber.Controllers
                     ReceiverName = Wish.ReceiverName,
                     CreatedDate = Wish.CreatedDate,
                     IsReceived = Wish.IsReceived,
+                    CreatorName = Wish.User.FirstName + " " + Wish.User.LastName
                     // ReceivedDate = Wish.ReceivedDate
                 };
 
@@ -105,7 +107,8 @@ namespace Lake_of_the_Humber.Controllers
                 CreatedDate = Wish.CreatedDate,
                 IsReceived = Wish.IsReceived,
                 ReceivedDate = Wish.ReceivedDate,
-                CreatorId = Wish.CreatorId
+                CreatorId = Wish.CreatorId,
+                CreatorName = Wish.User.FirstName + " " + Wish.User.LastName
             };
             return Ok(WellWishDto);
         }
@@ -119,6 +122,7 @@ namespace Lake_of_the_Humber.Controllers
         /// POST: api/WellWishesData/DeleteWish/5
         /// </example>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteWish(int id)
         {
             WellWish Wish = db.WellWishes.Find(id);
@@ -179,6 +183,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(InfoSectionDto))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateWish(int id, [FromBody] WellWishDto Wish)
         {
             Debug.WriteLine(Wish.ReceiverName);
@@ -221,8 +226,6 @@ namespace Lake_of_the_Humber.Controllers
                     throw;
                 }
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
         }
 
 

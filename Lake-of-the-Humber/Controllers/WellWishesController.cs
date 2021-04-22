@@ -1,4 +1,5 @@
 ﻿using Lake_of_the_Humber.Models;
+using Lake_of_the_Humber.Models.ViewModels.WellWishes;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,8 @@ namespace Lake_of_the_Humber.Controllers
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                UseCookies = false
             };
             client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44336/api/");
@@ -55,12 +57,26 @@ namespace Lake_of_the_Humber.Controllers
         [Authorize]
         public ActionResult List()
         {
-            string url = "WellWishesData/GetAllWellWishes";
+            ListWishes ViewModel = new ListWishes();
+            string url;
+
+            ViewModel.isadmin = User.IsInRole("Admin");
+            if (User.IsInRole("Admin"))
+            {
+                GetApplicationCookie();
+                url = "WellWishesData/GetAllWellWishes";
+            }else  
+            {
+                url = $"WellWishesData/GetUserWellWishes/{User.Identity.GetUserId()}";
+            }
+    
             HttpResponseMessage response = client.GetAsync(url).Result;
+            
             if (response.IsSuccessStatusCode)
             {
                 IEnumerable<WellWishDto> AllWellWishes = response.Content.ReadAsAsync<IEnumerable<WellWishDto>>().Result;
-                return View(AllWellWishes);
+                ViewModel.wishes = AllWellWishes;
+                return View(ViewModel);
             }
             else
             {
@@ -114,7 +130,7 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "WellWishesData/GetWish/" + id;
@@ -131,9 +147,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "WellWishesData/DeleteWish/" + id;
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -148,15 +165,17 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-
             // GET Wish Details
             string url = "WellWishesData/GetWish/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             if (response.IsSuccessStatusCode)
             {
+                GetApplicationCookie();
                 WellWishDto SelectedWish = response.Content.ReadAsAsync<WellWishDto>().Result;
                 string editUrl = "WellWishesData/UpdateWish/" + id;
                 HttpContent content = new StringContent(jss.Serialize(SelectedWish));
