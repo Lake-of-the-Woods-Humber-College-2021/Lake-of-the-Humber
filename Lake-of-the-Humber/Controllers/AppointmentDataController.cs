@@ -74,7 +74,7 @@ namespace Lake_of_the_Humber.Controllers
             {
                 StaffInfoDto NewStaff = new StaffInfoDto
                 {
-                    StaffId = Staff.SatffId,
+                    StaffID = Staff.StaffID,
                     StaffFirstName = Staff.StaffFirstName,
                     StaffLastName = Staff.StaffLastName
                     //DepartmentId = Staff.DepartmentId, (DepartmentId not defined in StaffInfoDto)
@@ -143,7 +143,7 @@ namespace Lake_of_the_Humber.Controllers
 
             StaffInfoDto StaffInfoDto = new StaffInfoDto
             {
-                StaffId = Staff.SatffId,
+                StaffID = Staff.StaffID,
                 StaffFirstName = Staff.StaffFirstName,
                 StaffLastName = Staff.StaffLastName
             };
