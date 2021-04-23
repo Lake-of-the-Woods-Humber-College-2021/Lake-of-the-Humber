@@ -43,7 +43,7 @@ Varsity:- https://github.com/christinebittle/varsity_mvp
 - A user can create, delete, update, read the information section
 - Authentication based on user roles
 - MVP Feedback Incoperated: Linked Departments to infosections
-- Helped everyone to fix their issues
+- Managed GitHub Repo and Helped everyone to fix their issues
 
 #### What's Next
 - showing information section on homepage
@@ -63,8 +63,8 @@ Views -> InfoSections/
 #### Description
 - A user can send(create), read, update, delete wellwishes
 - Authentication based on user roles
+- listing only the wellwishes created by the user for loggedin user & all wellwishes for admin.
 - Pagination
-- Managed GitHub Repo 
 
 #### What's Next
 - Email Notification for user once well wish is delivered.
