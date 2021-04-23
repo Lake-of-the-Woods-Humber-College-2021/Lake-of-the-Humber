@@ -63,5 +63,11 @@ namespace Lake_of_the_Humber.Models
         
         [DisplayName("Department")]
         public string DepartmentId { get; set; }
+
+        [DisplayName("Creator Name")]
+        public string CreatorName { get; set; }
+
+        [DisplayName("Department Name")]
+        public string DepartmentName { get; set; }
     }
 }

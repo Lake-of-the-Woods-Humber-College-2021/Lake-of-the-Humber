@@ -39,7 +39,9 @@ namespace Lake_of_the_Humber.Controllers
                     PriorityNumber = Section.PriorityNumber,
                     Link = Section.Link,
                     LinkBtnName = Section.LinkBtnName,
-                    SectionImageExt = Section.SectionImageExt
+                    SectionImageExt = Section.SectionImageExt,
+                    CreatorName = Section.User.FirstName + " " + Section.User.LastName,
+                    DepartmentName = Section.Department.DepartmentName
                 };
 
                 InfoSectionsDtos.Add(NewSection);
@@ -52,7 +54,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </summary>
         /// <returns>A list of all sections and their information.</returns>
         /// <example>
-        /// GET : api/InfoSectionsData/;
+        /// GET : api/InfoSectionsData/GetAllSections;
         /// </example>
         [ResponseType(typeof(IEnumerable<InfoSectionDto>))]
         [Authorize(Roles = "Admin")]
@@ -73,7 +75,9 @@ namespace Lake_of_the_Humber.Controllers
                     LinkBtnName = Section.LinkBtnName,
                     SectionImageExt = Section.SectionImageExt,
                     IsArchive = Section.IsArchive,
-                    CreatorId = Section.CreatorId
+                    CreatorId = Section.CreatorId,
+                    CreatorName = Section.User.FirstName + " " + Section.User.LastName,
+                    DepartmentName = Section.Department.DepartmentName
                 };
 
                 InfoSectionsDtos.Add(NewSection);
@@ -156,7 +160,7 @@ namespace Lake_of_the_Humber.Controllers
             {
                 return BadRequest(ModelState);
             }
-            Debug.WriteLine("2. DepartmentId:-- " + Section.DepartmentId);
+
             InfoSection InfoSection = new InfoSection()
             {
                 SectionTitle = Section.SectionTitle,
@@ -208,7 +212,8 @@ namespace Lake_of_the_Humber.Controllers
                 LinkBtnName = Section.LinkBtnName,
                 SectionImageExt = Section.SectionImageExt,
                 IsArchive = Section.IsArchive,
-                CreatorId = Section.CreatorId
+                CreatorId = Section.CreatorId,
+                DepartmentId = Int32.Parse(Section.DepartmentId)
             };
 
             db.Entry(InfoSection).State = EntityState.Modified;
@@ -231,9 +236,17 @@ namespace Lake_of_the_Humber.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-
+        /// <summary>
+        /// Finds a particular Department in the database given a section id with a 200 status code. If the Department is not found, return 404.
+        /// </summary>
+        /// <param name="id">The Department id</param>
+        /// <param name="Section">A Section object. Received as POST data.</param>
+        /// <returns>Information about the Department: DepartmentId, DepartmentName </returns>
+        // <example>
+        // GET: api/InfoSectionsData/FindDepartmentForSection/1
+        // </example>
         [ResponseType(typeof(InfoSectionDto))]
-        [HttpPost]
+        [HttpGet]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult FindDepartmentForSection(int id)
         {

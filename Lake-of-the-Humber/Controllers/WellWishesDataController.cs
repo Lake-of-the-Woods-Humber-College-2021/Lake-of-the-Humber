@@ -22,12 +22,13 @@ namespace Lake_of_the_Humber.Controllers
         /// </summary>
         /// <returns>A list containing wellwishes and their information.</returns>
         /// <example>
-        /// GET : api/WellWishesData/GetAllWellWishes
+        /// GET : api/WellWishesData/GetAllWellWishes/20/5
         /// </example>
         [ResponseType(typeof(IEnumerable<InfoSectionDto>))]
-        public IHttpActionResult GetAllWellWishes()
+        [Route("api/WellWishesData/GetAllWellWishes/{StartIndex}/{PerPage}")]
+        public IHttpActionResult GetAllWellWishes(int StartIndex, int PerPage)
         {
-            List<WellWish> WellWishes = db.WellWishes.ToList();
+            List<WellWish> WellWishes = db.WellWishes.OrderBy(ww => ww.WishId).Skip(StartIndex).Take(PerPage).ToList();
             List<WellWishDto> WellWishesDtos = new List<WellWishDto> { };
 
             foreach (var Wish in WellWishes)
@@ -50,17 +51,33 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         /// <summary>
+        /// Gets the count of wellwishes in the database alongside a status code (200 OK).
+        /// </summary>
+        /// <returns>An integer showing the count of wishes.</returns>
+        /// <example>
+        /// GET: api/WellWishesData/GetAllWishesCount
+        /// </example>
+        [ResponseType(typeof(int))]
+        public IHttpActionResult GetAllWishesCount()
+        {
+            // Get all public Statistics
+            var count = db.WellWishes.ToList().Count();
+            return Ok(count);
+        }
+
+
+        /// <summary>
         /// Gets a list of wellwishes created by the logged-in user in the database alongside a status code (200 OK).
         /// </summary>
         /// <returns>A list containing wellwishes and their information.</returns>
         /// <example>
-        /// GET : api/WellWishesData/GetUserWellWishes
+        /// GET : api/WellWishesData/GetUserWellWishes/1743c536-aaed-4c36-8363-d521dbfaee16/20/5
         /// </example>
-        [Route("api/WellWishesData/GetUserWellWishes/{CreatorId}")]
+        [Route("api/WellWishesData/GetUserWellWishes/{CreatorId}/{StartIndex}/{PerPage}")]
         [ResponseType(typeof(IEnumerable<WellWishDto>))]
-        public IHttpActionResult GetUserWellWishes(string CreatorId)
+        public IHttpActionResult GetUserWellWishes(string CreatorId, int StartIndex, int PerPage)
         {
-            List<WellWish> WellWishes = db.WellWishes.Where(wish => wish.CreatorId == CreatorId).ToList();
+            List<WellWish> WellWishes = db.WellWishes.Where(wish => wish.CreatorId == CreatorId).OrderBy(ww => ww.WishId).Skip(StartIndex).Take(PerPage).ToList();
             List<WellWishDto> WellWishesDtos = new List<WellWishDto> { };
 
             foreach (var Wish in WellWishes)
@@ -81,6 +98,23 @@ namespace Lake_of_the_Humber.Controllers
             }
             return Ok(WellWishesDtos);
         }
+
+        /// <summary>
+        /// Gets the count of wellwishes created by user in the database alongside a status code (200 OK).
+        /// </summary>
+        /// <returns>An integer showing the count of wishes.</returns>
+        /// <example>
+        /// GET: api/WellWishesData/GetUserWishesCount/1743c536-aaed-4c36-8363-d521dbfaee16
+        /// </example>
+        [ResponseType(typeof(int))]
+        [Route("api/WellWishesData/GetUserWishesCount/{CreatorId}")]
+        public IHttpActionResult GetUserWishesCount(string CreatorId)
+        {
+            // Get all public Statistics
+            var count = db.WellWishes.Where(wish => wish.CreatorId == CreatorId).ToList().Count();
+            return Ok(count);
+        }
+
 
         /// <summary>
         /// Finds a particular wellwish in the database with a 200 status code. If the wellwish is not found, return 404.
