@@ -23,6 +23,10 @@ namespace Lake_of_the_Humber.Models
         [ForeignKey("User")]
         public string CreatorId { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+        [ForeignKey("Department")]
+        public int DepartmentId { get; set; }
+        public virtual Department Department { get; set; }
     }
 
     public class InfoSectionDto
@@ -56,5 +60,14 @@ namespace Lake_of_the_Humber.Models
         [DisplayName("Archive")]
         public bool IsArchive { get; set; }
         public string CreatorId { get; set; }
+        
+        [DisplayName("Department")]
+        public string DepartmentId { get; set; }
+
+        [DisplayName("Creator Name")]
+        public string CreatorName { get; set; }
+
+        [DisplayName("Department Name")]
+        public string DepartmentName { get; set; }
     }
 }
