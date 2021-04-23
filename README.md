@@ -1,7 +1,7 @@
 # Lake-of-the-Humber
 Northern Ontario Hospital Website Redesign
 
-# Lake of the Humber: MVP Submission - 09/04/2020
+# Lake of the Humber
 
 ## Team Members
 1. Choo 
@@ -41,33 +41,39 @@ Varsity:- https://github.com/christinebittle/varsity_mvp
 
 #### Description
 - A user can create, delete, update, read the information section
+- Authentication based on user roles
+- MVP Feedback Incoperated: Linked Departments to infosections
+- Helped everyone to fix their issues
+
 #### What's Next
-- Authentication (based on user roles)
-- Image Upload on information section
 - showing information section on homepage
 
 #### Files
 
 Controllers -> InfoSectionsController.cs, InfoSectionsDataController.cs
 
-Models -> InfoSection.cs, WellWish.cs
+Models -> InfoSection.cs, ViewModels/InfoSections/
 
 Views -> InfoSections/
 
 ---
 
 ### CRUD 2: Well Wishes Section (Praveen)
+
 #### Description
 - A user can send(create), read, update, delete wellwishes
+- Authentication based on user roles
+- Pagination
+- Managed GitHub Repo 
+
 #### What's Next
-- Authentication (based on user roles)
 - Email Notification for user once well wish is delivered.
 
 #### Files
 
 Controllers -> WellWishesController.cs, WellWishesDataController.cs
 
-Models -> WellWish.cs
+Models ->  WellWish.cs, ViewModels/WellWishes/ 
 
 Views -> WellWishes/
 
