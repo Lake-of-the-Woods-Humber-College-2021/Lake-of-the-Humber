@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Web.Script.Serialization;
 using Lake_of_the_Humber.Models;
 using System.Net;
+using Microsoft.AspNet.Identity;
 
 namespace Lake_of_the_Humber.Controllers
 {
@@ -133,6 +134,8 @@ namespace Lake_of_the_Humber.Controllers
         {
             string AddVolunteerUrl = "VolunteerData/AddVolunteer"; //AddVolunteer model created in data controller
 
+            VolunteerInfo.CreatorId = User.Identity.GetUserId();
+
             HttpContent content = new StringContent(jss.Serialize(VolunteerInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage AddVolunteerResponse = client.PostAsync(AddVolunteerUrl, content).Result;
@@ -180,6 +183,7 @@ namespace Lake_of_the_Humber.Controllers
         public ActionResult Edit(int id, Volunteer VolunteerInfo)
         {
             string PostUpdateVolunteerUrl = "VolunteerData/UpdateVolunteer/" + id;
+            VolunteerInfo.CreatorId = User.Identity.GetUserId();
             Debug.WriteLine(VolunteerInfo);
             HttpContent content = new StringContent(jss.Serialize(VolunteerInfo));
             Debug.WriteLine(VolunteerInfo);
