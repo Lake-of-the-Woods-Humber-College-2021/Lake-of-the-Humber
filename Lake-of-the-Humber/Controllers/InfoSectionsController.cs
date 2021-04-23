@@ -1,4 +1,5 @@
 ﻿using Lake_of_the_Humber.Models;
+using Lake_of_the_Humber.Models.ViewModels.InfoSections;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,8 @@ namespace Lake_of_the_Humber.Controllers
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                UseCookies = false 
             };
             client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44336/api/");
@@ -48,9 +50,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         // GET: WellWishes/List
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/GetAllSections";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
@@ -64,9 +67,10 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/GetSection/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
@@ -81,16 +85,22 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            return View();
+            UpdateInfoSection ViewModel = new UpdateInfoSection();
+            string url = "DepartmentData/GetDepartments";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<DepartmentDto> PotentialDepartments = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+            ViewModel.allDepartments = PotentialDepartments;
+            return View(ViewModel);
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(InfoSectionDto Section)
         {
+            GetApplicationCookie();
             Section.CreatorId = User.Identity.GetUserId();
             string url = "InfoSectionsData/AddSection";
             HttpContent content = new StringContent(jss.Serialize(Section));
@@ -110,9 +120,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/GetSection/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
@@ -127,9 +138,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "InfoSectionsData/DeleteSection/" + id;
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -144,17 +156,25 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-
+            UpdateInfoSection ViewModel = new UpdateInfoSection();
+            GetApplicationCookie();
             string url = "InfoSectionsData/GetSection/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             if (response.IsSuccessStatusCode)
             {
                 InfoSectionDto SelectedSection = response.Content.ReadAsAsync<InfoSectionDto>().Result;
-                return View(SelectedSection);
+                ViewModel.section = SelectedSection;
+
+                url = "DepartmentData/GetDepartments";
+                response = client.GetAsync(url).Result;
+                IEnumerable<DepartmentDto> PotentialDepartments = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+
+                ViewModel.allDepartments = PotentialDepartments;
+                return View(ViewModel);
             }
             else
             {
@@ -163,9 +183,11 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, InfoSectionDto Section)
         {
+            GetApplicationCookie();
+            Debug.WriteLine("Section 1 " + Section.SectionTitle);
             string url = "InfoSectionsData/UpdateSection/" + id;
             HttpContent content = new StringContent(jss.Serialize(Section));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

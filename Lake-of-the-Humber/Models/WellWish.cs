@@ -49,12 +49,15 @@ namespace Lake_of_the_Humber.Models
         public DateTime CreatedDate { get; set; }
 
         public string CreatorId { get; set; }
-
+        
+        [DisplayName("Sender Name")]
+        public string CreatorName { get; set; }
 
         [DisplayName("Delivered")]
         public bool IsReceived { get; set; }
 
         [DisplayName("Received Date")]
         public Nullable<DateTime> ReceivedDate { get; set; }
+
     }
 }
