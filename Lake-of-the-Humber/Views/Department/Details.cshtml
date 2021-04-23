@@ -1,0 +1,50 @@
+﻿@model Lake_of_the_Humber.Models.ViewModels.ShowDepartment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Department</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.User.FirstName)
+            </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.department.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.department.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.department.DepartmentAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.department.DepartmentAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.department.DepartmentPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.department.DepartmentPhone)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.department.DepartmentID }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

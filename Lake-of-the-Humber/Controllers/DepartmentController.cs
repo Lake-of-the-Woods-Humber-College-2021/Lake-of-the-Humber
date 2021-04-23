@@ -1,16 +1,16 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Mvc.Html;
-using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Diagnostics;
+using System.Web;
+using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Lake_of_the_Humber.Models.ViewModels;
 using Lake_of_the_Humber.Models;
-using Lake_of_the_Humber.Models.ViewModel;
+
 namespace Lake_of_the_Humber.Controllers
 {
     public class DepartmentController : Controller
@@ -44,12 +44,12 @@ namespace Lake_of_the_Humber.Controllers
         {
             //Sending Departmentlistresponse request to data controller, if request send succeed (status code 200), a list of Department information will displayed.
             //If failed, direct to Error action (View)
-            string listDepartmenturl = "Departmentdata/getDepartments";
-            HttpResponseMessage Departmentlistresponse = client.GetAsync(listDepartmenturl).Result;
-            if (Departmentlistresponse.IsSuccessStatusCode)
+            string url = "departmentdata/getdepartments";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
             {
-                IEnumerable<DepartmentDto> SelectedDepartment = Departmentlistresponse.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
-                return View(SelectedDepartment);
+                IEnumerable<DepartmentDto> SelectedDepartments = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+                return View(SelectedDepartments);
             }
             else
             {
@@ -66,8 +66,8 @@ namespace Lake_of_the_Humber.Controllers
         public ActionResult Details(int id)
         {
             ShowDepartment ViewModel = new ShowDepartment();
-            string findDepartmenturl = "Departmentdata/findDepartment/" + id;
-            HttpResponseMessage findDepartmentresponse = client.GetAsync(findDepartmenturl).Result;
+            string finddepartmenturl = "departmentdata/finddepartment/" + id;
+            HttpResponseMessage findDepartmentresponse = client.GetAsync(finddepartmenturl).Result;
 
             if (findDepartmentresponse.IsSuccessStatusCode)
             {
@@ -76,7 +76,15 @@ namespace Lake_of_the_Humber.Controllers
                 //If failed, direct to Error action (View)
 
                 DepartmentDto SelectedDepartment = findDepartmentresponse.Content.ReadAsAsync<DepartmentDto>().Result;
-                ViewModel.Department = SelectedDepartment;
+                ViewModel.department = SelectedDepartment;
+
+                string url = "departmentdata/getstaffsfordepartment/" + id;
+                findDepartmentresponse = client.GetAsync(url).Result;
+                //Can catch the status code (200 OK, 301 REDIRECT), etc.
+                //Debug.WriteLine(response.StatusCode);
+                Debug.WriteLine(findDepartmentresponse.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result);
+                IEnumerable<StaffInfoDto> SelectedStaffs = findDepartmentresponse.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
+                ViewModel.staffInfoes = SelectedStaffs;
 
                 return View(ViewModel);
             }
@@ -110,17 +118,18 @@ namespace Lake_of_the_Humber.Controllers
             // & redirect to the  Details controller method, and add id to the url parameters
             //If failed, direct to Error action (View)
 
-            string addDepartmenturl = "DepartmentData/AddDepartment";
-
+            Debug.WriteLine(DepartmentInfo.DepartmentName);
+            string url = "departmentdata/addDepartment";
+            Debug.WriteLine(jss.Serialize(DepartmentInfo));
             HttpContent content = new StringContent(jss.Serialize(DepartmentInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage addDepartmentresponse = client.PostAsync(addDepartmenturl, content).Result;
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-            if (addDepartmentresponse.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
 
-                int DepartmentId = addDepartmentresponse.Content.ReadAsAsync<int>().Result;
-                return RedirectToAction("Details", new { id = DepartmentId });
+                int Departmentid = response.Content.ReadAsAsync<int>().Result;
+                return RedirectToAction("Details", new { id = Departmentid });
             }
             else
             {
@@ -143,14 +152,22 @@ namespace Lake_of_the_Humber.Controllers
             //If failed, direct to Error action (View)
             UpdateDepartment ViewModel = new UpdateDepartment();
 
-            string getupdateDepartmenturl = "Departmentdata/findDepartment/" + id;
-            HttpResponseMessage findDepartmentresponse = client.GetAsync(getupdateDepartmenturl).Result;
-
-            if (findDepartmentresponse.IsSuccessStatusCode)
+            string url = "departmentdata/finddepartment/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
             {
-                //Put data into DepartmentDto
-                DepartmentDto SelectedDepartment = findDepartmentresponse.Content.ReadAsAsync<DepartmentDto>().Result;
-                ViewModel.Department = SelectedDepartment;
+                //Put data into Product data transfer object
+                DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
+                ViewModel.department = SelectedDepartment;
+
+                url = "departmentdata/getstaffsfordepartment/" + id;
+                response = client.GetAsync(url).Result;
+
+                IEnumerable<StaffInfoDto> AllStaff = response.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
+                ViewModel.staffInfoes = AllStaff;
+                Debug.WriteLine(ViewModel);
 
                 return View(ViewModel);
             }
@@ -170,17 +187,14 @@ namespace Lake_of_the_Humber.Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult Edit(int id, Department DepartmentInfo)
         {
-            //Sending postupdateDepartmentresponse request to data controller (thru url string), 
-            //If request send succeed (status code 200), Please save the changes (update) the Department information.
-            // & redirect to the  Details controller method, and add id to the url parameters
-            //If failed, direct to Error action (View)
-            string postupdateDepartmenturl = "Departmentdata/updateDepartment/" + id;
-
+            Debug.WriteLine(DepartmentInfo.DepartmentName);
+            string url = "departmentdata/updatedepartment/" + id;
+            Debug.WriteLine(jss.Serialize(DepartmentInfo));
             HttpContent content = new StringContent(jss.Serialize(DepartmentInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage updateDepartmentresponse = client.PostAsync(postupdateDepartmenturl, content).Result;
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-            if (updateDepartmentresponse.IsSuccessStatusCode)
+            if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Details", new { id = id });
             }
@@ -189,6 +203,8 @@ namespace Lake_of_the_Humber.Controllers
                 return RedirectToAction("Error");
             }
         }
+
+
         /// <summary>
         /// Delete selected Department with DepartmentId
         /// </summary>
@@ -203,13 +219,14 @@ namespace Lake_of_the_Humber.Controllers
             // & redirect to the slected Department view.
             //If failed, direct to Error action (View)
 
-            string getdeleteDepartmenturl = "Departmentdata/findDepartment/" + id;
-            HttpResponseMessage getdeleteDepartmentresponse = client.GetAsync(getdeleteDepartmenturl).Result;
-
-            if (getdeleteDepartmentresponse.IsSuccessStatusCode)
+            string url = "departmentdata/finddepartment/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
             {
-                //Put data into player data transfer object
-                DepartmentDto SelectedDepartment = getdeleteDepartmentresponse.Content.ReadAsAsync<DepartmentDto>().Result;
+                //Put data into Product data transfer object
+                DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
                 return View(SelectedDepartment);
             }
             else
@@ -227,11 +244,12 @@ namespace Lake_of_the_Humber.Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult Delete(int id)
         {
-            string postdeleteDepartmenturl = "Departmentdata/deleteDepartment/" + id;
-
+            string url = "departmentdata/deletedepartment/" + id;
+            //post body is empty
             HttpContent content = new StringContent("");
-            HttpResponseMessage response = client.PostAsync(postdeleteDepartmenturl, content).Result;
-
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
 

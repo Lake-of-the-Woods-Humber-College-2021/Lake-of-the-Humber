@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Lake_of_the_Humber.Models.ViewModel.UpdateStaff>
+﻿@model IEnumerable<Lake_of_the_Humber.Models.StaffInfoDto>
 
 @{
     ViewBag.Title = "List";
@@ -6,53 +6,65 @@
 
 <h2>List</h2>
 
-<p class="btn-lg">
+<p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<!--Set the number of record per page on staffInfo controller-->
-<div class="pagination-lg text-right">
-    @{
-        int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
-        int NextPage = Convert.ToInt32(ViewData["PageNum"]) + 1;
-        @Html.ActionLink("Prev", "List", new { PageNum = PrevPage })
-        @ViewData["PageSummary"]
-        @Html.ActionLink("Next", "List", new { PageNum = NextPage })
-    }
-</div>
-<!--Next Step to display more information when click on the picture!-->
-<div class="record-container">
-    @foreach (var StaffInfo in Model)
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentID)
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.User.FirstName)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.StaffFirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffLastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffLanguage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffHasPic)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffImagePath)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
     {
-        <div class="record ">
-            <div class="_record">
-                @{
-                    //Use server rendering to determine an image
-                    string pic = "/Content/StaffInfos/default.jpg";
-                    string alt = "No StaffInfo Picture Provided.";
-                    if (StaffInfo.StaffInfo.StaffHasPic)
-                    {
-                        pic = "/Content/StaffInfoes/" + StaffInfo.StaffInfo.StaffId + "." + StaffInfo.StaffInfo.StaffImagePath;
-                        alt = "StaffInfo shot of " + StaffInfo.StaffInfo.StaffFirstName + StaffInfo.StaffInfo.StaffLastName;
-                    }
-                }
-
-                <div class="imagecontainer">
-                    <a data-lightbox="StaffInfo-@StaffInfo.StaffInfo.StaffId" href="@pic" data-title="@alt">
-                        <img src="@pic" alt="@alt" height="350" />
-                    </a>
-                </div>
-                <div class="recordtitle">
-                    @Html.ActionLink(StaffInfo.StaffInfo.StaffFirstName + StaffInfo.StaffInfo.StaffLastName,
-                   "Details",
-                   new { id = StaffInfo.StaffInfo.StaffId })
-                </div>
-                <nav class="linknav  btn">
-                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = StaffInfo.StaffInfo.StaffId })</span>
-                </nav>
-
-
-            </div>
-        </div>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentID)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffFirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffLastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffLanguage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffHasPic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffImagePath)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StaffID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StaffID }) |
+                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.StaffID })
+            </td>
+        </tr>
     }
-</div>
 
+</table>
