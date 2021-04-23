@@ -1,0 +1,54 @@
+﻿@model Lake_of_the_Humber.Models.ViewModels.UpdateOrder
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h4>Order @Model.order.OrderID</h4>
+
+<div>
+    <div>@Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.order.OrderID })</div>
+    <div style="overflow:hidden;">
+        <div style="float:left; marign-right:2%; width:49%;">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.order.OrderName)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.order.OrderName)
+                </dd>
+
+                <dt>
+                    @Html.DisplayNameFor(model => model.order.OrderMessage)
+                </dt>
+
+                <dd>
+                    @Html.DisplayFor(model => model.order.OrderMessage)
+                </dd>
+
+            </dl>
+        </div>
+        <div style="float:left; marign-right:0%; width:49%;">
+            <h4>Products Ordered:</h4>
+            <div>
+                @foreach (var product in Model.orderedproducts)
+                {
+                    <div>
+                        @Html.ActionLink(
+                        product.ProductName,
+                        "Details",
+                        "Product",
+                        new { id = product.ProductID },
+                        new { })
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.order.OrderID }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

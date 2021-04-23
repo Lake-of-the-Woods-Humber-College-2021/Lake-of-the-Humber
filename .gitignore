@@ -340,3 +340,4 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/Lake-of-the-Humber/Migrations

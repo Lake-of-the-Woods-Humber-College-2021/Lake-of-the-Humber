@@ -16,6 +16,7 @@ namespace Lake_of_the_Humber.Models
         public string SectionDescription { get; set; }
         public int PriorityNumber { get; set; }
         public string Link { get; set; }
+        public string LinkBtnName { get; set; }
         public string SectionImageExt {get; set;}
         public bool IsArchive {get; set; }
 
@@ -28,25 +29,31 @@ namespace Lake_of_the_Humber.Models
     {
         public int SectionId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter Section Title")]
+        [StringLength(50, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 2)]
         [DisplayName("Section Title")]
         public string SectionTitle { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter Section Title")]
+        [StringLength(255, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 5)]
         [DisplayName("Section Description")]
         public string SectionDescription { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Enter Priority Number")]
         [DisplayName("Priority Number")]
         public int PriorityNumber { get; set; }
 
+        [Url(ErrorMessage = "Enter Valid Link")]
         [DisplayName("Link")]
         public string Link { get; set; }
+       
+        [DisplayName("Link Button Name")]
+        public string LinkBtnName { get; set; }
 
         [DisplayName("Section Image")]
         public string SectionImageExt { get; set; }
 
-        [DisplayName("Is Archive")]
+        [DisplayName("Archive")]
         public bool IsArchive { get; set; }
         public string CreatorId { get; set; }
     }

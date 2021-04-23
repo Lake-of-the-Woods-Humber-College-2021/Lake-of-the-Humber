@@ -1,0 +1,64 @@
+﻿@model Lake_of_the_Humber.Models.ViewModels.ListAppointment
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Appointment Database</h2>
+
+<p>
+    @Html.ActionLink("Create Appointment", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Method
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Time
+        </th>
+        <th>
+            Doctor ID
+        </th>
+        <th>
+            Patient ID
+        </th>
+    </tr>
+
+@foreach (var appointment in Model.appointment) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => appointment.AppMethod)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => appointment.AppPurpose)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => appointment.DAppDate)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => appointment.AppTime)
+    </td>
+        <td>
+            @Html.DisplayFor(modelItem => appointment.StaffId)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => appointment.UserId)
+        </td>
+
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = appointment.AppId }) |
+            @Html.ActionLink("Details", "Details", new { id = appointment.AppId }) |
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id = appointment.AppId })
+        </td>
+    </tr>
+}
+
+</table>
