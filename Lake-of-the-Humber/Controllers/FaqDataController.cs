@@ -34,7 +34,8 @@ namespace Lake_of_the_Humber.Controllers
         //Retrieves All Faqs and uses list method to list them.
         public IHttpActionResult GetFaqs()//GETFAQS Faq contoller uses to generate list view
         {
-            List<Faq> Faqs = db.Faqs.ToList();
+            List<Faq> Faqs = db.Faqs.Include(faq=>faq.User).ToList();
+
             List<FaqDto> FaqDtos = new List<FaqDto> { };
 
             //We Want to send the API data so it can infact get the list and present it.
@@ -49,6 +50,8 @@ namespace Lake_of_the_Humber.Controllers
                     Answer = Faq.Answer,
                     Publish = Faq.Publish,
                     FaqDate = Faq.FaqDate,
+                    CreatorId = Faq.CreatorId
+                    //CreatorName = Faq.User.Email
 
                 };
                 FaqDtos.Add(NewFaq);
@@ -77,6 +80,10 @@ namespace Lake_of_the_Humber.Controllers
                 Answer = Faq.Answer,
                 Publish = Faq.Publish,
                 FaqDate = Faq.FaqDate,
+                CreatorId = Faq.CreatorId,
+                CreatorFname = Faq.User.FirstName,
+                CreatorLname = Faq.User.LastName
+
             };
             //return the associated info
             return Ok(FaqDto);

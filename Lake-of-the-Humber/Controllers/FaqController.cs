@@ -12,6 +12,7 @@ using System.Diagnostics;
 using System.Web.Script.Serialization;
 using Lake_of_the_Humber.Models;
 using System.Net;
+using Microsoft.AspNet.Identity;
 
 
 
@@ -129,6 +130,7 @@ namespace Lake_of_the_Humber.Controllers
         public ActionResult Create(Faq FaqInfo)
         {
             string AddFaqUrl = "FaqData/AddFaq"; //AddFaq model created in data controller
+            FaqInfo.CreatorId = User.Identity.GetUserId();
 
             HttpContent content = new StringContent(jss.Serialize(FaqInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -155,6 +157,7 @@ namespace Lake_of_the_Humber.Controllers
             UpdateFaq ViewModels = new UpdateFaq();
 
             string GetUpdateFaqUrl = "FaqData/findFaq/" + id;//locate faq by id
+
             HttpResponseMessage FindFaqResponse = client.GetAsync(GetUpdateFaqUrl).Result;
 
             if (FindFaqResponse.IsSuccessStatusCode)
@@ -177,6 +180,7 @@ namespace Lake_of_the_Humber.Controllers
         public ActionResult Edit(int id, Faq FaqInfo)
         {
             string PostUpdateFaqUrl = "FaqData/UpdateFaq/" + id;
+            FaqInfo.CreatorId = User.Identity.GetUserId();
             Debug.WriteLine(FaqInfo);
             HttpContent content = new StringContent(jss.Serialize(FaqInfo));
             Debug.WriteLine(FaqInfo);
