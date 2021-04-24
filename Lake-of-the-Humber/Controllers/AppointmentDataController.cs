@@ -12,6 +12,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using Lake_of_the_Humber.Models;
 using System.Diagnostics;
+using Microsoft.AspNet.Identity;
 
 namespace Lake_of_the_Humber.Controllers
 {
@@ -27,6 +28,7 @@ namespace Lake_of_the_Humber.Controllers
         /// GET: api/AppointmentData/GetAppointments
         /// </example>
         [ResponseType(typeof(IEnumerable<AppointmentDto>))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetAppointments()
         {
             List<Appointment> Appointments = db.Appointments.ToList();
@@ -43,17 +45,61 @@ namespace Lake_of_the_Humber.Controllers
                     DAppDate = Appointment.AppDate.ToString("MMM d yyyy"),
                     AppTime = Appointment.AppTime,
                     StaffId = Appointment.StaffId,
+                    UserId = Appointment.UserId,
+                    FirstName = Appointment.User.FirstName,
+                    LastName = Appointment.User.LastName,
+                    StaffFirstName = Appointment.StaffInfo.StaffFirstName,
+                    StaffLastName = Appointment.StaffInfo.StaffLastName,
+                    DepartmentName = Appointment.StaffInfo.DepartmentName
+                    
+                };
+                AppointmentDtos.Add(NewAppointment);
+            }
+
+            //Passes data as 200 status code
+            return Ok(AppointmentDtos);
+
+        }
+
+
+        /// <summary>
+        /// Gets a list of appointments associated with a logged in user
+        /// </summary>
+        /// <param name="id">The logged in UserId</param>
+        /// <returns>A list of appointments associated with a logged in user</returns>
+        /// <example>
+        /// GET: api/InvoiceData/GetAppointmentsForUser/abcdef-12345-ghijkl
+        /// </example>
+
+        [Authorize(Roles = "User")]
+        public IHttpActionResult GetAppointmentsForUser(string id)
+        {
+            IEnumerable<Appointment> Appointments = db.Appointments.Where(i => i.UserId == id).ToList();
+            List<AppointmentDto> AppointmentDtos = new List<AppointmentDto> { };
+
+            foreach (var Appointment in Appointments)
+            {
+                AppointmentDto NewAppointment = new AppointmentDto
+                {
+                    AppId = Appointment.AppId,
+                    AppMethod = Appointment.AppMethod,
+                    AppPurpose = Appointment.AppPurpose,
+                    AppDate = Appointment.AppDate,
+                    DAppDate = Appointment.AppDate.ToString("MMM d yyyy"),
+                    AppTime = Appointment.AppTime,
+                    StaffId = Appointment.StaffId,
+                    StaffFirstName = Appointment.StaffInfo.StaffFirstName,
+                    StaffLastName = Appointment.StaffInfo.StaffLastName,
                     UserId = Appointment.UserId
                 };
                 AppointmentDtos.Add(NewAppointment);
             }
 
-            Debug.WriteLine("Successful grabbing of list");
-            Debug.WriteLine(DateTime.Now);
             //Passes data as 200 status code
             return Ok(AppointmentDtos);
 
         }
+
 
         /// <summary>
         /// Gets a list of staff (doctors) that can be selected to book an appointment with
@@ -76,8 +122,8 @@ namespace Lake_of_the_Humber.Controllers
                 {
                     StaffId = Staff.SatffId,
                     StaffFirstName = Staff.StaffFirstName,
-                    StaffLastName = Staff.StaffLastName
-                    //DepartmentId = Staff.DepartmentId, (DepartmentId not defined in StaffInfoDto)
+                    StaffLastName = Staff.StaffLastName,
+                    DepartmentId = Staff.DepartmentId
                 };
                 StaffInfoDtos.Add(NewStaff);
             }
@@ -95,6 +141,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [HttpGet]
         [ResponseType(typeof(AppointmentDto))]
+        [Authorize(Roles = "Admin,User")]
         public IHttpActionResult FindAppointment(int id)
         {
             //Finds data
@@ -114,7 +161,13 @@ namespace Lake_of_the_Humber.Controllers
                 DAppDate = Appointment.AppDate.ToString("MMM d yyyy"),
                 AppTime = Appointment.AppTime,
                 StaffId = Appointment.StaffId,
-                UserId = Appointment.UserId
+                UserId = Appointment.UserId,
+                FirstName = Appointment.User.FirstName,
+                LastName = Appointment.User.LastName,
+                Email = Appointment.User.Email,
+                StaffFirstName = Appointment.StaffInfo.StaffFirstName,
+                StaffLastName = Appointment.StaffInfo.StaffLastName,
+                DepartmentName = Appointment.StaffInfo.DepartmentName
             };
 
             //Passes data as 200 status code
@@ -172,7 +225,10 @@ namespace Lake_of_the_Humber.Controllers
 
             ApplicationUser UserDto = new ApplicationUser
             {
-                UserName = User.UserName
+                UserName = User.UserName,
+                FirstName = User.FirstName,
+                LastName = User.LastName,
+                Email = User.Email
             };
             return Ok(UserDto);
 
@@ -190,6 +246,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Admin,User")]
         public IHttpActionResult UpdateAppointment(int id, [FromBody] Appointment appointment)
         {
             if (!ModelState.IsValid)
@@ -240,6 +297,8 @@ namespace Lake_of_the_Humber.Controllers
             {
                 return BadRequest(ModelState);
             }
+
+            appointment.UserId = User.Identity.GetUserId();
 
             db.Appointments.Add(appointment);
             db.SaveChanges();

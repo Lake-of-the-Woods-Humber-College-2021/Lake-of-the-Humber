@@ -4,10 +4,17 @@
     ViewBag.Title = "List";
 }
 
-<h2>Appointment Database</h2>
+@if (Model.isadmin)
+{
+    <h2>Appointment Database</h2>
+}
+@if (Model.isuser)
+{
+    <h2>Your Appointments</h2>
+}
 
 <p>
-    @Html.ActionLink("Create Appointment", "Create")
+        @Html.ActionLink("Book An Appointment", "Create")
 </p>
 <table class="table">
     <tr>
@@ -21,17 +28,21 @@
             Date
         </th>
         <th>
-            Time
+            Time (24hr Clock)
         </th>
         <th>
-            Doctor ID
+            Doctor
         </th>
-        <th>
-            Patient ID
-        </th>
+        @if (Model.isadmin)
+        {
+            <th>
+                Patient
+            </th>
+        }
     </tr>
 
-@foreach (var appointment in Model.appointment) {
+    @foreach (var appointment in Model.appointment)
+    {
 <tr>
     <td>
         @Html.DisplayFor(modelItem => appointment.AppMethod)
@@ -45,20 +56,28 @@
     <td>
         @Html.DisplayFor(modelItem => appointment.AppTime)
     </td>
-        <td>
-            @Html.DisplayFor(modelItem => appointment.StaffId)
+    <td>
+        Dr. @Html.DisplayFor(modelItem => appointment.StaffFirstName) @Html.DisplayFor(modelItem => appointment.StaffLastName)
 
-        </td>
+    </td>
+    @if (Model.isadmin)
+    {
         <td>
-            @Html.DisplayFor(modelItem => appointment.UserId)
+            @Html.DisplayFor(modelItem => appointment.FirstName) @Html.DisplayFor(modelItem => appointment.LastName)<br />[@Html.DisplayFor(modelItem => appointment.UserId)]
         </td>
+    }
+    <td>
 
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = appointment.AppId }) |
-            @Html.ActionLink("Details", "Details", new { id = appointment.AppId }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id = appointment.AppId })
-        </td>
-    </tr>
-}
+    <td>
+        @Html.ActionLink("Details", "Details", new { id = appointment.AppId })
+
+        @if (appointment.AppDate > DateTime.Now)
+        {
+            <span>|</span> @Html.ActionLink("Modify Appointment", "Edit", new { id = appointment.AppId })
+            <span>|</span> @Html.ActionLink("Cancel Appointment", "DeleteConfirm", new { id = appointment.AppId })
+        }
+    </td>
+</tr>
+    }
 
 </table>
