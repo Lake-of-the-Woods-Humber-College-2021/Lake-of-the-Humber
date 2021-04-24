@@ -27,9 +27,51 @@ namespace Lake_of_the_Humber.Controllers
         /// GET: api/InvoiceData/GetInvoices
         /// </example>
         [ResponseType(typeof(IEnumerable<InvoiceDto>))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetInvoices()
         {
-            List<Invoice> Invoices = db.Invoices.ToList();
+            List<Invoice> Invoices = db.Invoices.Include(i=>i.User).ToList();
+            List<InvoiceDto> InvoiceDtos = new List<InvoiceDto> { };
+
+            foreach (var Invoice in Invoices)
+            {
+                InvoiceDto NewInvoice = new InvoiceDto
+                {
+                    InvoiceId = Invoice.InvoiceId,
+                    InvoiceTitle = Invoice.InvoiceTitle,
+                    InvoiceDesc = Invoice.InvoiceDesc,
+                    InvoiceDate = Invoice.InvoiceDate,
+                    DInvoiceDate = Invoice.InvoiceDate.ToString("MMM d yyyy"),
+                    InvoiceCost = Invoice.InvoiceCost,
+                    IsPaid = Invoice.IsPaid,
+                    UserId = Invoice.UserId,
+                    FirstName = Invoice.User.FirstName,
+                    LastName = Invoice.User.LastName
+                };
+                InvoiceDtos.Add(NewInvoice);
+            }
+
+            Debug.WriteLine("Successful grabbing of list");
+            Debug.WriteLine(DateTime.Now);
+            //Passes data as 200 status code
+            return Ok(InvoiceDtos);
+
+        }
+
+
+        /// <summary>
+        /// Gets a list of invoices associated with a logged in user
+        /// </summary>
+        /// <param name="id">The logged in UserId</param>
+        /// <returns>A list of invoices associated with a logged in user</returns>
+        /// <example>
+        /// GET: api/InvoiceData/GetInvoicesForUser/abcdef-12345-ghijkl
+        /// </example>
+
+        [Authorize(Roles = "User")]
+        public IHttpActionResult GetInvoicesForUser(string id)
+        {
+            IEnumerable<Invoice> Invoices = db.Invoices.Where(i => i.UserId == id);
             List<InvoiceDto> InvoiceDtos = new List<InvoiceDto> { };
 
             foreach (var Invoice in Invoices)
@@ -48,13 +90,10 @@ namespace Lake_of_the_Humber.Controllers
                 InvoiceDtos.Add(NewInvoice);
             }
 
-            Debug.WriteLine("Successful grabbing of list");
-            Debug.WriteLine(DateTime.Now);
             //Passes data as 200 status code
             return Ok(InvoiceDtos);
 
         }
-
 
         /// <summary>
         /// Get a single invoice in database with a 200 status code. Returns 404 status code if invoice is not found
@@ -66,6 +105,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [HttpGet]
         [ResponseType(typeof(InvoiceDto))]
+        [Authorize(Roles = "Admin,User")]
         public IHttpActionResult FindInvoice(int id)
         {
             //Finds data
@@ -113,10 +153,45 @@ namespace Lake_of_the_Humber.Controllers
 
             ApplicationUser UserDto = new ApplicationUser
             {
-                UserName = User.UserName
+                UserName = User.UserName,
+                FirstName = User.FirstName,
+                LastName = User.LastName,
+                Email = User.Email
             };
             return Ok(UserDto);
 
+        }
+
+
+        /// <summary>
+        /// Gets a list of users in the database alongside a status code (200 OK)
+        /// </summary>
+        /// <returns>A list of Users in the database with their info</returns>
+        /// <example>
+        /// GET: api/InvoiceData/GetUsers
+        /// </example>
+        [ResponseType(typeof(IEnumerable<ApplicationUserDto>))]
+        public IHttpActionResult GetUsers()
+        {
+            List<ApplicationUser> Users = db.Users.ToList();
+            List<ApplicationUserDto> UserDtos = new List<ApplicationUserDto> { };
+
+            //Here you can choose which information is exposed to the API
+            foreach (var User in Users)
+            {
+                ApplicationUserDto NewUser = new ApplicationUserDto
+                {
+                    Id = User.Id,
+                    FirstName = User.FirstName,
+                    LastName = User.LastName,
+                    UserName = User.UserName,
+                    Email = User.Email
+               
+                };
+                UserDtos.Add(NewUser);
+            }
+
+            return Ok(UserDtos);
         }
 
         /// <summary>
@@ -144,6 +219,8 @@ namespace Lake_of_the_Humber.Controllers
             }
 
             db.Entry(invoice).State = EntityState.Modified;
+
+            db.Entry(invoice).Property(p => p.InvoiceDate).IsModified = false;
 
             try
             {
@@ -175,12 +252,16 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(Invoice))]
         [HttpPost]
-        public IHttpActionResult AddInvoice([FromBody] Invoice invoice)
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult AddInvoice([FromBody] Invoice invoice) //,[FromBody] ApplicationUser user)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            invoice.InvoiceDate = DateTime.Now;
+            //invoice.UserId = user.Id;
 
             db.Invoices.Add(invoice);
             db.SaveChanges();
@@ -197,6 +278,7 @@ namespace Lake_of_the_Humber.Controllers
         /// POST: api/InvoiceData/DeleteInvoice/5
         /// </example> 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteInvoice(int id)
         {
             Invoice invoice = db.Invoices.Find(id);

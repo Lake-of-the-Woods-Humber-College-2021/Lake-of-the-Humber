@@ -4,46 +4,98 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Lake of the Humber</title>
-    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <header>
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Lake of the Humber", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Well Wishes", "List", "WellWishes")</li>
-                    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Info Section", "List", "InfoSections")</li>
+            <div class="navbar-header row">
+                <p class="col-lg-8">@Html.ActionLink("Lake of the Humber", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })</p>
+                <p class="headerBtnContainer col-lg-2 d-none d-lg-block">@Html.ActionLink("Donate", "", "", new { area = "" }, new { @class = "headerBtn btn btn-primary" })</p>
+                <p class="headerBtnContainer col-lg-2 d-none d-lg-block">@Html.ActionLink("Gift Shop", "", "", new { area = "" }, new { @class = "headerBtn btn btn-primary" })</p>
 
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+            </div>
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <p>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })<span class="sr-only">(current)</span></p>
+
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">About</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Information
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <p>@Html.ActionLink("Department Directory", "List", "Department", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                    <p>@Html.ActionLink("Staff Directory", "List", "StaffInfo", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                    <p>@Html.ActionLink("Directions, Map, and Parking", "List", "InfoSections", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                    <p>@Html.ActionLink("FAQ", "List", "", new { area = "" }, new { @class = "dropdown-item" })</p>
+
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Patients & Vistors
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <p>@Html.ActionLink("Billing", "List", "Invoice", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                    <p>@Html.ActionLink("Virtual Appointment Bookings", "List", "Appointment", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                    <p>@Html.ActionLink("Virtual Giftshop", "List", "Product", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                    <p>@Html.ActionLink("Well Wishes", "List", "WellWishes", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Programs & Services
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Options to be Added</a>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <p>@Html.ActionLink("Career & Volunteer", "List", "", new { area = "" }, new { @class = "nav-link" })</p>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkLast" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Resources
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    <a class="dropdown-item" href="#">Options to be Added</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkLast" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Accounts
+                                </a>
+                                <div class="usersMenu dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                    @Html.Partial("_LoginPartial")
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
             </div>
         </div>
-    </div>
+    </header>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Created By Team 3</p>
-        </footer>
     </div>
 
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Created By Team 3 for HTTP 5204, with Professor Christine Bittle.</p>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
