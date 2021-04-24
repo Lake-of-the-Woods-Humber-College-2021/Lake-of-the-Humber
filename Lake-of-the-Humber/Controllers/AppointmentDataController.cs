@@ -49,9 +49,7 @@ namespace Lake_of_the_Humber.Controllers
                     FirstName = Appointment.User.FirstName,
                     LastName = Appointment.User.LastName,
                     StaffFirstName = Appointment.StaffInfo.StaffFirstName,
-                    StaffLastName = Appointment.StaffInfo.StaffLastName,
-                    DepartmentName = Appointment.StaffInfo.DepartmentName
-                    
+                    StaffLastName = Appointment.StaffInfo.StaffLastName
                 };
                 AppointmentDtos.Add(NewAppointment);
             }
@@ -123,7 +121,7 @@ namespace Lake_of_the_Humber.Controllers
                     StaffID = Staff.StaffID,
                     StaffFirstName = Staff.StaffFirstName,
                     StaffLastName = Staff.StaffLastName,
-                    DepartmentId = Staff.DepartmentId
+                    DepartmentID = Staff.DepartmentID
                 };
                 StaffInfoDtos.Add(NewStaff);
             }
@@ -166,8 +164,7 @@ namespace Lake_of_the_Humber.Controllers
                 LastName = Appointment.User.LastName,
                 Email = Appointment.User.Email,
                 StaffFirstName = Appointment.StaffInfo.StaffFirstName,
-                StaffLastName = Appointment.StaffInfo.StaffLastName,
-                DepartmentName = Appointment.StaffInfo.DepartmentName
+                StaffLastName = Appointment.StaffInfo.StaffLastName
             };
 
             //Passes data as 200 status code
