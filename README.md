@@ -115,7 +115,7 @@ Views -> Order/
 
 ### CRUD 5: Appointments (Daniel)
 #### Description
-- Fucntionality restricted, only logged in users can view appointments (user or admin)
+- Functionality restricted, only logged in users can view appointments (user or admin)
 - An admin can view a full list of appointments that exist
 - A user can view a list of appointments that belong to them
 - An admin/user can create an appointment by selecting a method (from dropdown), writing out a purpose, selecting a date, selecting a time (from dropdown), selecting a Staff (from dropdown)
@@ -136,7 +136,7 @@ Views -> Appointment/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, D
 
 ### CRUD 6: Invoices (Daniel)
 #### Description
-- Fucntionality restricted, only logged in users can view invoices (user or admin)
+- Functionality restricted, only logged in users can view invoices (user or admin)
 - An admin can view a full list of invoices that exist
 - A user can view a list of invoices that belong to them
 - A admin can create an invoice by writing out a title, description, cost and selecting a user from a dropdown list (date &value automatically applied as date created).
