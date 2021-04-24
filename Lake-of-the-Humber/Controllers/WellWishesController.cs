@@ -1,4 +1,5 @@
 ﻿using Lake_of_the_Humber.Models;
+using Lake_of_the_Humber.Models.ViewModels.WellWishes;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,8 @@ namespace Lake_of_the_Humber.Controllers
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                UseCookies = false
             };
             client = new HttpClient(handler);
             client.BaseAddress = new Uri("https://localhost:44336/api/");
@@ -53,14 +55,64 @@ namespace Lake_of_the_Humber.Controllers
 
         // GET: WellWishes/List
         [Authorize]
-        public ActionResult List()
+        public ActionResult List(int PageNum = 0)
         {
-            string url = "WellWishesData/GetAllWellWishes";
-            HttpResponseMessage response = client.GetAsync(url).Result;
+            ListWishes ViewModel = new ListWishes();
+            string url, countURL;
+
+            ViewModel.isadmin = User.IsInRole("Admin");
+            if (User.IsInRole("Admin"))
+            {
+                GetApplicationCookie();
+                url = "WellWishesData/GetAllWellWishes";
+                countURL = "WellWishesData/GetAllWishesCount";
+            }
+            else  
+            {
+                url = $"WellWishesData/GetUserWellWishes/{User.Identity.GetUserId()}";
+                countURL = $"WellWishesData/GetUserWishesCount/{User.Identity.GetUserId()}";
+
+            }
+
+            HttpResponseMessage response = client.GetAsync(countURL).Result;
+
             if (response.IsSuccessStatusCode)
             {
-                IEnumerable<WellWishDto> AllWellWishes = response.Content.ReadAsAsync<IEnumerable<WellWishDto>>().Result;
-                return View(AllWellWishes);
+                var WishCount = response.Content.ReadAsAsync<int>().Result;
+
+
+                int PerPage = 5;
+                int MaxPage = (int)Math.Ceiling((decimal)WishCount / PerPage) - 1;
+
+                // Lower boundary for Max Page
+                if (MaxPage < 0) MaxPage = 0;
+                // Lower boundary for Page Number
+                if (PageNum < 0) PageNum = 0;
+                // Upper Bound for Page Number
+                if (PageNum > MaxPage) PageNum = MaxPage;
+
+                // The Record Index of our Page Start
+                int StartIndex = PerPage * PageNum;
+
+                ViewData["PageNum"] = PageNum;
+                ViewData["totalCount"] = WishCount;
+                ViewData["PerPage"] = PerPage;
+                ViewData["PageSummary"] = " " + (PageNum + 1) + " of " + (MaxPage + 1) + " ";
+
+                url = url + "/" + StartIndex + "/" + PerPage;
+
+                response = client.GetAsync(url).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    IEnumerable<WellWishDto> AllWellWishes = response.Content.ReadAsAsync<IEnumerable<WellWishDto>>().Result;
+                    ViewModel.wishes = AllWellWishes;
+                    return View(ViewModel);
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+                }
             }
             else
             {
@@ -103,7 +155,6 @@ namespace Lake_of_the_Humber.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-
                 // int WishId = response.Content.ReadAsAsync<int>().Result;
                 return RedirectToAction("List");
             }
@@ -114,7 +165,7 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "WellWishesData/GetWish/" + id;
@@ -131,9 +182,10 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "WellWishesData/DeleteWish/" + id;
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -148,15 +200,17 @@ namespace Lake_of_the_Humber.Controllers
             }
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-
             // GET Wish Details
             string url = "WellWishesData/GetWish/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             if (response.IsSuccessStatusCode)
             {
+                GetApplicationCookie();
                 WellWishDto SelectedWish = response.Content.ReadAsAsync<WellWishDto>().Result;
                 string editUrl = "WellWishesData/UpdateWish/" + id;
                 HttpContent content = new StringContent(jss.Serialize(SelectedWish));

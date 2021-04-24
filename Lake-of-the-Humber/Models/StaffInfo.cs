@@ -12,7 +12,7 @@ namespace Lake_of_the_Humber.Models
     public class StaffInfo
     {
         [Key]
-        public int SatffId { get; set; }
+        public int StaffID { get; set; }
         public string StaffFirstName { get; set; }
         public string StaffLastName { get; set; }
         public string StaffLanguage { get; set; }
@@ -21,12 +21,11 @@ namespace Lake_of_the_Humber.Models
 
         //A Staff belong to one department
         [ForeignKey("Department")]
-        public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+        public int DepartmentID { get; set; }
         public virtual Department Department { get; set; }
 
         [ForeignKey("User")]
-        public string StaffCreatorId { get; set; }
+        public string UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
 
         //A staff can have many appointments
@@ -36,7 +35,7 @@ namespace Lake_of_the_Humber.Models
 
     public class StaffInfoDto
     {
-        public int StaffId { get; set; }
+        public int StaffID { get; set; }
 
         [Required]
         [DisplayName("First Name")]
@@ -54,10 +53,9 @@ namespace Lake_of_the_Humber.Models
         [DisplayName("Photo")]
         public string StaffImagePath { get; set; }
 
-        public string StaffCreatorId { get; set; }
+        public string UserId { get; set; }
 
-        public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; }
+        public int DepartmentID { get; set; }
     }
 
 }

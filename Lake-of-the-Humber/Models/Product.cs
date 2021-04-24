@@ -20,6 +20,9 @@ namespace Lake_of_the_Humber.Models
 
         public string ProductDescription { get; set; }
 
+        public bool ProductHasPic { get; set; }
+        public string ProductPicExtension { get; set; }
+
         //A product can have many orders
         public ICollection<Order> Orders { get; set; }
 
@@ -38,5 +41,8 @@ namespace Lake_of_the_Humber.Models
 
         [DisplayName("Product Description")]
         public string ProductDescription { get; set; }
+
+        public bool ProductHasPic { get; set; }
+        public string ProductPicExtension { get; set; }
     }
 }

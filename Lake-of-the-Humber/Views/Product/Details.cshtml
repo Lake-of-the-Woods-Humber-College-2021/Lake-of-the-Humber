@@ -9,6 +9,20 @@
     <div style="float:left; marign-right:2%; width:49%;">
 
         <div>@Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.product.ProductID })</div>
+        <hr />
+        @{
+            //Use server rendering to determine an image
+            string pic = "/Content/Products/default.jpg";
+            string alt = "No Profile Picture Provided.";
+            if (Model.product.ProductHasPic)
+            {
+                pic = "/Content/Products/" + Model.product.ProductID + "." + Model.product.ProductPicExtension;
+                alt = "Profile shot of " + Model.product.ProductName;
+            }
+        }
+        <div class="imagecontainer featured">
+            <img src="@pic" alt="@alt" />
+        </div>
 
         <dl class="dl-horizontal">
             <dt>

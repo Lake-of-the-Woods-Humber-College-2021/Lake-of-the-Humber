@@ -32,7 +32,7 @@ namespace Lake_of_the_Humber.Controllers
             {
                 DepartmentDto NewDepartment = new DepartmentDto
                 {
-                    DepartmentId = Department.DepartmentId,
+                    DepartmentID = Department.DepartmentId,
                     DepartmentName = Department.DepartmentName,
                     DepartmentAddress = Department.DepartmentAddress,
                     DepartmentPhone = Department.DepartmentPhone,
@@ -68,7 +68,7 @@ namespace Lake_of_the_Humber.Controllers
             //put into a 'friendly object format'
             DepartmentDto DepartmentDto = new DepartmentDto
             {
-                DepartmentId = Department.DepartmentId,
+                DepartmentID = Department.DepartmentId,
                 DepartmentName = Department.DepartmentName,
                 DepartmentAddress = Department.DepartmentAddress,
                 DepartmentPhone = Department.DepartmentPhone,

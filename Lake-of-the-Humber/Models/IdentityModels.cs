@@ -24,6 +24,9 @@ namespace Lake_of_the_Humber.Models
         //A user can have multiple invoices
         public ICollection<Invoice> Invoice { get; set; }
 
+        //A user can have multiple faqs
+        public ICollection<Invoice> Faqs { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -61,13 +64,6 @@ namespace Lake_of_the_Humber.Models
 
 
         /// <summary>
-        /// This is the model that is linked to the Latest Post
-        /// </summary>
-        // public DbSet<LatestPost> LatestPosts { get; set; }
-
-
-
-        /// <summary>
         /// This is the model that is linked to the Wellwishes
         /// </summary>
         public DbSet<WellWish> WellWishes { get; set; }
@@ -102,6 +98,11 @@ namespace Lake_of_the_Humber.Models
         /// This is the model that is linked to Invoices
         /// </summary>
         public DbSet<Invoice> Invoices { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to the Wellwishes
+        /// </summary>
+        public DbSet<Faq> Faqs { get; set; }
 
         public static ApplicationDbContext Create()
         {
