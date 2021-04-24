@@ -262,6 +262,7 @@
     <Compile Include="Models\ViewModels\InfoSections\UpdateInfoSection.cs" />
     <Compile Include="Models\StaffInfo.cs" />
     <Compile Include="Models\ViewModels\ListAppointment.cs" />
+    <Compile Include="Models\ViewModels\ListInvoice.cs" />
     <Compile Include="Models\ViewModels\ShowAppointment.cs" />
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
     <Compile Include="Models\ViewModels\ShowInvoice.cs" />
