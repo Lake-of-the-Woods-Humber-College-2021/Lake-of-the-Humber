@@ -218,16 +218,6 @@
     <Compile Include="Controllers\DepartmentDataController.cs" />
     <Compile Include="Controllers\FaqController.cs" />
     <Compile Include="Controllers\FaqDataController.cs" />
-    <Compile Include="Controllers\AppointmentController.cs" />
-    <Compile Include="Controllers\AppointmentDataController.cs" />
-    <Compile Include="Controllers\DepartmentController.cs" />
-    <Compile Include="Controllers\DepartmentDataController.cs" />
-    <Compile Include="Controllers\AppointmentController.cs" />
-    <Compile Include="Controllers\AppointmentDataController.cs" />
-    <Compile Include="Controllers\DepartmentController.cs" />
-    <Compile Include="Controllers\DepartmentDataController.cs" />
-    <Compile Include="Controllers\FaqController.cs" />
-    <Compile Include="Controllers\FaqDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfoSectionsController.cs" />
     <Compile Include="Controllers\InfoSectionsDataController.cs" />
@@ -238,10 +228,6 @@
     <Compile Include="Controllers\OrderDataController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ProductDataController.cs" />
-    <Compile Include="Controllers\WellWishesController.cs" />
-    <Compile Include="Controllers\WellWishesDataController.cs" />
-    <Compile Include="Controllers\StaffInfoController.cs" />
-    <Compile Include="Controllers\StaffInfoDataController.cs" />
     <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="Controllers\VolunteerDataController.cs" />
     <Compile Include="Controllers\WellWishesController.cs" />
@@ -261,45 +247,8 @@
     <Compile Include="Migrations\202104211436306_Images.Designer.cs">
       <DependentUpon>202104211436306_Images.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104230038578_update-models.cs" />
-    <Compile Include="Migrations\202104230038578_update-models.Designer.cs">
-      <DependentUpon>202104230038578_update-models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104121557199_myapp.cs" />
-    <Compile Include="Migrations\202104121557199_myapp.Designer.cs">
-      <DependentUpon>202104121557199_myapp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104150029515_myapp1.cs" />
-    <Compile Include="Migrations\202104150029515_myapp1.Designer.cs">
-      <DependentUpon>202104150029515_myapp1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104222047276_mpapp.cs" />
-    <Compile Include="Migrations\202104222047276_mpapp.Designer.cs">
-      <DependentUpon>202104222047276_mpapp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104121649419_merger with rebuilds.cs" />
-    <Compile Include="Migrations\202104121649419_merger with rebuilds.Designer.cs">
-      <DependentUpon>202104121649419_merger with rebuilds.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104172125253_volunteer table + id model.cs" />
-    <Compile Include="Migrations\202104172125253_volunteer table + id model.Designer.cs">
-      <DependentUpon>202104172125253_volunteer table + id model.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104172301240_volunteer viewmodel.cs" />
-    <Compile Include="Migrations\202104172301240_volunteer viewmodel.Designer.cs">
-      <DependentUpon>202104172301240_volunteer viewmodel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104180026163_viewmodel update.cs" />
-    <Compile Include="Migrations\202104180026163_viewmodel update.Designer.cs">
-      <DependentUpon>202104180026163_viewmodel update.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Models\Department.cs" />
-    <Compile Include="Models\Faq.cs" />
-    <Compile Include="Models\Appointment.cs" />
-    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Faq.cs" />
@@ -310,43 +259,21 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ViewModels\InfoSections\UpdateInfoSection.cs" />
     <Compile Include="Models\StaffInfo.cs" />
     <Compile Include="Models\ViewModels\ListAppointment.cs" />
     <Compile Include="Models\ViewModels\ListInvoice.cs" />
     <Compile Include="Models\ViewModels\ShowAppointment.cs" />
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
     <Compile Include="Models\ViewModels\ShowInvoice.cs" />
-    <Compile Include="Models\StaffInfo.cs" />
-    <Compile Include="Models\ViewModels\InfoSections\UpdateInfoSection.cs" />
-    <Compile Include="Models\ViewModels\ListAppointment.cs" />
-    <Compile Include="Models\ViewModels\ShowAppointment.cs" />
-    <Compile Include="Models\ViewModels\ShowInvoice.cs" />
-    <Compile Include="Models\StaffInfo.cs" />
-    <Compile Include="Models\ViewModels\ListAppointment.cs" />
-    <Compile Include="Models\ViewModels\ShowAppointment.cs" />
-    <Compile Include="Models\ViewModels\ShowFaq.cs" />
-    <Compile Include="Models\ViewModels\ShowInvoice.cs" />
     <Compile Include="Models\ViewModels\ShowProduct.cs" />
-    <Compile Include="Models\ViewModels\UpdateAppointment.cs" />
-    <Compile Include="Models\ViewModels\UpdateFaq.cs" />
-    <Compile Include="Models\ViewModels\UpdateInvoice.cs" />
-    <Compile Include="Models\ViewModels\UpdateAppointment.cs" />
-    <Compile Include="Models\ViewModels\UpdateInvoice.cs" />
     <Compile Include="Models\ViewModels\ShowVolunteer.cs" />
     <Compile Include="Models\ViewModels\UpdateAppointment.cs" />
     <Compile Include="Models\ViewModels\UpdateFaq.cs" />
     <Compile Include="Models\ViewModels\UpdateInvoice.cs" />
     <Compile Include="Models\ViewModels\UpdateOrder.cs" />
     <Compile Include="Models\ViewModels\UpdateProduct.cs" />
-    <Compile Include="Models\ViewModel\ShowDepartment.cs" />
-    <Compile Include="Models\ViewModel\ShowStaff.cs" />
-    <Compile Include="Models\ViewModel\UpdateDepartment.cs" />
-    <Compile Include="Models\ViewModel\UpdateStaff.cs" />
     <Compile Include="Models\ViewModels\WellWishes\ListWishes.cs" />
-    <Compile Include="Models\ViewModel\ShowDepartment.cs" />
-    <Compile Include="Models\ViewModel\ShowStaff.cs" />
-    <Compile Include="Models\ViewModel\UpdateDepartment.cs" />
-    <Compile Include="Models\ViewModel\UpdateStaff.cs" />
     <Compile Include="Models\ViewModels\UpdateVolunteer.cs" />
     <Compile Include="Models\ViewModel\ShowDepartment.cs" />
     <Compile Include="Models\ViewModel\ShowStaff.cs" />
@@ -548,68 +475,7 @@
     <Content Include="Views\Order\Error.cshtml" />
     <Content Include="Views\Order\List.cshtml" />
     <Content Include="Views\Shared\_AdminView.cshtml" />
-    <Content Include="Views\Appointment\Create.cshtml" />
-    <Content Include="Views\Appointment\DeleteConfirm.cshtml" />
-    <Content Include="Views\Appointment\Details.cshtml" />
-    <Content Include="Views\Appointment\Edit.cshtml" />
-    <Content Include="Views\Appointment\Error.cshtml" />
-    <Content Include="Views\Appointment\List.cshtml" />
-    <Content Include="Views\Department\Create.cshtml" />
-    <Content Include="Views\Department\List.cshtml" />
-    <Content Include="Views\Faq\Create.cshtml" />
-    <Content Include="Views\Faq\DeleteConfirm.cshtml" />
-    <Content Include="Views\Faq\Details.cshtml" />
-    <Content Include="Views\Faq\Edit.cshtml" />
-    <Content Include="Views\Faq\List.cshtml" />
-    <Content Include="Views\InfoSections\Create.cshtml" />
-    <Content Include="Views\InfoSections\DeleteConfirm.cshtml" />
-    <Content Include="Views\InfoSections\Details.cshtml" />
-    <Content Include="Views\InfoSections\Edit.cshtml" />
-    <Content Include="Views\InfoSections\List.cshtml" />
-    <Content Include="Views\Invoice\Create.cshtml" />
-    <Content Include="Views\Invoice\DeleteConfirm.cshtml" />
-    <Content Include="Views\Invoice\Details.cshtml" />
-    <Content Include="Views\Invoice\Edit.cshtml" />
-    <Content Include="Views\Invoice\Error.cshtml" />
-    <Content Include="Views\Invoice\List.cshtml" />
-    <Content Include="Views\StaffInfo\Create.cshtml" />
-    <Content Include="Views\StaffInfo\DeleteConfirm.cshtml" />
-    <Content Include="Views\StaffInfo\Details.cshtml" />
-    <Content Include="Views\StaffInfo\Edit.cshtml" />
-    <Content Include="Views\StaffInfo\List.cshtml" />
-    <Content Include="Views\WellWishes\Create.cshtml" />
-    <Content Include="Views\WellWishes\DeleteConfirm.cshtml" />
-    <Content Include="Views\WellWishes\Details.cshtml" />
-    <Content Include="Views\WellWishes\List.cshtml" />
-    <Content Include="Views\Appointment\Create.cshtml" />
-    <Content Include="Views\Appointment\DeleteConfirm.cshtml" />
-    <Content Include="Views\Appointment\Details.cshtml" />
-    <Content Include="Views\Appointment\Edit.cshtml" />
-    <Content Include="Views\Appointment\Error.cshtml" />
-    <Content Include="Views\Appointment\List.cshtml" />
-    <Content Include="Views\Department\Create.cshtml" />
-    <Content Include="Views\Department\List.cshtml" />
-    <Content Include="Views\Invoice\Create.cshtml" />
-    <Content Include="Views\Invoice\DeleteConfirm.cshtml" />
-    <Content Include="Views\Invoice\Details.cshtml" />
-    <Content Include="Views\Invoice\Edit.cshtml" />
-    <Content Include="Views\Invoice\Error.cshtml" />
-    <Content Include="Views\Invoice\List.cshtml" />
-    <Content Include="Views\InfoSections\Create.cshtml" />
-    <Content Include="Views\InfoSections\DeleteConfirm.cshtml" />
-    <Content Include="Views\InfoSections\Details.cshtml" />
-    <Content Include="Views\InfoSections\Edit.cshtml" />
-    <Content Include="Views\InfoSections\List.cshtml" />
-    <Content Include="Views\WellWishes\Create.cshtml" />
-    <Content Include="Views\WellWishes\DeleteConfirm.cshtml" />
-    <Content Include="Views\WellWishes\Details.cshtml" />
-    <Content Include="Views\StaffInfo\Create.cshtml" />
-    <Content Include="Views\StaffInfo\DeleteConfirm.cshtml" />
-    <Content Include="Views\StaffInfo\Details.cshtml" />
-    <Content Include="Views\StaffInfo\Edit.cshtml" />
-    <Content Include="Views\StaffInfo\List.cshtml" />
     <Content Include="Views\InfoSections\_Homepage.cshtml" />
-    <Content Include="Views\WellWishes\List.cshtml" />
     <Content Include="Views\Appointment\Create.cshtml" />
     <Content Include="Views\Appointment\DeleteConfirm.cshtml" />
     <Content Include="Views\Appointment\Details.cshtml" />
@@ -675,30 +541,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104211436306_Images.resx">
       <DependentUpon>202104211436306_Images.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104230038578_update-models.resx">
-      <DependentUpon>202104230038578_update-models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104121557199_myapp.resx">
-      <DependentUpon>202104121557199_myapp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104150029515_myapp1.resx">
-      <DependentUpon>202104150029515_myapp1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104222047276_mpapp.resx">
-      <DependentUpon>202104222047276_mpapp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104121649419_merger with rebuilds.resx">
-      <DependentUpon>202104121649419_merger with rebuilds.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104172125253_volunteer table + id model.resx">
-      <DependentUpon>202104172125253_volunteer table + id model.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104172301240_volunteer viewmodel.resx">
-      <DependentUpon>202104172301240_volunteer viewmodel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104180026163_viewmodel update.resx">
-      <DependentUpon>202104180026163_viewmodel update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
