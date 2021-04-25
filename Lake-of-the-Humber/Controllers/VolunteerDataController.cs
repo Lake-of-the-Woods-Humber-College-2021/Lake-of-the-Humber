@@ -80,7 +80,9 @@ namespace Lake_of_the_Humber.Controllers
                 VolunteerDescription = Volunteer.VolunteerDescription,
                 PublishVolunteer = Volunteer.PublishVolunteer,
                 VolunteerDate = Volunteer.VolunteerDate,
-                CreatorId = Volunteer.CreatorId
+                CreatorId = Volunteer.CreatorId,
+                CreatorFname = Volunteer.User.FirstName,
+                CreatorLname = Volunteer.User.LastName
             };
             //return the associated info
             return Ok(VolunteerDto);
