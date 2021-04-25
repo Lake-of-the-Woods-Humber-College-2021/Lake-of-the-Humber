@@ -215,17 +215,9 @@
     <Compile Include="Migrations\202104211436306_Images.Designer.cs">
       <DependentUpon>202104211436306_Images.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104230038578_update-models.cs" />
-    <Compile Include="Migrations\202104230038578_update-models.Designer.cs">
-      <DependentUpon>202104230038578_update-models.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104241845446_fix-departmentDto.cs" />
-    <Compile Include="Migrations\202104241845446_fix-departmentDto.Designer.cs">
-      <DependentUpon>202104241845446_fix-departmentDto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104241859509_fix-staffpic.cs" />
-    <Compile Include="Migrations\202104241859509_fix-staffpic.Designer.cs">
-      <DependentUpon>202104241859509_fix-staffpic.cs</DependentUpon>
+    <Compile Include="Migrations\202104252103314_test.cs" />
+    <Compile Include="Migrations\202104252103314_test.Designer.cs">
+      <DependentUpon>202104252103314_test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -557,14 +549,8 @@
     <EmbeddedResource Include="Migrations\202104211436306_Images.resx">
       <DependentUpon>202104211436306_Images.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104230038578_update-models.resx">
-      <DependentUpon>202104230038578_update-models.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104241845446_fix-departmentDto.resx">
-      <DependentUpon>202104241845446_fix-departmentDto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104241859509_fix-staffpic.resx">
-      <DependentUpon>202104241859509_fix-staffpic.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202104252103314_test.resx">
+      <DependentUpon>202104252103314_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
