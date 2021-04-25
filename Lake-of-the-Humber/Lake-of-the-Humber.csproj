@@ -259,10 +259,6 @@
     <Compile Include="Models\ViewModels\UpdateStaff.cs" />
     <Compile Include="Models\ViewModels\WellWishes\ListWishes.cs" />
     <Compile Include="Models\ViewModels\UpdateVolunteer.cs" />
-    <Compile Include="Models\ViewModel\ShowDepartment.cs" />
-    <Compile Include="Models\ViewModel\ShowStaff.cs" />
-    <Compile Include="Models\ViewModel\UpdateDepartment.cs" />
-    <Compile Include="Models\ViewModel\UpdateStaff.cs" />
     <Compile Include="Models\Volunteer.cs" />
     <Compile Include="Models\WellWish.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
