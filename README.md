@@ -163,11 +163,12 @@ Views -> Invoice/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, Delet
 ### CRUD 7: Department (Choo)
 #### Description
 - A list of department will be displayed when user click on the "department" link on the website. 
-- Public user allowed to view and read the list.
+- Public user allowed to view and read the list but not able to do Add, Update and Delete operation.
 - Admin user will be able to do CRUD oepration for staff Information.
 
 #### What's Next
 - Add search functionality to filter the list based on user's selection.
+- Design views based on whether user is admin or non-admin.
 
 #### Files
 Controllers -> DeaprtmentController.cs, DepartmentDataController.cs
@@ -180,13 +181,15 @@ Views -> Department/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, De
 ### CRUD 8: Staff Infromation (Choo)
 #### Description
 -  A list of staff information will be displayed when user click on the "staff Information" link on the website. 
--  Public user allowed to view and do basic search functionality
+-  Public user allowed to view and read the list but not able to do Add, Update and Delete operation.
+-  Public user able to read more details about staff's working department after click on " Name Link"[Details] on image card
 -  Admin user will be able to do CRUD oepration for staff Information. 
 
+
 #### What's Next
-- Add images , pagination 
 - when user clicked on the image, it will show more information bout the doctor (like image Card)
 - Add search functionality to filter the list based on user's selection.
+- Design views based on whether user is admin or non-admin.
 
 #### Files
 Controllers -> StaffInfoController.cs, StaffInfoDataController.cs
@@ -196,6 +199,11 @@ Models -> StaffInfo.cs, ViewModels/(ShowStafft.cs, UpdateStaff.cs)
 Views -> StaffInfo/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
 
 ---
+### Special Thanks to 
+
+- Praveen who always help the team members to solve technical issues on our project and guide us on handling Git issues.
+- Daniel who help me in debug and design the project's homepage.
+- It is a nice collaboration with the team members to help each other on debugging and answer questions.
 
 ### Asia Levesque Gault
 - [ ] Feature1: FAQ
