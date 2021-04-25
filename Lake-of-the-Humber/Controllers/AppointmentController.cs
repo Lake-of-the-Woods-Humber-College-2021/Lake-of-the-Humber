@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
+using Microsoft.AspNet.Identity;
 
 namespace Lake_of_the_Humber.Controllers
 {
@@ -19,11 +20,15 @@ namespace Lake_of_the_Humber.Controllers
         private static readonly HttpClient client;
 
 
+        /// <summary>
+        /// Allows access to pre-defined C# HttpClient 'client' variable for sending POST/GET request to data access layer
+        /// </summary>
         static AppointmentController()
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                UseCookies = false
             };
 
             client = new HttpClient(handler);
@@ -33,34 +38,97 @@ namespace Lake_of_the_Humber.Controllers
 
         }
 
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
+            //This is a bit dangerous because a previously authenticated cookie could be cached for
+            //a follow-up request from someone else. Reset cookies in HTTP client before grabbing a new one.
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+
         // GET: Appointment/List
+        [Authorize(Roles = "Admin,User")]
         public ActionResult List()
         {
+            GetApplicationCookie();
+
             ListAppointment ViewModel = new ListAppointment();
-            string url = "appointmentdata/getappointments";
-            HttpResponseMessage response = client.GetAsync(url).Result;
+            ViewModel.isadmin = User.IsInRole("Admin");
+            ViewModel.isuser = User.IsInRole("User");
 
-            if (response.IsSuccessStatusCode)
+            if (User.IsInRole("Admin"))
             {
-                IEnumerable<AppointmentDto> SelectedAppointment = response.Content.ReadAsAsync<IEnumerable<AppointmentDto>>().Result;
-                ViewModel.appointment = SelectedAppointment;
+                //Gets all appointments if admin is logged in
+                string url = "appointmentdata/getappointments";
+                HttpResponseMessage response = client.GetAsync(url).Result;
 
-                return View(ViewModel);
+                if (response.IsSuccessStatusCode)
+                {
+                    IEnumerable<AppointmentDto> SelectedAppointment = response.Content.ReadAsAsync<IEnumerable<AppointmentDto>>().Result;
+                    ViewModel.appointment = SelectedAppointment;
 
-                //return View(search == null ? SelectedAppointment :
-                //  SelectedAppointment.Where(x => x.AppPurpose.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0).ToList());
+                    return View(ViewModel);
+                }
+
+                else
+                {
+                    return RedirectToAction("Error");
+                }
+            }
+
+            else if (User.IsInRole("User"))
+            {
+                //Only gets appointments associated with user logged in, if not an admin
+                var id = User.Identity.GetUserId();
+
+                string url = "appointmentdata/getappointmentsforuser/" + id;
+                HttpResponseMessage response = client.GetAsync(url).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    IEnumerable<AppointmentDto> SelectedAppointment = response.Content.ReadAsAsync<IEnumerable<AppointmentDto>>().Result;
+                    ViewModel.appointment = SelectedAppointment;
+                    return View(ViewModel);
+
+                }
+
+                else
+                {
+                    return RedirectToAction("Error");
+                }
+
             }
 
             else
             {
-                Debug.WriteLine("Could not connect");
                 return RedirectToAction("Error");
             }
         }
+
+
         // GET: Appointment/Details/5
+        [Authorize(Roles = "Admin,User")]
         public ActionResult Details(int id)
         {
+
+            GetApplicationCookie();
+
             ShowAppointment ViewModel = new ShowAppointment();
+
+            ViewModel.isadmin = User.IsInRole("Admin");
+            ViewModel.isuser = User.IsInRole("User");
+
             string url = "appointmentdata/findappointment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
@@ -76,6 +144,7 @@ namespace Lake_of_the_Humber.Controllers
                 StaffInfoDto StaffInfo = response.Content.ReadAsAsync<StaffInfoDto>().Result;
                 ViewModel.staffInfo = StaffInfo;
 
+                //Finds user that 'owns' appointment, puts data into user DTO
                 url = "appointmentdata/finduserforappointment/" + id;
                 response = client.GetAsync(url).Result;
                 ApplicationUser UserInfo = response.Content.ReadAsAsync<ApplicationUser>().Result;
@@ -87,9 +156,26 @@ namespace Lake_of_the_Humber.Controllers
                 //UserDto SelectedUser = response.Content.ReadAsAsync<UserDto>().Result;
                 //ViewModel.user = SelectedUser;
 
+                if (User.IsInRole("Admin"))
+                {
+                    return View(ViewModel);
+                }
 
-
-                return View(ViewModel);
+                else if (User.IsInRole("User"))
+                {
+                    if (User.Identity.GetUserId() == SelectedAppointment.UserId)
+                    {
+                        return View(ViewModel);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Error");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+                }
 
             }
             else
@@ -105,11 +191,11 @@ namespace Lake_of_the_Humber.Controllers
             UpdateAppointment ViewModel = new UpdateAppointment();
 
             //WILL UPDATE WHEN STAFF DATA CONTROLLER IS MERGED
-            //string url = "staffinfodata/getstaffinfo";
-            //HttpResponseMessage response = client.GetAsync(url).Result;
+            string url = "staffinfodata/getstaffinfoes";
+            HttpResponseMessage response = client.GetAsync(url).Result;
 
-            //IEnumerable<StaffInfoDto> AllStaff = response.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
-            //ViewModel.allstaff = AllStaff;
+            IEnumerable<StaffInfoDto> AllStaff = response.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
+            ViewModel.allstaff = AllStaff;
 
             return View(ViewModel);
         }
@@ -144,24 +230,30 @@ namespace Lake_of_the_Humber.Controllers
             UpdateAppointment ViewModel = new UpdateAppointment();
 
             string url = "appointmentdata/findappointment/" + id;
-
             HttpResponseMessage response = client.GetAsync(url).Result;
 
             if (response.IsSuccessStatusCode)
             {
-                Debug.WriteLine(DateTime.Now);
                 AppointmentDto SelectedAppointment = response.Content.ReadAsAsync<AppointmentDto>().Result;
                 ViewModel.appointment = SelectedAppointment;
 
-                url = "appointmentdata/getstaffforappointment/" + id;
-                response = client.GetAsync(url).Result;
-                
-                IEnumerable<StaffInfoDto> AllStaff = response.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
-                ViewModel.allstaff = AllStaff;
-                Debug.WriteLine(ViewModel);
+                //Checks if appointment date has passed. Will not allow edit if appointment has passed
+                if (SelectedAppointment.AppDate > DateTime.Now)
+                {
+                    url = "appointmentdata/getstaffforappointment/" + id;
+                    response = client.GetAsync(url).Result;
+
+                    IEnumerable<StaffInfoDto> AllStaff = response.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
+                    ViewModel.allstaff = AllStaff;
+                    Debug.WriteLine(ViewModel);
 
 
-                return View(ViewModel);
+                    return View(ViewModel);
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+                }
             }
             else
             {
@@ -175,8 +267,6 @@ namespace Lake_of_the_Humber.Controllers
         public ActionResult Edit(int id, Appointment AppointmentInfo)
         {
             string url = "appointmentdata/updateappointment/" + id;
-            Debug.WriteLine(jss.Serialize(AppointmentInfo));
-            Debug.WriteLine(DateTime.Now);
             HttpContent content = new StringContent(jss.Serialize(AppointmentInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -200,8 +290,18 @@ namespace Lake_of_the_Humber.Controllers
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
+
                 AppointmentDto SelectedAppointment = response.Content.ReadAsAsync<AppointmentDto>().Result;
-                return View(SelectedAppointment);
+
+                //Checks if appointment date has passed. Will not allow edit if appointment has passed
+                if (SelectedAppointment.AppDate > DateTime.Now)
+                {
+                    return View(SelectedAppointment);
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+                }
             }
             else
             {

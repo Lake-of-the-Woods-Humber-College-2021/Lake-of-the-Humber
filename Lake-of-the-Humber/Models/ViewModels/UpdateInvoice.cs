@@ -10,8 +10,7 @@ namespace Lake_of_the_Humber.Models.ViewModels
 
         public InvoiceDto invoice { get; set; }
 
-        public virtual ApplicationUser user { get; set; }
-
+        public IEnumerable<ApplicationUserDto> allusers { get;set; }
 
     }
 }

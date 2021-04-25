@@ -4,7 +4,7 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Update Appointment #@Model.appointment.AppId</h2>
+<h2>Modify Appointment (ID: @Model.appointment.AppId)</h2>
 
 @using (Html.BeginForm("Edit", "Appointment", new { id = Model.appointment.AppId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -15,17 +15,34 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.appointment.AppId, new { Name = "AppId" })
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.appointment.AppMethod, htmlAttributes: new { @class = "control-label col-md-2" })
+<div class="form-group">
+    @Html.LabelFor(model => model.appointment.AppMethod, htmlAttributes: new { @class = "control-label col-md-2" })
+    @{ var InPerson = "";}
+    @{ var Phone = "";}
+    @{ var Video = "";}
+    @if (Model.appointment.AppMethod == "In-Person")
+    {
+        InPerson = "selected";
+    }
+    @if (Model.appointment.AppMethod == "Phone")
+    {
+        Phone = "selected";
+    }
+    @if (Model.appointment.AppMethod == "Video")
+    {
+        Video = "selected";
+    }
+    <div class="col-md-10">
         <select class="form-control" asp-for="appointment.AppMethod" name="AppMethod">
-            <option value="In-Person">In-Person</option>
-            <option value="Phone">Phone</option>
-            <option value="Video">Video</option>
+            <option value="In-Person" @InPerson>In-Person</option>
+            <option value="Phone" @Phone>Phone</option>
+            <option value="Video" @Video>Video</option>
         </select>
     </div>
+</div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.appointment.AppPurpose, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.appointment.AppPurpose, htmlAttributes: new { @class = "control-label col-md-3" })
         <div class="col-md-10">
             @Html.EditorFor(model => model.appointment.AppPurpose, new { htmlAttributes = new { @class = "form-control", Name = "AppPurpose" } })
             @Html.ValidationMessageFor(model => model.appointment.AppPurpose, "", new { @class = "text-danger" })
@@ -35,41 +52,48 @@
     <div class="form-group">
         @Html.LabelFor(model => model.appointment.AppDate, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.appointment.AppDate, new { htmlAttributes = new { @class = "form-control", Name = "AppDate" } })
-            @Html.ValidationMessageFor(model => model.appointment.AppDate, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.appointment.DAppDate, new { htmlAttributes = new { @class = "form-control", Name = "AppDate" } })
+            @Html.ValidationMessageFor(model => model.appointment.DAppDate, "", new { @class = "text-danger" })
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.appointment.AppTime, htmlAttributes: new { @class = "control-label col-md-2" })
-        <select class="form-control" asp-for="appointment.AppTime" name="AppTime">
-            @for (var i = 8; i < 20; i++)
-            {
-                <option value="@i:00">@i:00</option>
-                <option value="@i:30">@i:30</option>
-            }
-        </select>
+        <div class="col-md-10">
+            <select class="form-control" asp-for="appointment.AppTime" name="AppTime">
+                <option>--- Select a New Time ---</option>
+                @for (var i = 8; i < 20; i++)
+                {
+
+                    <option value="@i:00">@i:00</option>
+                    <option value="@i:30">@i:30</option>
+                }
+            </select>
+        </div>
     </div>
     
     <div class="form-group">
         <label class="control-label col-md-2">Doctor</label>
-        <select class="form-control" name="StaffId">
-            @foreach (var staff in Model.allstaff)
-            {
-                <option value="@staff.StaffId">Dr. @staff.StaffFirstName @staff.StaffLastName</option>
-            }
-        </select>
-    </div>
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.appointment.UserId, new { Name = "UserId" })
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+        <div class="col-md-10">
+            <select class="form-control" name="StaffId">
+                <option value="null">--- Select a New Doctor ---</option> 
+                @foreach (var staff in Model.allstaff)
+                {
+                    <option value="@staff.StaffId">Dr. @staff.StaffFirstName @staff.StaffLastName</option>
+                }
+            </select>
         </div>
     </div>
-</div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.appointment.UserId, new { Name = "UserId" })
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
     }
 
     <div>

@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
+using Microsoft.AspNet.Identity;
 
 namespace Lake_of_the_Humber.Controllers
 {
@@ -19,12 +20,15 @@ namespace Lake_of_the_Humber.Controllers
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         private static readonly HttpClient client;
 
-
+        /// <summary>
+        /// Allows access to pre-defined C# HttpClient 'client' variable for sending POST/GET request to data access layer
+        /// </summary>
         static InvoiceController()
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                UseCookies = false
             };
 
             client = new HttpClient(handler);
@@ -34,34 +38,95 @@ namespace Lake_of_the_Humber.Controllers
 
         }
 
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
+            //This is a bit dangerous because a previously authenticated cookie could be cached for
+            //a follow-up request from someone else. Reset cookies in HTTP client before grabbing a new one.
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+
+
         // GET: Invoice/List
+        [Authorize(Roles = "Admin,User")]
         public ActionResult List()
         {
-            string url = "invoicedata/getinvoices";
-            HttpResponseMessage response = client.GetAsync(url).Result;
+            GetApplicationCookie();
 
-            if (response.IsSuccessStatusCode)
+            ListInvoice ViewModel = new ListInvoice();
+            ViewModel.isadmin = User.IsInRole("Admin");
+            ViewModel.isuser = User.IsInRole("User");
+
+            if (User.IsInRole("Admin"))
             {
-                IEnumerable<InvoiceDto> SelectedInvoice = response.Content.ReadAsAsync<IEnumerable<InvoiceDto>>().Result;
-                Debug.WriteLine("Successful connection");
+                string url = "invoicedata/getinvoices";
+                HttpResponseMessage response = client.GetAsync(url).Result;
 
-                return View(SelectedInvoice);
+                if (response.IsSuccessStatusCode)
+                {
+                    IEnumerable<InvoiceDto> SelectedInvoice = response.Content.ReadAsAsync<IEnumerable<InvoiceDto>>().Result;
+                    ViewModel.invoices = SelectedInvoice;
 
-                //return View(search == null ? SelectedInvoice :
-                //  SelectedInvoice.Where(x => x.InvoiceTitle.IndexOf(search, StringComparison.OrdinalIgnoreCase) >= 0).ToList());
+                    return View(ViewModel);
+
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+                }
+            }
+            
+            else if(User.IsInRole("User"))
+            {
+                var id = User.Identity.GetUserId();
+
+                string url = "invoicedata/getinvoicesforuser/" + id;
+                HttpResponseMessage response = client.GetAsync(url).Result;
+
+                if (response.IsSuccessStatusCode)
+                {
+                    IEnumerable<InvoiceDto> SelectedInvoice = response.Content.ReadAsAsync<IEnumerable<InvoiceDto>>().Result;
+                    Debug.WriteLine("Successful connection");
+                    ViewModel.invoices = SelectedInvoice;
+                    return View(ViewModel);
+   
+                }
+
+                else
+                {
+                    return RedirectToAction("Error");
+                }
+
             }
 
             else
             {
-                Debug.WriteLine("Could not connect");
                 return RedirectToAction("Error");
             }
         }
 
+
         // GET: Invoice/Details/5
+        [Authorize(Roles = "Admin,User")]
         public ActionResult Details(int id)
         {
+            GetApplicationCookie();
+
             ShowInvoice ViewModel = new ShowInvoice();
+            ViewModel.isadmin = User.IsInRole("Admin");
+            ViewModel.isuser = User.IsInRole("User");
+
             string url = "invoicedata/findinvoice/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
 
@@ -71,14 +136,34 @@ namespace Lake_of_the_Humber.Controllers
                 InvoiceDto SelectedInvoice = response.Content.ReadAsAsync<InvoiceDto>().Result;
                 ViewModel.invoice = SelectedInvoice;
 
-                //Finds user that owns invoice, buts data into user DTO
+                //Finds user that owns invoice, puts data into user DTO
                 url = "invoicedata/finduserforinvoice/" + id;
                 response = client.GetAsync(url).Result;
                 ApplicationUser UserInfo = response.Content.ReadAsAsync<ApplicationUser>().Result;
                 ViewModel.userInfo = UserInfo;
 
-                return View(ViewModel);
+                Debug.WriteLine("First Checkpoint!");
 
+                if (User.IsInRole("Admin"))
+                {
+                    return View(ViewModel);
+                }
+
+                else if (User.IsInRole("User"))
+                {
+                    if (User.Identity.GetUserId() == SelectedInvoice.UserId)
+                    {
+                        return View(ViewModel);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Error"); 
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+                }
             }
             else
             {
@@ -88,9 +173,16 @@ namespace Lake_of_the_Humber.Controllers
 
 
         // GET: Invoice/Create
+        [Authorize(Roles = "Admin")] //Only Admins can create an invoice
         public ActionResult Create()
         {
             UpdateInvoice ViewModel = new UpdateInvoice();
+
+            string url = "invoicedata/getusers";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<ApplicationUserDto> PotentialUsers = response.Content.ReadAsAsync<IEnumerable<ApplicationUserDto>>().Result;
+            ViewModel.allusers = PotentialUsers;
+
 
             return View(ViewModel);
         }
@@ -98,12 +190,13 @@ namespace Lake_of_the_Humber.Controllers
         // POST: Invoice/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Invoice InvoiceInfo)
         {
-            Debug.WriteLine(InvoiceInfo.InvoiceTitle);
+
+            GetApplicationCookie();
+
             string url = "invoicedata/addinvoice";
-            Debug.WriteLine(jss.Serialize(InvoiceInfo));
-            Debug.WriteLine(DateTime.Now);
             HttpContent content = new StringContent(jss.Serialize(InvoiceInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -120,8 +213,11 @@ namespace Lake_of_the_Humber.Controllers
         }
 
         // GET: Invoice/Edit/5
+        [Authorize(Roles="Admin")]
         public ActionResult Edit(int id)
         {
+            GetApplicationCookie();
+
             UpdateInvoice ViewModel = new UpdateInvoice();
 
             string url = "invoicedata/findinvoice/" + id;
@@ -130,7 +226,6 @@ namespace Lake_of_the_Humber.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                Debug.WriteLine(DateTime.Now);
                 InvoiceDto SelectedInvoice = response.Content.ReadAsAsync<InvoiceDto>().Result;
                 ViewModel.invoice = SelectedInvoice;
 
@@ -145,16 +240,17 @@ namespace Lake_of_the_Humber.Controllers
         // POST: Invoice/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles="Admin")]
         public ActionResult Edit(int id, Invoice InvoiceInfo)
         {
-            Debug.WriteLine(InvoiceInfo.InvoiceTitle);
+
+           GetApplicationCookie();
+
             string url = "invoicedata/updateinvoice/" + id;
             Debug.WriteLine(jss.Serialize(InvoiceInfo));
-            Debug.WriteLine(DateTime.Now);
             HttpContent content = new StringContent(jss.Serialize(InvoiceInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
-            Debug.WriteLine(response.StatusCode);
 
             if (response.IsSuccessStatusCode)
             {
@@ -168,8 +264,12 @@ namespace Lake_of_the_Humber.Controllers
 
         // GET: Invoice/Delete/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
+
+            GetApplicationCookie();
+
             string url = "invoicedata/findinvoice/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
@@ -186,8 +286,12 @@ namespace Lake_of_the_Humber.Controllers
         // POST: Invoice/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+
+            GetApplicationCookie();
+
             string url = "invoicedata/deleteinvoice/" + id;
 
             HttpContent content = new StringContent("");

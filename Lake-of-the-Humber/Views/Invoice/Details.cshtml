@@ -56,18 +56,33 @@
                 <p> Paid </p>
             }
         </dd>
-
+        @if (Model.isadmin)
+        {
         <dt>
-            Patient Information
+           Patient Information
         </dt>
 
         <dd>
-            @Model.userInfo.UserName [ ID: @Model.userInfo.Id ]
+            Name: @Model.userInfo.FirstName @Model.userInfo.LastName<br />
+            Email: @Model.userInfo.Email<br />
+            ID: @Model.userInfo.Id
         </dd>
-
+        }
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.invoice.InvoiceId }) |
+    @if (Model.isadmin)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.invoice.InvoiceId }) <span> | </span>
+    }
+
+    @if (Model.isuser)
+    {
+        if (Convert.ToBoolean(Model.invoice.IsPaid) != true)
+        {
+            @Html.ActionLink("Make Payment", "", new { id = Model.invoice.InvoiceId })
+        }
+    }
+
     @Html.ActionLink("Back to List", "List")
 </p>

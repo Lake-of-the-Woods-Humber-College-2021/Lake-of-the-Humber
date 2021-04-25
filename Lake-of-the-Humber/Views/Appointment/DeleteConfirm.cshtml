@@ -4,7 +4,7 @@
     ViewBag.Title = "DeleteConfirm";
 }
 
-<h2>Are you sure you want to delete Appointment #@Model.AppId</h2>
+<h2>Are you sure you want to cancel Appointment ID: @Model.AppId</h2>
 
 <h3>Warning: This action cannot be reversed.</h3>
 @Html.ActionLink("Cancel", "List")
@@ -36,7 +36,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.AppTime)
+            @Html.DisplayNameFor(model => model.AppTime) (24hr Clock)
         </dt>
 
         <dd>
@@ -44,19 +44,19 @@
         </dd>
 
         <dt>
-            Doctor ID
+            Doctor
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StaffId)
+            Dr. @Html.DisplayFor(model => model.StaffFirstName)  @Html.DisplayFor(model => model.StaffLastName)
         </dd>
 
         <dt>
-            Patient ID
+            Patient
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.UserId)
+            @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.LastName)
         </dd>
 
     </dl>
@@ -66,7 +66,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
             @Html.ActionLink("Back to List", "List")
         </div>
     }
