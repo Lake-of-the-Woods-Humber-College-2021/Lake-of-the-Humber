@@ -7,6 +7,8 @@ namespace Lake_of_the_Humber.Models.ViewModels
 {
     public class ShowAppointment
     {
+        public bool isadmin { get; set; }
+        public bool isuser { get; set; }
         public AppointmentDto appointment { get; set; }
 
         //Information about the staff associated with an appointment

@@ -1,0 +1,34 @@
+﻿
+
+@model IEnumerable<Lake_of_the_Humber.Models.VolunteerDto>
+
+@{
+    ViewBag.Title = "List Volunteers";
+}
+<h1>Volunteer Positions:</h1>
+<button type="button" class="btn btn-outline-primary">
+    @Html.ActionLink("Add Volunteer", "Create")
+</button>
+@*<a class="btn btn-primary" href=' @Html.ActionLink("Add Volunteer", "Create")' role="button">Add Volunteer</a>*@
+<br />
+@foreach (var volunteeritem in Model)
+{
+    <a href="/volunteer/Details/@volunteeritem.VolunteerId">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading">@volunteeritem.VolunteerTitle  </div>
+                <div class="panel-body">@volunteeritem.VolunteerDescription <br /> @volunteeritem.VolunteerDate</div>
+                <div class="panel-body">
+                   @Html.ActionLink("Edit", "Edit", new { id = volunteeritem.VolunteerId }) |
+                    @Html.ActionLink("Details", "Details", new { id = volunteeritem.VolunteerId })
+                </div>
+
+            </div>
+        </div>
+    </a>
+
+    @* <a href="/faq/show/@faqitem.FaqId"><h2>@faqitem.Question</h2> </a>*@
+
+}
+
+

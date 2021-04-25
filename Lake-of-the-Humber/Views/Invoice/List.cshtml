@@ -1,57 +1,71 @@
-﻿@model IEnumerable<Lake_of_the_Humber.Models.InvoiceDto>
+﻿@model Lake_of_the_Humber.Models.ViewModels.ListInvoice
 
 @{
     ViewBag.Title = "List";
 }
 
-<h2>Invoice Database</h2>
+@if (Model.isadmin)
+{
+    <h2>Invoice Database</h2>
+}
+@if (Model.isuser)
+{
+    <h2>Your Invoices</h2>
+}
+
 
 <!--Will be restricted to only be seen by Admins-->
-<p>
-    @Html.ActionLink("Create Invoice", "Create")
+<p class>
+    @if (Model.isadmin)
+    {
+        @Html.ActionLink("Create Invoice", "Create", new { @class = "btn btn-primary" })
+    }
 </p>
 
 
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.InvoiceTitle)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.InvoiceDesc)
+            Description
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.InvoiceDate)
+            Date Issued
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.InvoiceCost)
+            Cost
         </th>
         <th>
             Payment Status
         </th>
-        <th>
-            Patient ID
-        </th>
+        @if (Model.isadmin)
+        {
+            <th>
+                Patient Info (Name & ID)
+            </th>
+        }
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var invoice in Model.invoices)
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.InvoiceTitle)
+                @Html.DisplayFor(modelItem => invoice.InvoiceTitle)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.InvoiceDesc)
+                @Html.DisplayFor(modelItem => invoice.InvoiceDesc)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DInvoiceDate)
+                @Html.DisplayFor(modelItem => invoice.DInvoiceDate)
             </td>
             <td>
-                $@Html.DisplayFor(modelItem => item.InvoiceCost)
+                @Html.DisplayFor(modelItem => invoice.InvoiceCost)
             </td>
             <td>
-                @if ((item.IsPaid) != true)
+                @if ((invoice.IsPaid) != true)
                 {
                     <p> Outstanding Payment </p>
                 }
@@ -60,21 +74,34 @@
                     <p> Paid </p>
                 }
             </td>
-            <!--Will be restricted to only be seen by Admins-->
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
+            @if (Model.isadmin)
+            {
+        <td>
+            @Html.DisplayFor(modelItem => invoice.FirstName) @Html.DisplayFor(modelItem => invoice.LastName):<br />@Html.DisplayFor(modelItem => invoice.UserId)
+        </td>
+            }
+        <td>
 
-                <!--Will be restricted to only be seen by Admins-->
-                @Html.ActionLink("Edit", "Edit", new { id = item.InvoiceId }) |
+            @if (Model.isadmin)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = invoice.InvoiceId })<span> | </span>
+            }
 
+            @Html.ActionLink("Details", "Details", new { id = invoice.InvoiceId })
 
-                @Html.ActionLink("Details", "Details", new { id = item.InvoiceId }) |
+            @if (Model.isuser)
+            {
+                if ((invoice.IsPaid) != true)
+                {
+                    <span> | </span> @Html.ActionLink("Make Payment", "", new { id = invoice.InvoiceId })
+                }
+            }
 
-                <!--Will be restricted to only be seen by Admins-->
-                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.InvoiceId })
-            </td>
+            @if (Model.isadmin)
+            {
+                <span> | </span> @Html.ActionLink("Delete", "DeleteConfirm", new { id = invoice.InvoiceId })
+            }
+        </td>
         </tr>
     }
 

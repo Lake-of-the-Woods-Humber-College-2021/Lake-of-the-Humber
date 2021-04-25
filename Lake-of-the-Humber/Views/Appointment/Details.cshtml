@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Appointment #@Model.appointment.AppId</h2>
+<h2>Appointment (ID: @Model.appointment.AppId)</h2>
 
 <div>
     <hr />
@@ -34,7 +34,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.appointment.AppTime)
+            @Html.DisplayNameFor(model => model.appointment.AppTime) (24hr Clock)
         </dt>
 
         <dd>
@@ -46,21 +46,31 @@
         </dt>
 
         <dd>
-            Dr. @Model.staffInfo.StaffFirstName @Model.staffInfo.StaffLastName [ ID: @Model.staffInfo.StaffId ]
+            Dr. @Model.staffInfo.StaffFirstName @Model.staffInfo.StaffLastName
         </dd>
 
-        <dt>
-            Patient Information
-        </dt>
+        @if (Model.isadmin)
+        {
+            <dt>
+                Patient Information
+            </dt>
 
-        <dd>
-            @Model.userInfo.UserName [ID: @Model.userInfo.Id ]
-        </dd>
+            <dd>
+                Name: @Model.userInfo.FirstName @Model.userInfo.LastName<br />
+                Email: @Model.userInfo.Email<br />
+                Id: @Model.userInfo.Id
+            </dd>
+        }
 
-
-    </dl>
+        </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.appointment.AppId }) |
-    @Html.ActionLink("Back to List", "List")
-</p>
+    @if (Model.isadmin)
+    {
+        if (Model.appointment.AppDate > DateTime.Now)
+        {
+            @Html.ActionLink("Modify Appointment", "Edit", new { id = Model.appointment.AppId }) <span>|</span>
+        }
+    }
+        @Html.ActionLink("Back to List", "List")
+    </p>

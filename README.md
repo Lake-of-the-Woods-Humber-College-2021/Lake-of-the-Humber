@@ -1,7 +1,7 @@
 # Lake-of-the-Humber
 Northern Ontario Hospital Website Redesign
 
-# Lake of the Humber: MVP Submission - 09/04/2020
+# Lake of the Humber
 
 ## Team Members
 1. Choo 
@@ -41,33 +41,39 @@ Varsity:- https://github.com/christinebittle/varsity_mvp
 
 #### Description
 - A user can create, delete, update, read the information section
+- Authentication based on user roles
+- MVP Feedback Incoperated: Linked Departments to infosections
+- Managed GitHub Repo and Helped everyone to fix their issues
+
 #### What's Next
-- Authentication (based on user roles)
-- Image Upload on information section
 - showing information section on homepage
 
 #### Files
 
 Controllers -> InfoSectionsController.cs, InfoSectionsDataController.cs
 
-Models -> InfoSection.cs, WellWish.cs
+Models -> InfoSection.cs, ViewModels/InfoSections/
 
 Views -> InfoSections/
 
 ---
 
 ### CRUD 2: Well Wishes Section (Praveen)
+
 #### Description
 - A user can send(create), read, update, delete wellwishes
+- Authentication based on user roles
+- listing only the wellwishes created by the user for loggedin user & all wellwishes for admin.
+- Pagination
+
 #### What's Next
-- Authentication (based on user roles)
 - Email Notification for user once well wish is delivered.
 
 #### Files
 
 Controllers -> WellWishesController.cs, WellWishesDataController.cs
 
-Models -> WellWish.cs
+Models ->  WellWish.cs, ViewModels/WellWishes/ 
 
 Views -> WellWishes/
 
@@ -109,17 +115,15 @@ Views -> Order/
 
 ### CRUD 5: Appointments (Daniel)
 #### Description
-- A user can view a list of appointments that have been made
-- A user can create an appointment by selecting a method, writing out a purpose, selecting a date, selecting a time, selecting a Staff(Doctor) ID, and selecting a User(Patient) ID
-- A user can view details for a single appointment (method, purpose, date, time, doctor, patient info)
-- A user can edit all components of an appointment, with the execption of the user(patient) ID (a new appointment can be made instead)
-- A user can delete an appointment  
-
-#### What's Next
-- Displaying Staff(Doctor) Details when creating an appointment (e.g Name, Department, etc.)
-- Displaying Staff(Doctor) and User(Patient) details on Details view
-- Restricting functionality based off of user logged in
-- Automatically including logged in User's ID to be set when creating an appointment
+- Functionality restricted, only logged in users can view appointments (user or admin)
+- An admin can view a full list of appointments that exist
+- A user can view a list of appointments that belong to them
+- An admin/user can create an appointment by selecting a method (from dropdown), writing out a purpose, selecting a date, selecting a time (from dropdown), selecting a Staff (from dropdown)
+    - The appointment will automatically apply the logged in user's userId as a value
+- An admin/user can view details for a single appointment (method, purpose, date, time, doctor, patient info [for admin only])
+- An admin/user can edit all components of an appointment as long as the appointment has not passed, with the execption of the user(patient) (a new appointment can be made instead)
+    - A user can only edit appointments (that have not passed) associated to them. An admin can make changes to any appointment.
+- A /adminuser can "cancel" (delete) an appointment  , as long as the appointment has not passed
 
 #### Files
 Controllers -> AppointmentController.cs, AppointmentDataController.cs
@@ -132,25 +136,29 @@ Views -> Appointment/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, D
 
 ### CRUD 6: Invoices (Daniel)
 #### Description
-- A user can view a list of invoices that exist
-- A user can create an invoice by writing out a title, description, cost and userID (date and IsPaid status are default)
-- A user can view details for a single invoice (title, description, date, payment status, userID)
-- A user can edit the title, description, cost, and payment status of an invoice
-- A user can delete an invoice  
+- Functionality restricted, only logged in users can view invoices (user or admin)
+- An admin can view a full list of invoices that exist
+- A user can view a list of invoices that belong to them
+- A admin can create an invoice by writing out a title, description, cost and selecting a user from a dropdown list (date &value automatically applied as date created).
+- An admin/user can view details for a single invoice (title, description, date, payment status, user info [admin only])
+    - A user can only view details for invoices that belong to them, an admin can view details for an invoice
+- An admin can edit the title, description, cost, and payment status of an invoice
+- An admin can delete an invoice  
+- For logged in Users, if the invoice has not been paid, an link will appear allowing the User to "Make a Payment" (not a functioning feature). If it has been paid, that option will not appear
 
-#### What's Next
-- Displaying User details on Details
-- Restricting functionality based off of user logged in
-- Automatically including logged in User's ID to be set when creating an invoice
-- Fix invoice date to stay as the date it was created
 
 #### Files
 Controllers -> InvoiceController.cs, InvoiceDataController.cs
 
-Models -> Invoice.cs, ViewModels/(ShowInvoice.cs, UpdateInvoice.cs)
+Models -> Invoice.cs, ViewModels/(ListInvoice.cs, ShowInvoice.cs, UpdateInvoice.cs)
 
 Views -> Invoice/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
 
+---
+
+### Additional Contribution: (Daniel)
+- Homepage & Shared Layout development (from team mockup, includes responsive design)
+ 
 ---
 ### CRUD 7: Department (Choo)
 #### Description
@@ -190,14 +198,14 @@ Views -> StaffInfo/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, Del
 ---
 
 ### Asia Levesque Gault
-- [X] Feature1: FAQ
+- [ ] Feature1: FAQ
 - [ ] Feature2: Volunteer
 
 The purpose of the FAQ feature is to allow the websites visitors to see freequently asked questions. These Question's CRUD (Create, Read, Update, Delete) operations are controled by the website's Administrators. They will be able to login with Administrator credentials and have their own CMS(Content Management System) to easily add an FAQ, Publish an FAQ, Edit an FAQ and delete an FAQ. Vistitors who are not Administrators will be able to view all FAQs and view the Details of an FAQ.
 
 The purpose of the volunteer feature is to allow the webistes visitors to login using their credentials and view a list of all volunteer positions currently available/made public. They can then click on a volunteer position and view its respective details and apply for it using a form. The Administrator will be able to create CRUD operations of the volunteer positions. They will also be able to choose weather the FAQ is publically available. The Administrators will be able to view applicants details. I will contuinue to work on this features CRUD opperations. 
 
-As of 4:35pm MST I have completed the List, Delete, Create, Update and Detail aspects of the FAQ feature. At this point I am very proud of what I have accomplished. This is already furthur than I had gotten with the Passion Project and The only help I needed was fixed by Prof. Bittle, it was "The Remote Certificate is Invalid". Since then I debugged many issues and I took each on at a time and in small steps. One bugg I got stuck on was I created a viewmodel but forgot to run a migration. I commented everything out deleted the view model. started over and it worked perfectly. All this debugging really has made me understand this a lot more than previous projects. Frankly Debugging was initially frustrating but once you see the # of errors decrease it was fun. This turned into a puddle or a waterslide to see how information flows and talks. I am excited to keep working on this. I am intimidated by github as i do not want to ovewrite anyones work. we are all working for our own branches mine for FAQ is loh_FAQ. I will continue to make lists of steps and flow charts to not make the project explode 🤯🌋💣.
+As of 8:48pm MST I have completed the List, Delete, Create and Detail aspects of the FAQ feature. At this point I am very proud of what I have accomplished. This is already furthur than I had gotten with the Passion Project and The only help I needed was fixed by Prof. Bittle, it was "The Remote Certificate is Invalid". Since then I debugged many issues and I took each on at a time and in small steps. One bugg I got stuck on was I created a viewmodel but forgot to run a migration. I commented everything out deleted the view model. started over and it worked perfectly. All this debugging really has made me understand this a lot more than previous projects. Frankly Debugging was initially frustrating but once you see the # of errors decrease it was fun. This turned into a puddle or a waterslide to see how information flows and talks. I am excited to keep working on this. I am intimidated by github as i do not want to ovewrite anyones work. we are all working for our own branches mine for FAQ is loh_FAQ. I will continue to make lists of steps and flow charts to not make the project explode 🤯🌋💣.
 
 The View of the list B4 deleteing
 

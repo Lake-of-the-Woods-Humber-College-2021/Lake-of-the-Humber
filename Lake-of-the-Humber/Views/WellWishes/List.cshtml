@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Lake_of_the_Humber.Models.WellWishDto>
+﻿@model Lake_of_the_Humber.Models.ViewModels.WellWishes.ListWishes
 
 @{
     ViewBag.Title = "Well Wishes";
@@ -6,46 +6,79 @@
 
 <h2>Well Wishes</h2>
 
+@if (!Model.isadmin) { 
 <p>
     @Html.ActionLink("Send Well Wishes", "Create")
 </p>
+}
+
+@if (Model.wishes.Count() == 0)
+{
+    <p>No Wellwishes to show</p>
+}
+else
+{
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.RoomNumber)
+            Room Number
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ReceiverName)
+            Receiver Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IsReceived)
+            Sender Name
+        </th>
+        <th>
+            Delivered
         </th>
         <th></th>
     </tr>
-
-@foreach (var item in Model) {
-    <tr>
+    @foreach(var wish in Model.wishes)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => wish.RoomNumber)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => wish.ReceiverName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => wish.CreatorName)
+    </td>
+    <td>
+        @if (wish.IsReceived == true)
+        {
+            @Html.Encode("Yes")
+        }
+        else
+        {
+            @Html.Encode("No")
+        }
+    </td>
+    @if (Model.isadmin)
+    {
         <td>
-            @Html.DisplayFor(modelItem => item.RoomNumber)
+            @Html.ActionLink("View Message", "Details", new { id = wish.WishId }) |
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id = wish.WishId })
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReceiverName)
-        </td>
-        <td>
-            @if (item.IsReceived == true)
-            {
-                @Html.Encode("Yes")
-            }
-            else
-            {
-                @Html.Encode("No")
-            }
-        </td>
-        <td>
-            @Html.ActionLink("View Message", "Details", new { id=item.WishId }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.WishId })
-        </td>
-    </tr>
+    }
+</tr>
+    }
+</table>
 }
 
-</table>
+<div class="paginate">
+    <div class="pagination">
+        @{
+            if (Convert.ToInt32(ViewData["totalCount"]) > Convert.ToInt32(ViewData["PerPage"]))
+            {
+                int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+                int NextPage = Convert.ToInt32(ViewData["PageNum"]) + 1;
+                @Html.ActionLink("Prev", "List", new { PageNum = PrevPage })
+                @ViewData["PageSummary"]
+                @Html.ActionLink("Next", "List", new { PageNum = NextPage })
+            }
+        }
+    </div>
+</div>

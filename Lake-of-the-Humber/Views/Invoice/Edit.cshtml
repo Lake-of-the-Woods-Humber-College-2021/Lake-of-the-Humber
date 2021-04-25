@@ -48,18 +48,31 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.invoice.IsPaid, htmlAttributes: new { @class = "control-label col-md-2" })
-        <select class="form-control" asp-for="invoice.IsPaid" name="IsPaid">
-            <option value="True">Paid</option>
-            <option value="False">Outstanding</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+        @{ var Paid = "";}
+        @{ var Outstanding = "";}
+        @if (Model.invoice.IsPaid == true)
+        {
+            Paid = "selected";
+        }
+        @if (Model.invoice.IsPaid == false)
+        {
+            Outstanding = "selected";
+        }
+        <div class="col-md-10">
+            <select class="form-control" asp-for="invoice.IsPaid" name="IsPaid">
+                <option value="True" @Paid>Paid</option>
+                <option value="False" @Outstanding>Outstanding</option>
+            </select>
         </div>
     </div>
-</div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
 }
 
 <div>

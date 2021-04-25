@@ -39,7 +39,9 @@ namespace Lake_of_the_Humber.Controllers
                     PriorityNumber = Section.PriorityNumber,
                     Link = Section.Link,
                     LinkBtnName = Section.LinkBtnName,
-                    SectionImageExt = Section.SectionImageExt
+                    SectionImageExt = Section.SectionImageExt,
+                    CreatorName = Section.User.FirstName + " " + Section.User.LastName,
+                    DepartmentName = Section.Department.DepartmentName
                 };
 
                 InfoSectionsDtos.Add(NewSection);
@@ -52,9 +54,10 @@ namespace Lake_of_the_Humber.Controllers
         /// </summary>
         /// <returns>A list of all sections and their information.</returns>
         /// <example>
-        /// GET : api/InfoSectionsData/GetAllSections
+        /// GET : api/InfoSectionsData/GetAllSections;
         /// </example>
         [ResponseType(typeof(IEnumerable<InfoSectionDto>))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetAllSections()
         {
             List<InfoSection> InfoSections = db.InfoSections.ToList();
@@ -72,7 +75,9 @@ namespace Lake_of_the_Humber.Controllers
                     LinkBtnName = Section.LinkBtnName,
                     SectionImageExt = Section.SectionImageExt,
                     IsArchive = Section.IsArchive,
-                    CreatorId = Section.CreatorId
+                    CreatorId = Section.CreatorId,
+                    CreatorName = Section.User.FirstName + " " + Section.User.LastName,
+                    DepartmentName = Section.Department.DepartmentName
                 };
 
                 InfoSectionsDtos.Add(NewSection);
@@ -89,6 +94,7 @@ namespace Lake_of_the_Humber.Controllers
         /// GET: api/InfoSectionsData/GetSection/5
         /// </example>
         [ResponseType(typeof(InfoSectionDto))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult GetSection(int id)
         {
             InfoSection InfoSection = db.InfoSections.Find(id);
@@ -120,6 +126,7 @@ namespace Lake_of_the_Humber.Controllers
         /// POST: api/InfoSectionsData/DeleteSection/5
         /// </example>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteSection(int id)
         {
             InfoSection InfoSection = db.InfoSections.Find(id);
@@ -146,6 +153,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(int))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult AddSection([FromBody] InfoSectionDto Section)
         {
             if (!ModelState.IsValid)
@@ -162,7 +170,8 @@ namespace Lake_of_the_Humber.Controllers
                 LinkBtnName = Section.LinkBtnName,
                 SectionImageExt = Section.SectionImageExt,
                 IsArchive = Section.IsArchive,
-                CreatorId = Section.CreatorId
+                CreatorId = Section.CreatorId,
+                DepartmentId = Int32.Parse(Section.DepartmentId)
             };
 
             db.InfoSections.Add(InfoSection);
@@ -182,6 +191,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(InfoSectionDto))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateSection(int id, [FromBody] InfoSectionDto Section)
         {
             if (!ModelState.IsValid)
@@ -202,7 +212,8 @@ namespace Lake_of_the_Humber.Controllers
                 LinkBtnName = Section.LinkBtnName,
                 SectionImageExt = Section.SectionImageExt,
                 IsArchive = Section.IsArchive,
-                CreatorId = Section.CreatorId
+                CreatorId = Section.CreatorId,
+                DepartmentId = Int32.Parse(Section.DepartmentId)
             };
 
             db.Entry(InfoSection).State = EntityState.Modified;
@@ -223,6 +234,36 @@ namespace Lake_of_the_Humber.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        /// <summary>
+        /// Finds a particular Department in the database given a section id with a 200 status code. If the Department is not found, return 404.
+        /// </summary>
+        /// <param name="id">The Department id</param>
+        /// <param name="Section">A Section object. Received as POST data.</param>
+        /// <returns>Information about the Department: DepartmentId, DepartmentName </returns>
+        // <example>
+        // GET: api/InfoSectionsData/FindDepartmentForSection/1
+        // </example>
+        [ResponseType(typeof(InfoSectionDto))]
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IHttpActionResult FindDepartmentForSection(int id)
+        {
+            Department Department = db.Departments.Where(dep => dep.InfoSections.Any(section => section.SectionId == id)).FirstOrDefault(); ;
+
+            //if not found, return 404 status code.
+            if (Department == null)
+            {
+                return NotFound();
+            }
+
+            DepartmentDto DepartmentDto = new DepartmentDto
+            {
+                DepartmentID = Department.DepartmentId,
+                DepartmentName = Department.DepartmentName
+            };
+            return Ok(DepartmentDto);
         }
 
         protected override void Dispose(bool disposing)

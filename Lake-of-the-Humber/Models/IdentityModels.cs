@@ -25,7 +25,10 @@ namespace Lake_of_the_Humber.Models
         public ICollection<Invoice> Invoice { get; set; }
 
         //A user can have multiple faqs
-        public ICollection<Invoice> Faqs { get; set; }
+        public ICollection<Faq> Faqs { get; set; }
+
+        //A user can have multiple faqs
+        public ICollection<Volunteer> Volunteers { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -34,6 +37,15 @@ namespace Lake_of_the_Humber.Models
             // Add custom user claims here
             return userIdentity;
         }
+    }
+
+    public class ApplicationUserDto
+    {
+        public string Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -94,6 +106,11 @@ namespace Lake_of_the_Humber.Models
         /// This is the model that is linked to the Wellwishes
         /// </summary>
         public DbSet<Faq> Faqs { get; set; }
+
+        /// <summary>
+        /// This is the model that is linked to the Wellwishes
+        /// </summary>
+        public DbSet<Volunteer> Volunteers { get; set; }
 
         public static ApplicationDbContext Create()
         {
