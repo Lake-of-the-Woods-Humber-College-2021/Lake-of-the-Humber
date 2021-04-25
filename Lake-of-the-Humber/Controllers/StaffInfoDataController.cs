@@ -20,9 +20,9 @@ namespace Lake_of_the_Humber.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
-        /// Gets a list of staffs in the database alongside a status code (200 OK)
+        /// Return list of staff from the database alongside a status code (200 OK)
         /// </summary>
-        /// <returns>A list of  staffs with their information including first and last name, languages, hasPic, and Pic Extension(Image path)</returns>
+        /// <returns>A list of  staffs with their information including first and last name, languages, hasPic, and Pic Extension(Image path), as well as their working department information</returns>
         ///<example> GET: api/StaffInfoData/GetStaffInfos </example>
         [ResponseType(typeof(IEnumerable<StaffInfoDto>))]
         public IHttpActionResult GetStaffInfos()
@@ -50,7 +50,10 @@ namespace Lake_of_the_Humber.Controllers
                     StaffLanguage = StaffInfo.StaffLanguage,
                     StaffHasPic = StaffInfo.StaffHasPic,
                     StaffImagePath = StaffInfo.StaffImagePath,
-                    DepartmentID = StaffInfo.DepartmentID
+                    DepartmentID = StaffInfo.DepartmentID,
+                    DepartmentName = StaffInfo.Department.DepartmentName,
+                    DepartmentAddress = StaffInfo.Department.DepartmentAddress,
+                    DepartmentPhone = StaffInfo.Department.DepartmentPhone
 
                 };
                 StaffInfoDtos.Add(NewStaffInfo);
@@ -60,12 +63,57 @@ namespace Lake_of_the_Humber.Controllers
 
         }
 
+        /// <summary>
+        /// Gets a list of staffs in the database alongside a status code (200 OK). Skips the first {startindex} records and takes {perpage} records.
+        /// </summary>
+        /// <returns>A list of  staffs with their information including first and last name, languages, hasPic, and Pic Extension(Image path), as well as their working department information</returns>
+        /// <param name="StartIndex">The number of records to skip through</param>
+        /// <param name="PerPage">The number of records for each page</param>
+        /// <example>
+        /// GET: api/StaffInfoData/GetStaffInfos/20/5
+        /// Retrieves the first 5 staffs after skipping 20 (fifth page)
+        /// 
+        /// GET: api/StaffInfoData/GetStaffInfos/15/3
+        /// Retrieves the first 3 staffs after skipping 15 (sixth page)
+        /// 
+        /// </example>
+        [ResponseType(typeof(IEnumerable<StaffInfoDto>))]
+        [Route("api/StaffInfoData/GetStaffInfoesPage/{StartIndex}/{PerPage}")]
+        public IHttpActionResult GetStaffInfoesPage(int StartIndex, int PerPage)
+        {
+            List<StaffInfo> StaffInfos = db.StaffInfoes.OrderBy(s => s.StaffID).Skip(StartIndex).Take(PerPage).ToList();
+            List<StaffInfoDto> StaffInfoDtos = new List<StaffInfoDto> { };
+
+            //Here you can choose which information is exposed to the API
+            foreach (var Staff in StaffInfos)
+            {
+                StaffInfoDto NewStaffInfo = new StaffInfoDto
+                {
+                    StaffID = Staff.StaffID,
+                    StaffFirstName = Staff.StaffFirstName,
+                    StaffLastName = Staff.StaffLastName,
+                    StaffLanguage = Staff.StaffLanguage,
+                    StaffHasPic = Staff.StaffHasPic,
+                    StaffImagePath = Staff.StaffImagePath,
+                    DepartmentID = Staff.DepartmentID,
+                    DepartmentName = Staff.Department.DepartmentName,
+                    DepartmentAddress = Staff.Department.DepartmentAddress,
+                    DepartmentPhone = Staff.Department.DepartmentPhone
+
+                };
+                StaffInfoDtos.Add(NewStaffInfo);
+            }
+
+            return Ok(StaffInfoDtos);
+        }
+
+
 
         /// <summary>
         /// Finds a particular Staff in the database with a 200 status code. If the staff is not found, return 404.
         /// </summary>
         /// <param name="id">The stafft id</param>
-        /// <returns>Information about the selected staff information including first and last name, languages, hasPic, and Pic Extension(Image path)</returns>
+        /// <returns>A list of  staffs with their information including first and last name, languages, hasPic, and Pic Extension(Image path), as well as their working department information</returns>
         // <example>
         // GET: api/StaffInfoData/FindStaff/5
         // </example>
@@ -97,7 +145,10 @@ namespace Lake_of_the_Humber.Controllers
                 StaffLanguage = StaffInfo.StaffLanguage,
                 StaffHasPic = StaffInfo.StaffHasPic,
                 StaffImagePath = StaffInfo.StaffImagePath,
-                DepartmentID = StaffInfo.DepartmentID
+                DepartmentID = StaffInfo.DepartmentID,
+                DepartmentName = StaffInfo.Department.DepartmentName,
+                DepartmentAddress = StaffInfo.Department.DepartmentAddress,
+                DepartmentPhone = StaffInfo.Department.DepartmentPhone
 
             };
 
@@ -105,30 +156,30 @@ namespace Lake_of_the_Humber.Controllers
             return Ok(StaffInfoDto);
         }
         /// <summary>
-        /// //////////////////NEEED TO CHECK ON THIS OUTCOME IS DEPARTMENT ID 
+        /// Get particular department on selected staff
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        /// <param name="id">staff id</param>
+        /// <returns>Department information where slected staff is working</returns>
         // <example>
         // GET: api/StaffInfoData/FindDepartmentForStaff/5
         // </example>
         [HttpGet]
-        [ResponseType(typeof(DepartmentDto))]
+        [ResponseType(typeof(StaffInfoDto))]
         public IHttpActionResult FindDepartmentForStaff(int id)
         {
 
-            Department Department = db.Departments
-                .Where(d => d.StaffInfoes.Any(s => s.DepartmentID == id))
-                .FirstOrDefault();
+            StaffInfo staffInfo = db.StaffInfoes.Find(id);
+                
             //if not found, return 404 status code.
-            if (Department == null)
+            if (staffInfo == null)
             {
                 return NotFound();
             }
-
+            Department Department = db.Departments.Where(s => s.StaffInfoes.Any(d => d.StaffID == id)).FirstOrDefault();
+               
             DepartmentDto DepartmentDto = new DepartmentDto
             {
-                DepartmentID = Department.DepartmentId,
+                DepartmentId = Department.DepartmentId,
                 DepartmentName = Department.DepartmentName,
                 DepartmentAddress = Department.DepartmentAddress,
                 DepartmentPhone = Department.DepartmentPhone
@@ -207,10 +258,13 @@ namespace Lake_of_the_Humber.Controllers
 
             bool haspic = false;
             string picextension;
+            
             if (Request.Content.IsMimeMultipartContent())
             {
+                Debug.WriteLine("Received multipart form data.");
 
                 int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files Received: " + numfiles);
 
                 //Check if a file is posted
                 if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
@@ -229,8 +283,8 @@ namespace Lake_of_the_Humber.Controllers
                                 //file name is the id of the image
                                 string fn = id + "." + extension;
 
-                                //get a direct file path to ~/Content/Products/{id}.{extension}
-                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/StaffInfoes/"), fn);
+                                //get a direct file path to ~/Content/Staffs/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Staffs/"), fn);
 
                                 //save the file
                                 StaffPic.SaveAs(path);
@@ -239,11 +293,11 @@ namespace Lake_of_the_Humber.Controllers
                                 haspic = true;
                                 picextension = extension;
 
-                                //Update the product haspic and picextension fields in the database
-                                StaffInfo SelectedStaffInfo = db.StaffInfoes.Find(id);
-                                SelectedStaffInfo.StaffHasPic = haspic;
-                                SelectedStaffInfo.StaffImagePath = extension;
-                                db.Entry(SelectedStaffInfo).State = EntityState.Modified;
+                                //Update the player haspic and picextension fields in the database
+                                StaffInfo SelectedStaff = db.StaffInfoes.Find(id);
+                                SelectedStaff.StaffHasPic = haspic;
+                                SelectedStaff.StaffImagePath = extension;
+                                db.Entry(SelectedStaff).State = EntityState.Modified;
 
                                 db.SaveChanges();
 
@@ -306,7 +360,7 @@ namespace Lake_of_the_Humber.Controllers
             if (StaffInfo.StaffHasPic && StaffInfo.StaffImagePath != "")
             {
                 //also delete image from path
-                string path = HttpContext.Current.Server.MapPath("~/Content/StaffInfoes/" + id + "." + StaffInfo.StaffImagePath);
+                string path = HttpContext.Current.Server.MapPath("~/Content/Staffs/" + id + "." + StaffInfo.StaffImagePath);
                 if (System.IO.File.Exists(path))
                 {
 

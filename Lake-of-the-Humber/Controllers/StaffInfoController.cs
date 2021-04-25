@@ -1,14 +1,16 @@
-﻿using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using System.Web.Mvc.Html;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
 using Lake_of_the_Humber.Models;
 using Lake_of_the_Humber.Models.ViewModels;
-using System.Web.Mvc;
-using System;
-using System.Web;
-using System.Collections.Generic;
 
 
 namespace Lake_of_the_Humber.Controllers
@@ -22,37 +24,104 @@ namespace Lake_of_the_Humber.Controllers
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                UseCookies = false
             };
             client = new HttpClient(handler);
-            //change this to match your own local port number
             client.BaseAddress = new Uri("https://localhost:44336/api/");
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
 
+        }
+        /// <summary>
+        /// Grabs the authentication credentials which are sent to the Controller.
+        /// This is NOT considered a proper authentication technique for the WebAPI. It piggybacks the existing authentication set up in the template for Individual User Accounts. Considering the existing scope and complexity of the course, it works for now.
+        /// 
+        /// Here is a descriptive article which walks through the process of setting up authorization/authentication directly.
+        /// https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/individual-accounts-in-web-api
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
+            //This is a bit dangerous because a previously authenticated cookie could be cached for
+            //a follow-up request from someone else. Reset cookies in HTTP client before grabbing a new one.
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
 
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ACCESS_TOKEN);
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
 
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
 
-        // GET: StaffInfo/List
-        public ActionResult List()
-        {
+        // GET: StaffInfo/List?{PageNum}
+        // If the page number is not included, set it to 0
+       
+        public ActionResult List(int PageNum = 0)
+        {   
+            // Grab all staffinfos
             string url = "staffinfodata/getstaffinfos";
-            HttpResponseMessage response = client.GetAsync(url).Result;
-            if (response.IsSuccessStatusCode)
+            // Send off an HTTP request
+            // GET : /api/staffinfoata/GetSatffInfos
+            // Retrieve response
+            HttpResponseMessage getstaffResponse = client.GetAsync(url).Result;
+            // If the response is a success, proceed
+            if (getstaffResponse.IsSuccessStatusCode)
             {
-                IEnumerable<StaffInfoDto> SelectedStaffInfos = response.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
-                return View(SelectedStaffInfos);
+                // Fetch the response content into IEnumerable<ProductDto>
+                IEnumerable<StaffInfoDto> SelectedStaffs = getstaffResponse.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
+
+                // -- Start of Pagination Algorithm --
+
+                // Find the total number of products
+                int StaffCount = SelectedStaffs.Count();
+                // Number of products to display per page
+                int PerPage = 12;
+                // Determines the maximum number of pages (rounded up), assuming a page 0 start.
+                int MaxPage = (int)Math.Ceiling((decimal)StaffCount / PerPage) - 1;
+
+                // Lower boundary for Max Page
+                if (MaxPage < 0) MaxPage = 0;
+                // Lower boundary for Page Number
+                if (PageNum < 0) PageNum = 0;
+                // Upper Bound for Page Number
+                if (PageNum > MaxPage) PageNum = MaxPage;
+
+                // The Record Index of our Page Start
+                int StartIndex = PerPage * PageNum;
+
+                //Helps us generate the HTML which shows "Page 1 of ..." on the list view
+                ViewData["PageNum"] = PageNum;
+                ViewData["PageSummary"] = " " + (PageNum + 1) + " of " + (MaxPage + 1) + " ";
+
+                // -- End of Pagination Algorithm --
+
+                // Send back another request to get stffs, this time according to our paginated logic rules
+                url = "StaffInfoData/GetStaffInfoesPage/" + StartIndex + "/" + PerPage;
+                getstaffResponse = client.GetAsync(url).Result;
+
+                // Retrieve the response of the HTTP Request
+                IEnumerable<StaffInfoDto> SelectedStaffsPage = getstaffResponse.Content.ReadAsAsync<IEnumerable<StaffInfoDto>>().Result;
+
+
+                //Return the paginated of products instead of the entire list
+                return View(SelectedStaffsPage);
+
             }
             else
             {
+                // If we reach here something went wrong with our list algorithm
                 return RedirectToAction("Error");
             }
         }
-
+            
         /// <summary>
-        /// To gather information of particular staff with selected staff ID
+        /// To gather staff and department information of particular staff with selected staff ID
         /// </summary>
         /// <param name="id">StaffId</param>
         /// <returns>Return information about slected StaffId. </returns>
@@ -73,10 +142,10 @@ namespace Lake_of_the_Humber.Controllers
                 ViewModel.staffinfo = SelectedStaff;
 
                 //Find department for staff
-                string finddepartmenturl = "departmentdata/FindDepartmentForStaff/" + id;
+                string finddepartmenturl = "StaffInfoData/FindDepartmentForStaff/" + id;
                 HttpResponseMessage finddepertmentResponse = client.GetAsync(finddepartmenturl).Result;
-                DepartmentDto SelectedDepartment = finddepertmentResponse.Content.ReadAsAsync<DepartmentDto>().Result;
-                ViewModel.department = SelectedDepartment;
+                DepartmentDto DepartmentInfo = finddepertmentResponse.Content.ReadAsAsync<DepartmentDto>().Result;
+                ViewModel.department = DepartmentInfo;
 
                 return View(ViewModel);
             }
@@ -90,7 +159,9 @@ namespace Lake_of_the_Humber.Controllers
         /// </summary>
         /// <returns>New staff request will be send and respond in POST Actions</returns>
         // GET: StaffInfo/Create 
+
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -103,8 +174,10 @@ namespace Lake_of_the_Humber.Controllers
         // POST: StaffInfo/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(StaffInfo StaffInfo)
         {
+            GetApplicationCookie();
             //Sending addstaffresponse request to data controller (thru url string), 
             //If request send succeed (status code 200), add new staff information.
             // & redirect to the  Details controller method, and add id to the url parameters
@@ -136,13 +209,15 @@ namespace Lake_of_the_Humber.Controllers
         /// <param name="id">StaffId</param>
         /// <returns>Retreive the data of selected staff and apply the changes and submit thru POST method.</returns>
         // GET: StaffInfo/Edit/5
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Edit(int id)
         {
             //Sending getupdatestaffResponse request to data controller (thru url string), 
             //If request send succeed (status code 200), get the staff information in edit view.
             //If failed, direct to Error action (View)
             UpdateStaff ViewModel = new UpdateStaff();
-
+            GetApplicationCookie();
             string updatestaffurl = "StaffInfodata/findstaff/" + id;
             HttpResponseMessage getupdatestaffResponse = client.GetAsync(updatestaffurl).Result;
 
@@ -152,10 +227,11 @@ namespace Lake_of_the_Humber.Controllers
                 StaffInfoDto SelectedStaff = getupdatestaffResponse.Content.ReadAsAsync<StaffInfoDto>().Result;
                 ViewModel.staffinfo = SelectedStaff;
 
-                string getdepartmenturl = " StaffInfo/FindDepartmentForStaff/" + id;
-                HttpResponseMessage response = client.GetAsync(getdepartmenturl).Result;
-                IEnumerable<DepartmentDto> departments = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
-                ViewModel.alldepartments = departments;
+                string getdepartmenturl = " StaffInfodata/FindDepartmentForStaff/" + id;
+                HttpResponseMessage getdepartmentResponse = client.GetAsync(getdepartmenturl).Result;
+                DepartmentDto departments = getdepartmentResponse.Content.ReadAsAsync<DepartmentDto>().Result;
+                ViewModel.department = departments;
+                Debug.WriteLine(ViewModel);
 
                 return View(ViewModel);
             }
@@ -174,11 +250,13 @@ namespace Lake_of_the_Humber.Controllers
         // POST: StaffInfo/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Edit(int id, StaffInfo StaffInfo, HttpPostedFileBase StaffPic)
         {
 
-            string updatestaffurl = "staffinfodata/updatestaff/" + id;
-
+            string updatestaffurl = "StaffInfoData/UpdateStaff/" + id;
+            GetApplicationCookie();
             HttpContent content = new StringContent(jss.Serialize(StaffInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage postupdatestaffResponse = client.PostAsync(updatestaffurl, content).Result;
@@ -189,7 +267,7 @@ namespace Lake_of_the_Humber.Controllers
                 if (StaffPic != null)
                 {
                     //Send over image data for staff
-                    updatestaffurl = "staffinfodata/updatestaffpic/" + id;
+                    updatestaffurl = "StaffInfoData/UpdateStaffPic/" + id;
 
                     MultipartFormDataContent requestcontent = new MultipartFormDataContent();
                     HttpContent imagecontent = new StreamContent(StaffPic.InputStream);
@@ -212,8 +290,10 @@ namespace Lake_of_the_Humber.Controllers
         /// <returns>The staff database will delete the staff record</returns>
         // GET: updatestaffurl/Delete/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
+            GetApplicationCookie();
             //Sending response request to staff data controller (thru url string), 
             //If request send succeed (status code 200), delete the staff information.
             // & redirect to the slected view.
@@ -241,9 +321,11 @@ namespace Lake_of_the_Humber.Controllers
         /// <returns>Selected staff record will be deleted and return to "List" Action to view the updated database</returns>
         // POST: StaffInfo/Delete/5
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken()]
         public ActionResult Delete(int? id)
         {
+            GetApplicationCookie();
             string url = "staffinfodata/deletestaff/" + id;
             //post body is empty
             HttpContent content = new StringContent("");

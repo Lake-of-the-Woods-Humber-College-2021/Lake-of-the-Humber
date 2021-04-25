@@ -31,16 +31,18 @@ namespace Lake_of_the_Humber.Models
 
     public class DepartmentDto
     {
-        public int DepartmentID { get; set; }
+        public int DepartmentId { get; set; }
 
-        [Required]
         [DisplayName("Department Name")]
+        [Required(ErrorMessage = "Please Enter a Department Name.")]
         public string DepartmentName { get; set; }
 
         [DisplayName("Department Address")]
+        [Required(ErrorMessage = "Please Enter Department's Address (i.e. Clinic A - Green Owl Zone (Level 1).")]
         public string DepartmentAddress { get; set; }
 
         [DisplayName("Department Phone Number")]
+        [Required(ErrorMessage = "Please Enter Department's Phone Number ( i.e. 647-222-3333).")]
         public string DepartmentPhone { get; set; }
 
         public string UserId { get; set; }

@@ -9,7 +9,7 @@ namespace Lake_of_the_Humber.Models.ViewModels
     {
         public StaffInfoDto staffinfo { get; set; }
         public DepartmentDto department { get; set; }
-        public IEnumerable<DepartmentDto> alldepartments { get; set; }
+        //public IEnumerable<DepartmentDto> alldepartments { get; set; }
 
     }
 }

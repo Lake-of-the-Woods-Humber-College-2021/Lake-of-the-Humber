@@ -7,24 +7,30 @@
 <h2>Details</h2>
 
 <div>
-    <h4>StaffInfo</h4>
+    <h4> Dr. @Model.staffinfo.StaffFirstName @Model.staffinfo.StaffLastName</h4>
     <hr />
+    <div>@Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.staffinfo.StaffID})</div>
+    @{
+        //Use server rendering to determine an image
+        string pic = "/Content/Staffs/default.jpg";
+        string alt = "Staff Image Not Provided.";
+        if (Model.staffinfo.StaffHasPic)
+        {
+            pic = "/Content/Staffs/" + Model.staffinfo.StaffID + "." + Model.staffinfo.StaffImagePath;
+            alt = "Profile shot of Dr. " + Model.staffinfo.StaffFirstName + Model.staffinfo.StaffLastName;
+        }
+    }
+    <div class="imagecontainer featured">
+        <img src="@pic" alt="@alt" />
+    </div>
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.department.DepartmentName)
+            @Html.DisplayNameFor(model => model.userInfo.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.department.DepartmentName)
+            @Html.DisplayFor(model => model.userInfo.FirstName)
         </dd>
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.User.FirstName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.User.FirstName)
-            </dd>*@
 
         <dt>
             @Html.DisplayNameFor(model => model.staffinfo.StaffFirstName)
@@ -49,7 +55,7 @@
         <dd>
             @Html.DisplayFor(model => model.staffinfo.StaffLanguage)
         </dd>
-
+        @* public does not need to know bout staffHasPi and StaffImagePath
         <dt>
             @Html.DisplayNameFor(model => model.staffinfo.StaffHasPic)
         </dt>
@@ -65,6 +71,30 @@
         <dd>
             @Html.DisplayFor(model => model.staffinfo.StaffImagePath)
         </dd>
+        *@
+        <dt>
+            @Html.DisplayNameFor(model => model.department.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.department.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.department.DepartmentPhone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.department.DepartmentPhone)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.department.DepartmentAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.staffinfo.DepartmentAddress)
+        </dd>
+
 
     </dl>
 </div>

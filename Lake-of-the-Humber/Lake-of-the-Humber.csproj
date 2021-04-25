@@ -245,6 +245,14 @@
     <Compile Include="Migrations\202104230038578_update-models.Designer.cs">
       <DependentUpon>202104230038578_update-models.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104241845446_fix-departmentDto.cs" />
+    <Compile Include="Migrations\202104241845446_fix-departmentDto.Designer.cs">
+      <DependentUpon>202104241845446_fix-departmentDto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104241859509_fix-staffpic.cs" />
+    <Compile Include="Migrations\202104241859509_fix-staffpic.Designer.cs">
+      <DependentUpon>202104241859509_fix-staffpic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -285,6 +293,37 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\icons\close.png" />
+    <Content Include="Content\icons\loading.gif" />
+    <Content Include="Content\icons\next.png" />
+    <Content Include="Content\icons\prev.png" />
+    <Content Include="Content\lightbox2.css" />
+    <Content Include="Content\Products\10.jpg" />
+    <Content Include="Content\Products\2.jpg" />
+    <Content Include="Content\Products\3.jpg" />
+    <Content Include="Content\Products\4.jpg" />
+    <Content Include="Content\Products\5.jpg" />
+    <Content Include="Content\Products\8.jpg" />
+    <Content Include="Content\Products\9.jpg" />
+    <Content Include="Content\Products\default.jpg" />
+    <Content Include="Content\Staffs\10.png" />
+    <Content Include="Content\Staffs\11.png" />
+    <Content Include="Content\Staffs\12.png" />
+    <Content Include="Content\Staffs\13.png" />
+    <Content Include="Content\Staffs\15.png" />
+    <Content Include="Content\Staffs\16.png" />
+    <Content Include="Content\Staffs\17.png" />
+    <Content Include="Content\Staffs\18.png" />
+    <Content Include="Content\Staffs\19.png" />
+    <Content Include="Content\Staffs\2.png" />
+    <Content Include="Content\Staffs\3.png" />
+    <Content Include="Content\Staffs\4.png" />
+    <Content Include="Content\Staffs\5.png" />
+    <Content Include="Content\Staffs\6.png" />
+    <Content Include="Content\Staffs\8.png" />
+    <Content Include="Content\Staffs\9.png" />
+    <Content Include="Content\Staffs\default.jpg" />
+    <Content Include="Content\Staffs\staffinfo_potrait_reference_list.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -336,6 +375,7 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lightbox2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\popper-utils.js" />
     <Content Include="Scripts\popper-utils.min.js" />
@@ -492,7 +532,6 @@
     <Content Include="Views\StaffInfo\Create.cshtml" />
     <Content Include="Views\StaffInfo\DeleteConfirm.cshtml" />
     <Content Include="Views\StaffInfo\Details.cshtml" />
-    <Content Include="Views\StaffInfo\Edit.cshtml" />
     <Content Include="Views\StaffInfo\List.cshtml" />
     <Content Include="Views\WellWishes\Create.cshtml" />
     <Content Include="Views\WellWishes\DeleteConfirm.cshtml" />
@@ -501,6 +540,7 @@
     <Content Include="Views\Department\DeleteConfirm.cshtml" />
     <Content Include="Views\Department\Details.cshtml" />
     <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\StaffInfo\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -530,6 +570,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104230038578_update-models.resx">
       <DependentUpon>202104230038578_update-models.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104241845446_fix-departmentDto.resx">
+      <DependentUpon>202104241845446_fix-departmentDto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104241859509_fix-staffpic.resx">
+      <DependentUpon>202104241859509_fix-staffpic.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

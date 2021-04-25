@@ -37,16 +37,16 @@ namespace Lake_of_the_Humber.Models
     {
         public int StaffID { get; set; }
 
-        [Required]
         [DisplayName("First Name")]
+        [Required(ErrorMessage = "Please Enter Staff's First Name.")]
         public string StaffFirstName { get; set; }
 
-        [Required]
         [DisplayName("Last Name")]
+        [Required(ErrorMessage = "Please Enter Staff's Last Name.")]
         public string StaffLastName { get; set; }
 
-        [Required]
         [DisplayName("Language(s)")]
+        [Required(ErrorMessage = "Please Enter Minimum One Language ( i.e. English).")]
         public string StaffLanguage { get; set; }
         public bool StaffHasPic { get; set; }
 
@@ -56,6 +56,10 @@ namespace Lake_of_the_Humber.Models
         public string UserId { get; set; }
 
         public int DepartmentID { get; set; }
+
+        public string DepartmentName { get; set; }
+        public string DepartmentAddress { get; set; }
+        public string DepartmentPhone { get; set; }
     }
 
 }

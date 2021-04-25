@@ -32,7 +32,7 @@ namespace Lake_of_the_Humber.Controllers
             {
                 DepartmentDto NewDepartment = new DepartmentDto
                 {
-                    DepartmentID = Department.DepartmentId,
+                    DepartmentId = Department.DepartmentId,
                     DepartmentName = Department.DepartmentName,
                     DepartmentAddress = Department.DepartmentAddress,
                     DepartmentPhone = Department.DepartmentPhone,
@@ -55,9 +55,10 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [HttpGet]
         [ResponseType(typeof(IEnumerable<DepartmentDto>))]
+        
         public IHttpActionResult GetStaffsForDepartment(int id)
         {
-            //Finds the Orders on particular customerID; return as a list form that show customer ID , Order Date and Order ID.
+            
             Department department = db.Departments.Find(id);
             if (department == null)
             {
@@ -65,7 +66,7 @@ namespace Lake_of_the_Humber.Controllers
             }
 
             List<StaffInfo> StaffInfoes = db.StaffInfoes.Where(s => s.DepartmentID == id).ToList();
-            //List<StaffInfo> StaffInfoes = db.StaffInfoes.ToList();
+            
             List<StaffInfoDto> StaffInfoDtos = new List<StaffInfoDto> { };
 
             foreach (var Staff in StaffInfoes)
@@ -105,7 +106,7 @@ namespace Lake_of_the_Humber.Controllers
             //put into a 'friendly object format'
             DepartmentDto DepartmentDto = new DepartmentDto
             {
-                DepartmentID = Department.DepartmentId,
+                DepartmentId = Department.DepartmentId,
                 DepartmentName = Department.DepartmentName,
                 DepartmentAddress = Department.DepartmentAddress,
                 DepartmentPhone = Department.DepartmentPhone
@@ -114,7 +115,6 @@ namespace Lake_of_the_Humber.Controllers
             //pass along data as 200 status code OK response
             return Ok(DepartmentDto);
         }
-
 
         /// <summary>
         /// Updates a Department information after any changes apply.
@@ -128,6 +128,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateDepartment(int id, [FromBody] Department Department)
         {
             if (!ModelState.IsValid)
@@ -173,6 +174,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(Department))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult AddDepartment([FromBody] Department Department)
         {
             //Will Validate according to data annotations specified on model
@@ -197,6 +199,7 @@ namespace Lake_of_the_Humber.Controllers
         /// POST: api/DepartmentData/DeleteDepartment/5
         /// </example>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteDepartment(int id)
         {
             Department department = db.Departments.Find(id);

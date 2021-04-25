@@ -22,7 +22,8 @@ namespace Lake_of_the_Humber.Controllers
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                UseCookies = false
             };
             client = new HttpClient(handler);
             //change this to match your own local port number
@@ -30,9 +31,19 @@ namespace Lake_of_the_Humber.Controllers
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
 
+        }
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
 
-            //client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", ACCESS_TOKEN);
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
 
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
 
         // <summary>
@@ -63,8 +74,10 @@ namespace Lake_of_the_Humber.Controllers
         /// <param name="id">DepartmentId</param>
         /// <returns>Return particular Department information. Using View Modal, set a limit on what can be view by the client side and also able to set [DisplayName] to change the column name that will appaered in the View.  </returns>
         // GET: Department/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
+            GetApplicationCookie();
             ShowDepartment ViewModel = new ShowDepartment();
             string finddepartmenturl = "departmentdata/finddepartment/" + id;
             HttpResponseMessage findDepartmentresponse = client.GetAsync(finddepartmenturl).Result;
@@ -99,6 +112,8 @@ namespace Lake_of_the_Humber.Controllers
         /// <returns>New Department request will be send and respond in POST Actions</returns>
         // GET: Department/Create 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Create()
         {
             return View();
@@ -111,8 +126,11 @@ namespace Lake_of_the_Humber.Controllers
         // POST: Department/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Create(Department DepartmentInfo)
         {
+            GetApplicationCookie();
             //Sending addDepartmentresponse request to data controller (thru url string), 
             //If request send succeed (status code 200), Please add new Department information.
             // & redirect to the  Details controller method, and add id to the url parameters
@@ -145,13 +163,15 @@ namespace Lake_of_the_Humber.Controllers
         /// <param name="id">DepartmentId</param>
         /// <returns>Retreive the data of selected Department and apply the changes and submit thru POST method.</returns>
         // GET: Department/Edit/5
+
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             //Sending getupdateDepartmentresponse request to data controller (thru url string), 
             //If request send succeed (status code 200), Please retrieve the Department information in edit view.
             //If failed, direct to Error action (View)
             UpdateDepartment ViewModel = new UpdateDepartment();
-
+            GetApplicationCookie();
             string url = "departmentdata/finddepartment/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Can catch the status code (200 OK, 301 REDIRECT), etc.
@@ -185,8 +205,11 @@ namespace Lake_of_the_Humber.Controllers
         // POST: Department/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Edit(int id, Department DepartmentInfo)
         {
+            GetApplicationCookie();
             Debug.WriteLine(DepartmentInfo.DepartmentName);
             string url = "departmentdata/updatedepartment/" + id;
             Debug.WriteLine(jss.Serialize(DepartmentInfo));
@@ -212,8 +235,10 @@ namespace Lake_of_the_Humber.Controllers
         /// <returns>The Department database will delete the Department record</returns>
         // GET: Department/Delete/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
+            GetApplicationCookie();
             //Sending getudeleteDepartmentresponse request to data controller (thru url string), 
             //If request send succeed (status code 200), delete the Department information.
             // & redirect to the slected Department view.
@@ -242,8 +267,11 @@ namespace Lake_of_the_Humber.Controllers
         // POST: Department/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "departmentdata/deletedepartment/" + id;
             //post body is empty
             HttpContent content = new StringContent("");

@@ -6,65 +6,62 @@
 
 <h2>List</h2>
 
-<p>
+<p class="btn-lg">
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentID)
-        </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.User.FirstName)
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.StaffFirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StaffLastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StaffLanguage)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StaffHasPic)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StaffImagePath)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DepartmentID)
-            </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.User.FirstName)
-                </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.StaffFirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StaffLastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StaffLanguage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StaffHasPic)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StaffImagePath)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.StaffID }) |
-                @Html.ActionLink("Details", "Details", new { id = item.StaffID }) |
-                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.StaffID })
-            </td>
-        </tr>
+<div class="pagination-lg text-right">
+    @{
+        int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+        int NextPage = Convert.ToInt32(ViewData["PageNum"]) + 1;
+        @Html.ActionLink("Prev", "List", new { PageNum = PrevPage })
+        @ViewData["PageSummary"]
+        @Html.ActionLink("Next", "List", new { PageNum = NextPage })
     }
+</div>
 
-</table>
+<div class="record-container">
+    @foreach (var StaffInfo in Model)
+    {
+        <div class="record ">
+            <div class="_record">
+                @{
+                    //Use server rendering to determine an image
+                    string pic = "/Content/Staffs/default.jpg";
+                    string alt = "No Stafft Picture Provided.";
+                    if (StaffInfo.StaffHasPic)
+                    {
+                        pic = "/Content/Staffs/" + StaffInfo.StaffID + "." + StaffInfo.StaffImagePath;
+                        alt = "Image of Dr. " + StaffInfo.StaffFirstName + " " + StaffInfo.StaffLastName;
+                    }
+                }
+
+                <div class="imagecontainer">
+                    <a data-lightbox="staffinfo-@StaffInfo.StaffID" href="@pic" data-title="@alt">
+                        <img src="@pic" alt="@alt" height="300" />
+                    </a>
+                </div>
+                <div class="recordtitle">
+                    @Html.ActionLink("Dr." + StaffInfo.StaffFirstName + " " + StaffInfo.StaffLastName,
+                   "Details",
+                   new { id = StaffInfo.StaffID })
+                </div>
+                <div class="fontBold text-center text-info text-capitalize p-2">
+                    <span class="">
+                        @Html.DisplayFor(modelItem => StaffInfo.DepartmentName)
+                    </span>
+                </div>
+                <div class="fontBold text-center">
+                    <span class="">
+                        @Html.DisplayFor(modelItem => StaffInfo.StaffLanguage)
+                    </span>
+                </div>
+                <nav class="linknav  btn">
+                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = StaffInfo.StaffID })</span>
+                </nav>
+
+
+            </div>
+        </div>
+    }
+</div>
