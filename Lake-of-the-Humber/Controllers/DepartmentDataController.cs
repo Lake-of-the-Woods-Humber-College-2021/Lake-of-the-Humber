@@ -32,10 +32,11 @@ namespace Lake_of_the_Humber.Controllers
             {
                 DepartmentDto NewDepartment = new DepartmentDto
                 {
-                    DepartmentID = Department.DepartmentId,
+                    DepartmentId = Department.DepartmentId,
                     DepartmentName = Department.DepartmentName,
                     DepartmentAddress = Department.DepartmentAddress,
                     DepartmentPhone = Department.DepartmentPhone,
+                    UserId = Department.UserId
 
                 };
                 DepartmentDtos.Add(NewDepartment);
@@ -44,6 +45,43 @@ namespace Lake_of_the_Humber.Controllers
             return Ok(DepartmentDtos);
         }
 
+        /// <summary>
+        /// Gets a list of staff on selected department
+        /// </summary>
+        /// <param name="id">The input department id</param>
+        /// <returns>A list of staff</returns>
+        /// <example>
+        /// GET: api/DepartmentData/GetStaffsForDepartment
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<DepartmentDto>))]
+        
+        public IHttpActionResult GetStaffsForDepartment(int id)
+        {
+            
+            Department department = db.Departments.Find(id);
+            if (department == null)
+            {
+                return NotFound();
+            }
+
+            List<StaffInfo> StaffInfoes = db.StaffInfoes.Where(s => s.DepartmentID == id).ToList();
+            
+            List<StaffInfoDto> StaffInfoDtos = new List<StaffInfoDto> { };
+
+            foreach (var Staff in StaffInfoes)
+            {
+                StaffInfoDto NewStaff = new StaffInfoDto
+                {
+                    StaffID = Staff.StaffID,
+                    StaffFirstName = Staff.StaffFirstName,
+                    StaffLastName = Staff.StaffLastName,
+                    DepartmentID = Staff.DepartmentID
+                };
+                StaffInfoDtos.Add(NewStaff);
+            }
+            return Ok(StaffInfoDtos);
+        }
 
         /// <summary>
         /// Finds a particular Department in the database with a 200 status code. If the Department is not found, return 404.
@@ -68,10 +106,10 @@ namespace Lake_of_the_Humber.Controllers
             //put into a 'friendly object format'
             DepartmentDto DepartmentDto = new DepartmentDto
             {
-                DepartmentID = Department.DepartmentId,
+                DepartmentId = Department.DepartmentId,
                 DepartmentName = Department.DepartmentName,
                 DepartmentAddress = Department.DepartmentAddress,
-                DepartmentPhone = Department.DepartmentPhone,
+                DepartmentPhone = Department.DepartmentPhone
             };
 
             //pass along data as 200 status code OK response
@@ -90,6 +128,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateDepartment(int id, [FromBody] Department Department)
         {
             if (!ModelState.IsValid)
@@ -123,6 +162,7 @@ namespace Lake_of_the_Humber.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+
         /// <summary>
         /// Add a Department to the database after receive the GET form information
         /// </summary>
@@ -134,6 +174,7 @@ namespace Lake_of_the_Humber.Controllers
         /// </example>
         [ResponseType(typeof(Department))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult AddDepartment([FromBody] Department Department)
         {
             //Will Validate according to data annotations specified on model
@@ -158,6 +199,7 @@ namespace Lake_of_the_Humber.Controllers
         /// POST: api/DepartmentData/DeleteDepartment/5
         /// </example>
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteDepartment(int id)
         {
             Department department = db.Departments.Find(id);

@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Lake of the Humber</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/lightbox2.css" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -39,7 +41,7 @@
                                     <p>@Html.ActionLink("Department Directory", "List", "Department", new { area = "" }, new { @class = "dropdown-item" })</p>
                                     <p>@Html.ActionLink("Staff Directory", "List", "StaffInfo", new { area = "" }, new { @class = "dropdown-item" })</p>
                                     <p>@Html.ActionLink("Directions, Map, and Parking", "List", "InfoSections", new { area = "" }, new { @class = "dropdown-item" })</p>
-                                    <p>@Html.ActionLink("FAQ", "List", "", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                    <p>@Html.ActionLink("FAQ", "List", "Faq", new { area = "" }, new { @class = "dropdown-item" })</p>
 
                                 </div>
                             </li>
@@ -99,5 +101,5 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script src="~/Scripts/lightbox2.js"></script>
 </body>
-</html>

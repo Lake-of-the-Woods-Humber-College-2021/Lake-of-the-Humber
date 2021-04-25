@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Lake_of_the_Humber.Models.ViewModel.UpdateStaff>
+﻿@model IEnumerable<Lake_of_the_Humber.Models.StaffInfoDto>
 
 @{
     ViewBag.Title = "List";
@@ -9,7 +9,7 @@
 <p class="btn-lg">
     @Html.ActionLink("Create New", "Create")
 </p>
-<!--Set the number of record per page on staffInfo controller-->
+
 <div class="pagination-lg text-right">
     @{
         int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
@@ -19,7 +19,7 @@
         @Html.ActionLink("Next", "List", new { PageNum = NextPage })
     }
 </div>
-<!--Next Step to display more information when click on the picture!-->
+
 <div class="record-container">
     @foreach (var StaffInfo in Model)
     {
@@ -27,27 +27,37 @@
             <div class="_record">
                 @{
                     //Use server rendering to determine an image
-                    string pic = "/Content/StaffInfos/default.jpg";
-                    string alt = "No StaffInfo Picture Provided.";
-                    if (StaffInfo.StaffInfo.StaffHasPic)
+                    string pic = "/Content/Staffs/default.jpg";
+                    string alt = "No Stafft Picture Provided.";
+                    if (StaffInfo.StaffHasPic)
                     {
-                        pic = "/Content/StaffInfoes/" + StaffInfo.StaffInfo.StaffId + "." + StaffInfo.StaffInfo.StaffImagePath;
-                        alt = "StaffInfo shot of " + StaffInfo.StaffInfo.StaffFirstName + StaffInfo.StaffInfo.StaffLastName;
+                        pic = "/Content/Staffs/" + StaffInfo.StaffID + "." + StaffInfo.StaffImagePath;
+                        alt = "Image of Dr. " + StaffInfo.StaffFirstName + " " + StaffInfo.StaffLastName;
                     }
                 }
 
                 <div class="imagecontainer">
-                    <a data-lightbox="StaffInfo-@StaffInfo.StaffInfo.StaffId" href="@pic" data-title="@alt">
-                        <img src="@pic" alt="@alt" height="350" />
+                    <a data-lightbox="staffinfo-@StaffInfo.StaffID" href="@pic" data-title="@alt">
+                        <img src="@pic" alt="@alt" height="300" />
                     </a>
                 </div>
                 <div class="recordtitle">
-                    @Html.ActionLink(StaffInfo.StaffInfo.StaffFirstName + StaffInfo.StaffInfo.StaffLastName,
+                    @Html.ActionLink("Dr." + StaffInfo.StaffFirstName + " " + StaffInfo.StaffLastName,
                    "Details",
-                   new { id = StaffInfo.StaffInfo.StaffId })
+                   new { id = StaffInfo.StaffID })
+                </div>
+                <div class="fontBold text-center text-info text-capitalize p-2">
+                    <span class="">
+                        @Html.DisplayFor(modelItem => StaffInfo.DepartmentName)
+                    </span>
+                </div>
+                <div class="fontBold text-center">
+                    <span class="">
+                        @Html.DisplayFor(modelItem => StaffInfo.StaffLanguage)
+                    </span>
                 </div>
                 <nav class="linknav  btn">
-                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = StaffInfo.StaffInfo.StaffId })</span>
+                    <span class="editlink">@Html.ActionLink("Edit", "Edit", new { id = StaffInfo.StaffID })</span>
                 </nav>
 
 
@@ -55,4 +65,3 @@
         </div>
     }
 </div>
-

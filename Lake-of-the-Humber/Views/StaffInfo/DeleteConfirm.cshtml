@@ -12,6 +12,22 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
+            @Html.DisplayNameFor(model => model.DepartmentID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
             @Html.DisplayNameFor(model => model.StaffFirstName)
         </dt>
 
@@ -51,22 +67,15 @@
             @Html.DisplayFor(model => model.StaffImagePath)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DepartmentName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DepartmentName)
-        </dd>
-
     </dl>
-    <!--Delete Acction using ActionLink-->
-    @Html.ActionLink("Delete", "StaffInfo", new { id = Model.StaffId })) {
-    @Html.AntiForgeryToken()
 
-    <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        @Html.ActionLink("Back to List", "Index")
-    </div>
+    @using (Html.BeginForm("Delete", "StaffInfo", new { id = Model.StaffID }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "List")
+        </div>
     }
 </div>
