@@ -17,6 +17,8 @@ namespace Lake_of_the_Humber.Models
         public string Answer { get; set; }
         public bool Publish { get; set; }
         public DateTime FaqDate { get; set; }
+        public bool FaqHasImage { get; set; }
+        public string PicExtension { get; set; }
 
         [ForeignKey("User")]
         public string CreatorId { get; set; }
@@ -37,6 +39,8 @@ namespace Lake_of_the_Humber.Models
 
         [DisplayName("Created On Date")]
         public DateTime FaqDate { get; set; }
+        public bool FaqHasImage { get; set; }
+        public string PicExtension { get; set; }
 
         public string CreatorId { get; set; }
 

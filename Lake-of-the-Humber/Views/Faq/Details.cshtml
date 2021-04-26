@@ -6,12 +6,24 @@
 
 <h2>Details @Model.Faq.FaqId</h2>
 
-<div class="card" style="width: 18rem;">
+<div class="card" style="width: 24rem;">
     <div class="card-body">
         <h5 class="card-title">@Model.Faq.Question</h5>
         <h6 class="card-subtitle mb-2 text-muted">@Model.Faq.FaqDate</h6>
         <p class="card-text">@Model.Faq.Answer<br /> Created By: @Model.Faq.CreatorFname  @Model.Faq.CreatorLname</p>
-        
+
+        @{
+           
+            string pic = "/Content/Faq/archerrandsomeware.jpg";
+            string alt = "No Profile Picture Provided.";
+            if (Model.Faq.FaqHasImage)
+            {
+                pic = "/Content/Faq/" + Model.Faq.FaqId + "." + Model.Faq.PicExtension;
+                alt = "Picture Of Faq ";
+            }
+        }
+        <img src="@pic" alt="@alt" width="200" />
+        <br />
         <a href="/faq/List" class="card-link"> @Html.ActionLink("List", "List", new { id = Model.Faq.FaqId })</a>
         <a href="#" class="card-link"> @Html.ActionLink("Update", "Edit", new { id = Model.Faq.FaqId })</a>
         <a href="#" class="card-link"> @Html.ActionLink("Delete", "DeleteConfirm", new { id = Model.Faq.FaqId })</a>
