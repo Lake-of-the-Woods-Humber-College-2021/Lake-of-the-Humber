@@ -29,15 +29,19 @@ namespace Lake_of_the_Humber.Models
         public int FaqId { get; set; }
 
         [DisplayName("Question")]
+        [Required(ErrorMessage = "Please Enter a Question")]
         public string Question { get; set; }
 
         [DisplayName("Answer")]
+        [Required(ErrorMessage = "Please Enter an Answer")]
         public string Answer { get; set; }
 
         [DisplayName("Publish")]
+
         public bool Publish { get; set; }
 
         [DisplayName("Created On Date")]
+        [Required(ErrorMessage = "Please Enter a Date DD/MM/YYYY")]
         public DateTime FaqDate { get; set; }
         public bool FaqHasImage { get; set; }
         public string PicExtension { get; set; }

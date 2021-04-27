@@ -225,6 +225,10 @@
     <Compile Include="Migrations\202104260056584_pic extensions.Designer.cs">
       <DependentUpon>202104260056584_pic extensions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104270036260_Added Val err msg.cs" />
+    <Compile Include="Migrations\202104270036260_Added Val err msg.Designer.cs">
+      <DependentUpon>202104270036260_Added Val err msg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -529,6 +533,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104260056584_pic extensions.resx">
       <DependentUpon>202104260056584_pic extensions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104270036260_Added Val err msg.resx">
+      <DependentUpon>202104270036260_Added Val err msg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

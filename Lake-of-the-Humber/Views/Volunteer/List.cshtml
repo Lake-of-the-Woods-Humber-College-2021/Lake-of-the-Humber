@@ -13,15 +13,19 @@
 <br />
 @foreach (var volunteeritem in Model)
 {
+
     <a href="/volunteer/Details/@volunteeritem.VolunteerId">
-        <div class="panel-group">
-            <div class="panel panel-default">
-                <div class="panel-heading">@volunteeritem.VolunteerTitle  </div>
-                <div class="panel-body">@volunteeritem.VolunteerDescription <br /> @volunteeritem.VolunteerDate</div>
-                <div class="panel-body">
-                   @Html.ActionLink("Edit", "Edit", new { id = volunteeritem.VolunteerId }) |
+        <div class="card">
+            <h5 class="card-header">@volunteeritem.VolunteerTitle</h5>
+            <div class="card-body">
+                <h5 class="card-title">@volunteeritem.VolunteerDescription</h5>
+                <p class="card-text">@volunteeritem.VolunteerDate</p>
+                <button type="button" class="btn btn-outline-primary">
+                    @Html.ActionLink("Edit", "Edit", new { id = volunteeritem.VolunteerId })
+                </button>
+                <button type="button" class="btn btn-outline-primary">
                     @Html.ActionLink("Details", "Details", new { id = volunteeritem.VolunteerId })
-                </div>
+                </button>
 
             </div>
         </div>

@@ -11,7 +11,7 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Faq</h4>
+        <h4>Created By: @Model.Volunteer.CreatorFname @Model.Volunteer.CreatorLname</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Volunteer.VolunteerId, new { Name = "VolunteerId" })

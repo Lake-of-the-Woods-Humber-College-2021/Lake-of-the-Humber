@@ -16,22 +16,27 @@
     if (faqitem.Publish == true)
     {
         <a href="/faq/Details/@faqitem.FaqId">
-            <div class="panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">@faqitem.Question</div>
-                    <div class="panel-body">@faqitem.Answer</div>
-
-                    <div class="panel-body">
-                        @Html.ActionLink("Edit", "Edit", new { id = faqitem.FaqId }) |
+            <div class="card">
+                <h5 class="card-header">@faqitem.Question</h5>
+                <div class="card-body">
+                    <h5 class="card-title">@faqitem.Answer</h5>
+                    <p class="card-text">@faqitem.FaqDate</p>
+                    <button type="button" class="btn btn-outline-primary">
+                        @Html.ActionLink("Edit", "Edit", new { id = faqitem.FaqId })
+                    </button>
+                    <button type="button" class="btn btn-outline-primary">
                         @Html.ActionLink("Details", "Details", new { id = faqitem.FaqId })
-                    </div>
+                    </button>
 
                 </div>
             </div>
         </a>
     }
+
+}
+
 @*  ONCE LOGIN SET UP MAKE LLIST VIEW HAVE BOTH PUBLISHED/NON PUBLISHED*@
-   @* if (faqitem.Publish != true)
+@* if (faqitem.Publish != true)
     {
         <a href="/faq/Details/@faqitem.FaqId">
             <div class="panel-group">
@@ -48,8 +53,6 @@
         </a>
     }*@
 
-    @* <a href="/faq/show/@faqitem.FaqId"><h2>@faqitem.Question</h2> </a>*@
-
-}
+@* <a href="/faq/show/@faqitem.FaqId"><h2>@faqitem.Question</h2> </a>*@
 
 
