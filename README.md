@@ -43,7 +43,6 @@ Varsity:- https://github.com/christinebittle/varsity_mvp
 - A user can create, delete, update, read the information section
 - Authentication based on user roles
 - MVP Feedback Incoperated: Linked Departments to infosections
-- Managed GitHub Repo and Helped everyone to fix their issues
 
 #### What's Next
 - showing information section on homepage
@@ -77,6 +76,9 @@ Models ->  WellWish.cs, ViewModels/WellWishes/
 
 Views -> WellWishes/
 
+### Additional Contribution (Praveen)
+- Managed GitHub Repo and Helped everyone to fix their issues
+- Registration page, controllers Modifications
 ---
 
 ### CRUD 3: Gift Shop, Product Section (Rohit)
