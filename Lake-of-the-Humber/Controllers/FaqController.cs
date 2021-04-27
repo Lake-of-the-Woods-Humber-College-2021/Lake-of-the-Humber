@@ -177,7 +177,7 @@ namespace Lake_of_the_Humber.Controllers
         // POST: Department/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        public ActionResult Edit(int id, Faq FaqInfo)
+        public ActionResult Edit(int id, Faq FaqInfo, HttpPostedFileBase FaqImage)
         {
             string PostUpdateFaqUrl = "FaqData/UpdateFaq/" + id;
             FaqInfo.CreatorId = User.Identity.GetUserId();
@@ -190,7 +190,21 @@ namespace Lake_of_the_Humber.Controllers
 
             if (UpdateFaqResponse.IsSuccessStatusCode)
             {
+                if (FaqImage != null)
+                {
+                    Debug.WriteLine("Calling Update Image method.");
+
+                    PostUpdateFaqUrl = "FaqData/UpdateFaqImage/" + id;
+               
+
+                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                    HttpContent imagecontent = new StreamContent(FaqImage.InputStream);
+                    requestcontent.Add(imagecontent, "FaqImage", FaqImage.FileName);
+                    UpdateFaqResponse = client.PostAsync(PostUpdateFaqUrl, requestcontent).Result;
+                }
+
                 return RedirectToAction("Details", new { id = id });
+
             }
             else
             {

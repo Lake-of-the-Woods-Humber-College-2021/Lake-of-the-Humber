@@ -219,6 +219,22 @@
     <Compile Include="Migrations\202104252103314_test.Designer.cs">
       <DependentUpon>202104252103314_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104252002258_new user vol.cs" />
+    <Compile Include="Migrations\202104252002258_new user vol.Designer.cs">
+      <DependentUpon>202104252002258_new user vol.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104252108411_new DB.cs" />
+    <Compile Include="Migrations\202104252108411_new DB.Designer.cs">
+      <DependentUpon>202104252108411_new DB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104260056584_pic extensions.cs" />
+    <Compile Include="Migrations\202104260056584_pic extensions.Designer.cs">
+      <DependentUpon>202104260056584_pic extensions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104270036260_Added Val err msg.cs" />
+    <Compile Include="Migrations\202104270036260_Added Val err msg.Designer.cs">
+      <DependentUpon>202104270036260_Added Val err msg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -296,6 +312,7 @@
     <Content Include="Content\Staffs\9.png" />
     <Content Include="Content\Staffs\default.jpg" />
     <Content Include="Content\Staffs\staffinfo_potrait_reference_list.txt" />
+    <Content Include="Content\Faq\archerrandsomeware.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -551,6 +568,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104252103314_test.resx">
       <DependentUpon>202104252103314_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104252002258_new user vol.resx">
+      <DependentUpon>202104252002258_new user vol.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104252108411_new DB.resx">
+      <DependentUpon>202104252108411_new DB.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104260056584_pic extensions.resx">
+      <DependentUpon>202104260056584_pic extensions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104270036260_Added Val err msg.resx">
+      <DependentUpon>202104270036260_Added Val err msg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

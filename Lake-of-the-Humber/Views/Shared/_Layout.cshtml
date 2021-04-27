@@ -42,6 +42,7 @@
                                     <p>@Html.ActionLink("Staff Directory", "List", "StaffInfo", new { area = "" }, new { @class = "dropdown-item" })</p>
                                     <p>@Html.ActionLink("Directions, Map, and Parking", "List", "InfoSections", new { area = "" }, new { @class = "dropdown-item" })</p>
                                     <p>@Html.ActionLink("FAQ", "List", "Faq", new { area = "" }, new { @class = "dropdown-item" })</p>
+                                    <p>@Html.ActionLink("FAQ", "../Faq/List", "", new { area = "" }, new { @class = "dropdown-item" })</p>
 
                                 </div>
                             </li>
@@ -65,7 +66,7 @@
                                 </div>
                             </li>
                             <li class="nav-item">
-                                <p>@Html.ActionLink("Career & Volunteer", "List", "", new { area = "" }, new { @class = "nav-link" })</p>
+                                <p>@Html.ActionLink("Career & Volunteer", "../Volunteer/List", "", new { area = "" }, new { @class = "nav-link" })</p>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLinkLast" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

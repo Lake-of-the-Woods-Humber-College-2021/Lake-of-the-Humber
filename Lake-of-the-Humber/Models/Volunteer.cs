@@ -39,5 +39,7 @@ namespace Lake_of_the_Humber.Models
         public DateTime VolunteerDate { get; set; }
 
         public string CreatorId { get; set; }
+        public string CreatorFname { get; set; }
+        public string CreatorLname { get; set; }
     }
 }

@@ -72,7 +72,7 @@ namespace Lake_of_the_Humber.Controllers
             {
                 return NotFound();//ERROR IF FAQ NOT FOUND
             }
-            //Info that API CAn Access
+            //Info that API Can Access
             FaqDto FaqDto = new FaqDto
             {
                 FaqId = Faq.FaqId,
@@ -82,7 +82,9 @@ namespace Lake_of_the_Humber.Controllers
                 FaqDate = Faq.FaqDate,
                 CreatorId = Faq.CreatorId,
                 CreatorFname = Faq.User.FirstName,
-                CreatorLname = Faq.User.LastName
+                CreatorLname = Faq.User.LastName,
+                FaqHasImage = Faq.FaqHasImage,
+                PicExtension = Faq.PicExtension
 
             };
             //return the associated info
@@ -171,6 +173,71 @@ namespace Lake_of_the_Humber.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        //ADD IMAGE TO FAQ:
+        public IHttpActionResult UpdateFaqImage(int id)
+        {
+
+            bool haspic = false;
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                
+
+               
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var FaqImage = HttpContext.Current.Request.Files[0];
+                    
+                    if (FaqImage.ContentLength > 0)
+                    {
+                       
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(FaqImage.FileName).Substring(1);
+                        
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                
+                                string fn = id + "." + extension;
+
+                                
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Faq/"), fn);
+
+                                
+                                FaqImage.SaveAs(path);
+
+                                
+                                haspic = true;
+                                picextension = extension;
+
+                                //Update the player haspic and picextension fields in the database
+                                Faq SelectedFaq = db.Faqs.Find(id);
+                                SelectedFaq.FaqHasImage = haspic;
+                                SelectedFaq.PicExtension = extension;
+                                db.Entry(SelectedFaq).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Faq Image was not saved successfully.");
+                                Debug.WriteLine("Exception:" + ex);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            return Ok();
+        }
+
+
         private bool FaqExists(int id) //called by the update method to insure exsistance of FAQID 
         {
             return db.Faqs.Count(f => f.FaqId == id) > 0;

@@ -51,7 +51,7 @@ namespace Lake_of_the_Humber.Models
         [DisplayName("Link")]
         public string Link { get; set; }
        
-        [DisplayName("Link Button Name")]
+        //[DisplayName("Link Button Name")]
         public string LinkBtnName { get; set; }
 
         [DisplayName("Section Image")]
