@@ -260,7 +260,7 @@ namespace Lake_of_the_Humber.Controllers
 
             DepartmentDto DepartmentDto = new DepartmentDto
             {
-                DepartmentID = Department.DepartmentId,
+                DepartmentId = Department.DepartmentId,
                 DepartmentName = Department.DepartmentName
             };
             return Ok(DepartmentDto);

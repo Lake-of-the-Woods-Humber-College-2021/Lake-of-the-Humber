@@ -163,11 +163,12 @@ Views -> Invoice/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, Delet
 ### CRUD 7: Department (Choo)
 #### Description
 - A list of department will be displayed when user click on the "department" link on the website. 
-- Public user allowed to view and read the list.
+- Public user allowed to view and read the list but not able to do Add, Update and Delete operation.
 - Admin user will be able to do CRUD oepration for staff Information.
 
 #### What's Next
 - Add search functionality to filter the list based on user's selection.
+- Design views based on whether user is admin or non-admin.
 
 #### Files
 Controllers -> DeaprtmentController.cs, DepartmentDataController.cs
@@ -180,13 +181,15 @@ Views -> Department/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, De
 ### CRUD 8: Staff Infromation (Choo)
 #### Description
 -  A list of staff information will be displayed when user click on the "staff Information" link on the website. 
--  Public user allowed to view and do basic search functionality
+-  Public user allowed to view and read the list but not able to do Add, Update and Delete operation.
+-  Public user able to read more details about staff's working department after click on " Name Link"[Details] on image card
 -  Admin user will be able to do CRUD oepration for staff Information. 
 
+
 #### What's Next
-- Add images , pagination 
 - when user clicked on the image, it will show more information bout the doctor (like image Card)
 - Add search functionality to filter the list based on user's selection.
+- Design views based on whether user is admin or non-admin.
 
 #### Files
 Controllers -> StaffInfoController.cs, StaffInfoDataController.cs
@@ -196,34 +199,61 @@ Models -> StaffInfo.cs, ViewModels/(ShowStafft.cs, UpdateStaff.cs)
 Views -> StaffInfo/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
 
 ---
+### Special Thanks to 
 
-### Asia Levesque Gault
-- [ ] Feature1: FAQ
-- [ ] Feature2: Volunteer
+- Praveen who always help the team members to solve technical issues on our project and guide us on handling Git issues.
+- Daniel who help me in debug and design the project's homepage.
+- It is a nice collaboration with the team members to help each other on debugging and answer questions.
 
-The purpose of the FAQ feature is to allow the websites visitors to see freequently asked questions. These Question's CRUD (Create, Read, Update, Delete) operations are controled by the website's Administrators. They will be able to login with Administrator credentials and have their own CMS(Content Management System) to easily add an FAQ, Publish an FAQ, Edit an FAQ and delete an FAQ. Vistitors who are not Administrators will be able to view all FAQs and view the Details of an FAQ.
+### CRUD 9: FAQ (Asia)
+#### Description
+-  The purpose of the FAQ feature is to allow the websites visitors to see freequently asked questions. These Question's CRUD (Create, Read, Update, Delete) operations are controled by the website's Administrators. They will be able to login with Administrator credentials and have their own CMS(Content Management System) to easily add an FAQ, Publish an FAQ, Edit an FAQ and delete an FAQ. Vistitors who are not Administrators will be able to view all FAQs and view the Details of an FAQ.
+-  A list of FAQs are found under the information tab of the 
+-  Public users are allowed to view and read the list.
+-  Public users are able to see more details about FAQs clicking on "Details"
+-  Full CRUD functionality with regards to the feature
+-  Bootstrap styling was added to make it more asthetically pleasing.
+-  Allowing the creators name to be displayed under Details and Edit is important for accuntability.
+-  In the "Edit" view if a user is registered they are able to add a photo to the DB.(Has been throwing an error. To me it seems like it refuses to make the data design of FAQ accept NULL values for the File name. I Have tried clicking the box "allow nullable" however it won't save the change).  
 
-The purpose of the volunteer feature is to allow the webistes visitors to login using their credentials and view a list of all volunteer positions currently available/made public. They can then click on a volunteer position and view its respective details and apply for it using a form. The Administrator will be able to create CRUD operations of the volunteer positions. They will also be able to choose weather the FAQ is publically available. The Administrators will be able to view applicants details. I will contuinue to work on this features CRUD opperations. 
+#### What's Next
+- In the futur user Auth will be added. I understand the process: Get the session cookie from the view controller and pass it off to the API controller. In addition to one function. 
 
-As of 8:48pm MST I have completed the List, Delete, Create and Detail aspects of the FAQ feature. At this point I am very proud of what I have accomplished. This is already furthur than I had gotten with the Passion Project and The only help I needed was fixed by Prof. Bittle, it was "The Remote Certificate is Invalid". Since then I debugged many issues and I took each on at a time and in small steps. One bugg I got stuck on was I created a viewmodel but forgot to run a migration. I commented everything out deleted the view model. started over and it worked perfectly. All this debugging really has made me understand this a lot more than previous projects. Frankly Debugging was initially frustrating but once you see the # of errors decrease it was fun. This turned into a puddle or a waterslide to see how information flows and talks. I am excited to keep working on this. I am intimidated by github as i do not want to ovewrite anyones work. we are all working for our own branches mine for FAQ is loh_FAQ. I will continue to make lists of steps and flow charts to not make the project explode 🤯🌋💣.
+#### Files
+Controllers -> FaqController.cs, FaqDataController.cs
 
-The View of the list B4 deleteing
+Models -> Faq.cs, ViewModels/(ShowFaq.cs, UpdateFaq.cs)
 
-![List_B4_delete](https://github.com/Lake-of-the-Woods-Humber-College-2021/Lake-of-the-Humber/blob/loh_FAQ/faq_imgs/Listb4Delete.PNG)
+Views -> Faq/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
 
-The View of the Detail uppon clicking on the FAQ
+### CRUD 10: Volunteer (Asia)
+#### Description
+-  The purpose of the volunteer feature is to allow the webistes visitors to login using their credentials and view a list of all volunteer positions currently available/made public. They can then click on a volunteer position and view its respective details and apply for it using a form. The Administrator will be able to create CRUD operations of the volunteer positions. They will also be able to choose weather the FAQ is publically available. The Administrators will be able to view applicants details. I will contuinue to work on this features CRUD opperations. 
+-  A list of volunteer positions are found under the "careers & volunteer" tab of the 
+-  Public users are allowed to view and read the list.
+-  Public users are able to see more details about FAQs clicking on "Details"
+-  Full CRUD functionality with regards to the feature
+-  Bootstrap styling was added to make it more asthetically pleasing.
+-  Allowing the creators name to be displayed under Details and Edit is important for accuntability.
 
-![Detail_B4_delete](https://github.com/Lake-of-the-Woods-Humber-College-2021/Lake-of-the-Humber/blob/loh_FAQ/faq_imgs/CLicking%20list%20go%20to%20detail.PNG)
+#### What's Next
+- In the futur user Auth will be added. I understand the process: Get the session cookie from the view controller and pass it off to the API controller. In addition to one function. 
 
-The View of the Delete Confirmation page uppon clicking on the Delete button
+#### Files
+Controllers -> VolunteerController.cs, VolunteerDataController.cs
 
-![Delete_B4_delete](https://github.com/Lake-of-the-Woods-Humber-College-2021/Lake-of-the-Humber/blob/loh_FAQ/faq_imgs/Deletepage.PNG)
+Models -> Volunteer.cs, ViewModels/(ShowVolunteer.cs, UpdateVolunteer.cs)
 
-The View of the Updated list after deleting
+Views -> Volunteer/(List.cshtml, Details.cshtml, Create.cshtml, Edit.cshtml, DeleteConfirm.cshtml)
 
-![List_Aft_delete](https://github.com/Lake-of-the-Woods-Humber-College-2021/Lake-of-the-Humber/blob/loh_FAQ/faq_imgs/List%20After%20Delete.PNG)
+### Special Thanks to 
+- Praveen: My gitHub Guru.
+- Cho: Leadership skills/organizational skills to aspire to have.
+- Danny: Offered debugging help.
+- Journey: Always down to take a frustrated dischord call and give me a hand.
+- Overall the whole team worked efficiently together to tackle any issues that arose.
+---
 
-The View of the DB after deleting
 
-![delete](https://github.com/Lake-of-the-Woods-Humber-College-2021/Lake-of-the-Humber/blob/loh_FAQ/faq_imgs/DbReflectdelet.PNG)
+
 
